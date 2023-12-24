@@ -25,9 +25,6 @@ public class MyBuild
         // 빌드 타겟
         //options.target = BuildTarget.StandaloneWindows;
 
-
-        // Test
-
         // 빌드
         BuildPipeline.BuildPlayer(options);
     }
