@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class MyBuild
 {
-    public static void BuildBootStrap()
+    public static void AndroidBuild()
     {
         BuildPlayerOptions options = new BuildPlayerOptions();
         // 씬 추가
@@ -19,12 +19,34 @@ public class MyBuild
         options.scenes = scenes.ToArray();
         
         // 타겟 경로(빌드 결과물이 여기 생성됨)
-        options.locationPathName = "Build/";
+        options.locationPathName = "Build/Android";
         
         // 설정이 필요없을수 있다. 테스트 필요.
         // 빌드 타겟
-        //options.target = BuildTarget.StandaloneWindows;
+        options.target = BuildTarget.Android;
 
+        // 빌드
+        BuildPipeline.BuildPlayer(options);
+    }
+
+    public static void iOSBuild()
+    {
+        BuildPlayerOptions options = new BuildPlayerOptions();
+        // 씬 추가
+        List<string> scenes = new List<string>();
+        foreach (var scene in EditorBuildSettings.scenes)
+        {
+            if (!scene.enabled) continue;
+            scenes.Add(scene.path);
+        }
+        options.scenes = scenes.ToArray();
+
+        // 타겟 경로(빌드 결과물이 여기 생성됨)
+        options.locationPathName = "Build/iOS";
+
+        // 설정이 필요없을수 있다. 테스트 필요.
+        // 빌드 타겟
+        options.target = BuildTarget.iOS;
         // 빌드
         BuildPipeline.BuildPlayer(options);
     }
