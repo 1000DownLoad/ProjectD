@@ -24,8 +24,6 @@ public class MyBuild
         // 설정이 필요없을수 있다. 테스트 필요.
         // 빌드 타겟
         //options.target = BuildTarget.StandaloneWindows;
-        
-        aaaa
 
         // 빌드
         BuildPipeline.BuildPlayer(options);
