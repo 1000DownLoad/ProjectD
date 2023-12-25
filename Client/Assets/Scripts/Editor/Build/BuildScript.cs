@@ -19,12 +19,12 @@ public class MyBuild
         options.scenes = scenes.ToArray();
         
         // 타겟 경로(빌드 결과물이 여기 생성됨)
-        //options.locationPathName = "Build/ProjectD.exe";
+        options.locationPathName = "Build/";
         
         // 설정이 필요없을수 있다. 테스트 필요.
         // 빌드 타겟
         //options.target = BuildTarget.StandaloneWindows;
-
+        
         aaaa
 
         // 빌드
