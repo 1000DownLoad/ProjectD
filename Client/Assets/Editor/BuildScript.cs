@@ -1,11 +1,11 @@
-﻿// Assets/Editor/Jenkins.cs
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class MyBuild
+public class BuildScript
 {
+    [MenuItem("Build/Build Android")]
     public static void AndroidBuild()
     {
         BuildPlayerOptions options = new BuildPlayerOptions();
@@ -17,7 +17,8 @@ public class MyBuild
             scenes.Add(scene.path);
         }
         options.scenes = scenes.ToArray();
-        
+        Debug.Log("Included scene : " + scenes);
+
         // 타겟 경로(빌드 결과물이 여기 생성됨)
         options.locationPathName = "Build/Android";
         
@@ -29,6 +30,7 @@ public class MyBuild
         BuildPipeline.BuildPlayer(options);
     }
 
+    [MenuItem("Build/Build Aos")]
     public static void iOSBuild()
     {
         BuildPlayerOptions options = new BuildPlayerOptions();
@@ -40,6 +42,7 @@ public class MyBuild
             scenes.Add(scene.path);
         }
         options.scenes = scenes.ToArray();
+        Debug.Log("Included scene : " + scenes);
 
         // 타겟 경로(빌드 결과물이 여기 생성됨)
         options.locationPathName = "Build/iOS";
