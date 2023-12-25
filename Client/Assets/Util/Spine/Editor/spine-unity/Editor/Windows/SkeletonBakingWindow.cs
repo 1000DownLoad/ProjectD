@@ -32,16 +32,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-namespace Spine.Unity.Editor {
+namespace Spine.Unity.Editor
+{
 
 	using Editor = UnityEditor.Editor;
 	using Icons = SpineEditorUtilities.Icons;
 
-	public class SkeletonBakingWindow : EditorWindow {
+	public class SkeletonBakingWindow : EditorWindow
+	{
 		const bool IsUtilityWindow = true;
 
 		[MenuItem("CONTEXT/SkeletonDataAsset/Skeleton Baking", false, 5000)]
-		public static void Init (MenuCommand command) {
+		public static void Init(MenuCommand command)
+		{
 			var window = EditorWindow.GetWindow<SkeletonBakingWindow>(IsUtilityWindow);
 			window.minSize = new Vector2(330f, 530f);
 			window.maxSize = new Vector2(600f, 1000f);
@@ -51,7 +54,7 @@ namespace Spine.Unity.Editor {
 		}
 
 		public SkeletonDataAsset skeletonDataAsset;
-		[SpineSkin(dataField:"skeletonDataAsset")]
+		[SpineSkin(dataField: "skeletonDataAsset")]
 		public string skinToBake = "default";
 
 		// Settings
@@ -63,11 +66,13 @@ namespace Spine.Unity.Editor {
 		Skin bakeSkin;
 
 
-		void DataAssetChanged () {
+		void DataAssetChanged()
+		{
 			bakeSkin = null;
 		}
 
-		void OnGUI () {
+		void OnGUI()
+		{
 			so = so ?? new SerializedObject(this);
 
 			EditorGUIUtility.wideMode = true;
@@ -96,7 +101,8 @@ namespace Spine.Unity.Editor {
 			EditorGUI.BeginChangeCheck();
 			var skeletonDataAssetProperty = so.FindProperty("skeletonDataAsset");
 			EditorGUILayout.PropertyField(skeletonDataAssetProperty, SpineInspectorUtility.TempContent("SkeletonDataAsset", Icons.spine));
-			if (EditorGUI.EndChangeCheck()) {
+			if (EditorGUI.EndChangeCheck())
+			{
 				so.ApplyModifiedProperties();
 				DataAssetChanged();
 			}
@@ -107,16 +113,21 @@ namespace Spine.Unity.Editor {
 			if (skeletonData == null) return;
 			bool hasExtraSkins = skeletonData.Skins.Count > 1;
 
-			using (new SpineInspectorUtility.BoxScope(false)) {
+			using (new SpineInspectorUtility.BoxScope(false))
+			{
 				EditorGUILayout.LabelField(skeletonDataAsset.name, EditorStyles.boldLabel);
-				using (new SpineInspectorUtility.IndentScope()) {
+				using (new SpineInspectorUtility.IndentScope())
+				{
 					EditorGUILayout.LabelField(SpineInspectorUtility.TempContent("Bones: " + skeletonData.Bones.Count, Icons.bone));
 					EditorGUILayout.LabelField(SpineInspectorUtility.TempContent("Slots: " + skeletonData.Slots.Count, Icons.slotRoot));
 
-					if (hasExtraSkins) {
+					if (hasExtraSkins)
+					{
 						EditorGUILayout.LabelField(SpineInspectorUtility.TempContent("Skins: " + skeletonData.Skins.Count, Icons.skinsRoot));
 						EditorGUILayout.LabelField(SpineInspectorUtility.TempContent("Current skin attachments: " + (bakeSkin == null ? 0 : bakeSkin.Attachments.Count), Icons.skinPlaceholder));
-					} else if (skeletonData.Skins.Count == 1) {
+					}
+					else if (skeletonData.Skins.Count == 1)
+					{
 						EditorGUILayout.LabelField(SpineInspectorUtility.TempContent("Skins: 1 (only default Skin)", Icons.skinsRoot));
 					}
 
@@ -126,14 +137,18 @@ namespace Spine.Unity.Editor {
 					EditorGUILayout.LabelField(SpineInspectorUtility.TempContent("Total Attachments: " + totalAttachments, Icons.genericAttachment));
 				}
 			}
-			using (new SpineInspectorUtility.BoxScope(false)) {
+			using (new SpineInspectorUtility.BoxScope(false))
+			{
 				EditorGUILayout.LabelField("Animations", EditorStyles.boldLabel);
 				EditorGUILayout.LabelField(SpineInspectorUtility.TempContent("Animations: " + skeletonData.Animations.Count, Icons.animation));
 
-				using (new SpineInspectorUtility.IndentScope()) {
+				using (new SpineInspectorUtility.IndentScope())
+				{
 					bakeAnimations = EditorGUILayout.Toggle(SpineInspectorUtility.TempContent("Bake Animations", Icons.animationRoot), bakeAnimations);
-					using (new EditorGUI.DisabledScope(!bakeAnimations)) {
-						using (new SpineInspectorUtility.IndentScope()) {
+					using (new EditorGUI.DisabledScope(!bakeAnimations))
+					{
+						using (new SpineInspectorUtility.IndentScope())
+						{
 							bakeIK = EditorGUILayout.Toggle(SpineInspectorUtility.TempContent("Bake IK", Icons.constraintIK), bakeIK);
 							bakeEventOptions = (SendMessageOptions)EditorGUILayout.EnumPopup(SpineInspectorUtility.TempContent("Event Options", Icons.userEvent), bakeEventOptions);
 						}
@@ -147,23 +162,30 @@ namespace Spine.Unity.Editor {
 
 			var prefabIcon = EditorGUIUtility.FindTexture("PrefabModel Icon");
 
-			if (hasExtraSkins) {
+			if (hasExtraSkins)
+			{
 				EditorGUI.BeginChangeCheck();
 				EditorGUILayout.PropertyField(so.FindProperty("skinToBake"));
-				if (EditorGUI.EndChangeCheck()) {
+				if (EditorGUI.EndChangeCheck())
+				{
 					so.ApplyModifiedProperties();
 					Repaint();
 				}
 
-				if (SpineInspectorUtility.LargeCenteredButton(SpineInspectorUtility.TempContent(string.Format("Bake Skeleton with Skin ({0})", (bakeSkin == null ? "default" : bakeSkin.Name)), prefabIcon))) {
+				if (SpineInspectorUtility.LargeCenteredButton(SpineInspectorUtility.TempContent(string.Format("Bake Skeleton with Skin ({0})", (bakeSkin == null ? "default" : bakeSkin.Name)), prefabIcon)))
+				{
 					SkeletonBaker.BakeToPrefab(skeletonDataAsset, new ExposedList<Skin>(new[] { bakeSkin }), "", bakeAnimations, bakeIK, bakeEventOptions);
 				}
 
-				if (SpineInspectorUtility.LargeCenteredButton(SpineInspectorUtility.TempContent(string.Format("Bake All ({0} skins)", skeletonData.Skins.Count), prefabIcon))) {
+				if (SpineInspectorUtility.LargeCenteredButton(SpineInspectorUtility.TempContent(string.Format("Bake All ({0} skins)", skeletonData.Skins.Count), prefabIcon)))
+				{
 					SkeletonBaker.BakeToPrefab(skeletonDataAsset, skeletonData.Skins, "", bakeAnimations, bakeIK, bakeEventOptions);
 				}
-			} else {
-				if (SpineInspectorUtility.LargeCenteredButton(SpineInspectorUtility.TempContent("Bake Skeleton", prefabIcon))) {
+			}
+			else
+			{
+				if (SpineInspectorUtility.LargeCenteredButton(SpineInspectorUtility.TempContent("Bake Skeleton", prefabIcon)))
+				{
 					SkeletonBaker.BakeToPrefab(skeletonDataAsset, new ExposedList<Skin>(new[] { bakeSkin }), "", bakeAnimations, bakeIK, bakeEventOptions);
 				}
 

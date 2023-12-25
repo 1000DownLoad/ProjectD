@@ -30,22 +30,26 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Spine.Unity.Editor {
+namespace Spine.Unity.Editor
+{
 	[CustomEditor(typeof(SkeletonMecanimRootMotion))]
 	[CanEditMultipleObjects]
-	public class SkeletonMecanimRootMotionInspector : SkeletonRootMotionBaseInspector {
+	public class SkeletonMecanimRootMotionInspector : SkeletonRootMotionBaseInspector
+	{
 		protected SerializedProperty mecanimLayerFlags;
 
 		protected GUIContent mecanimLayersLabel;
 
-		protected override void OnEnable () {
+		protected override void OnEnable()
+		{
 			base.OnEnable();
 			mecanimLayerFlags = serializedObject.FindProperty("mecanimLayerFlags");
 
 			mecanimLayersLabel = new UnityEngine.GUIContent("Mecanim Layers", "Mecanim layers to apply root motion at. Defaults to the first Mecanim layer.");
 		}
 
-		override public void OnInspectorGUI () {
+		override public void OnInspectorGUI()
+		{
 
 			base.MainPropertyFields();
 			MecanimLayerMaskPropertyField();
@@ -54,13 +58,16 @@ namespace Spine.Unity.Editor {
 			serializedObject.ApplyModifiedProperties();
 		}
 
-		protected string[] GetLayerNames () {
+		protected string[] GetLayerNames()
+		{
 			int maxLayerCount = 0;
 			int maxIndex = 0;
-			for (int i = 0; i < targets.Length; ++i) {
+			for (int i = 0; i < targets.Length; ++i)
+			{
 				var skeletonMecanim = ((SkeletonMecanimRootMotion)targets[i]).SkeletonMecanim;
 				int count = skeletonMecanim.Translator.MecanimLayerCount;
-				if (count > maxLayerCount) {
+				if (count > maxLayerCount)
+				{
 					maxLayerCount = count;
 					maxIndex = i;
 				}
@@ -71,7 +78,8 @@ namespace Spine.Unity.Editor {
 			return skeletonMecanimMaxLayers.Translator.MecanimLayerNames;
 		}
 
-		protected void MecanimLayerMaskPropertyField () {
+		protected void MecanimLayerMaskPropertyField()
+		{
 			string[] layerNames = GetLayerNames();
 			if (layerNames.Length > 0)
 				mecanimLayerFlags.intValue = EditorGUILayout.MaskField(

@@ -52,10 +52,12 @@ using System.Linq;
 using System.Reflection;
 using System.Globalization;
 
-namespace Spine.Unity.Editor {
-	public partial class SpineEditorUtilities {
+namespace Spine.Unity.Editor
+{
+	public partial class SpineEditorUtilities
+	{
 
-	#if NEW_PREFERENCES_SETTINGS_PROVIDER
+#if NEW_PREFERENCES_SETTINGS_PROVIDER
 		static class SpineSettingsProviderRegistration
 		{
 			[SettingsProvider]
@@ -79,27 +81,30 @@ namespace Spine.Unity.Editor {
 				return provider;
 			}
 		}
-	#else
+#else
 		// Preferences entry point
 		[PreferenceItem("Spine")]
 		static void PreferencesGUI () {
 			Preferences.HandlePreferencesGUI();
 		}
-	#endif
+#endif
 
-	#if NEW_PREFERENCES_SETTINGS_PROVIDER
-		public static SpinePreferences Preferences {
-			get {
+#if NEW_PREFERENCES_SETTINGS_PROVIDER
+		public static SpinePreferences Preferences
+		{
+			get
+			{
 				return SpinePreferences.GetOrCreateSettings();
 			}
 		}
-	#endif
+#endif
 
-	#if NEW_PREFERENCES_SETTINGS_PROVIDER
-		public static class OldPreferences {
-	#else
+#if NEW_PREFERENCES_SETTINGS_PROVIDER
+		public static class OldPreferences
+		{
+#else
 		public static class Preferences {
-	#endif
+#endif
 			const string DEFAULT_SCALE_KEY = "SPINE_DEFAULT_SCALE";
 			public static float defaultScale = SpinePreferences.DEFAULT_DEFAULT_SCALE;
 
@@ -124,8 +129,10 @@ namespace Spine.Unity.Editor {
 			const string TEXTURE_SETTINGS_REFERENCE_KEY = "SPINE_TEXTURE_SETTINGS_REFERENCE";
 			public static string textureSettingsReference = SpinePreferences.DEFAULT_TEXTURE_SETTINGS_REFERENCE;
 
-			public static bool UsesPMAWorkflow {
-				get {
+			public static bool UsesPMAWorkflow
+			{
+				get
+				{
 					return SpinePreferences.IsPMAWorkflow(textureSettingsReference);
 				}
 			}
@@ -140,13 +147,16 @@ namespace Spine.Unity.Editor {
 			public const string DEFAULT_BLEND_MODE_SCREEN_MATERIAL = SpinePreferences.DEFAULT_BLEND_MODE_SCREEN_MATERIAL;
 			public const string DEFAULT_BLEND_MODE_ADDITIVE_MATERIAL = SpinePreferences.DEFAULT_BLEND_MODE_ADDITIVE_MATERIAL;
 
-			public static Material BlendModeMaterialMultiply {
+			public static Material BlendModeMaterialMultiply
+			{
 				get { return AssetDatabase.LoadAssetAtPath<Material>(blendModeMaterialMultiply); }
 			}
-			public static Material BlendModeMaterialScreen {
+			public static Material BlendModeMaterialScreen
+			{
 				get { return AssetDatabase.LoadAssetAtPath<Material>(blendModeMaterialScreen); }
 			}
-			public static Material BlendModeMaterialAdditive {
+			public static Material BlendModeMaterialAdditive
+			{
 				get { return AssetDatabase.LoadAssetAtPath<Material>(blendModeMaterialAdditive); }
 			}
 
@@ -176,7 +186,8 @@ namespace Spine.Unity.Editor {
 
 			static bool preferencesLoaded = false;
 
-			public static void Load () {
+			public static void Load()
+			{
 				if (preferencesLoaded)
 					return;
 
@@ -201,7 +212,8 @@ namespace Spine.Unity.Editor {
 			}
 
 #if NEW_PREFERENCES_SETTINGS_PROVIDER
-			public static void CopyOldToNewPreferences(ref SpinePreferences newPreferences) {
+			public static void CopyOldToNewPreferences(ref SpinePreferences newPreferences)
+			{
 				newPreferences.defaultMix = EditorPrefs.GetFloat(DEFAULT_MIX_KEY, SpinePreferences.DEFAULT_DEFAULT_MIX);
 				newPreferences.defaultScale = EditorPrefs.GetFloat(DEFAULT_SCALE_KEY, SpinePreferences.DEFAULT_DEFAULT_SCALE);
 				newPreferences.defaultZSpacing = EditorPrefs.GetFloat(DEFAULT_ZSPACING_KEY, SpinePreferences.DEFAULT_DEFAULT_ZSPACING);
@@ -218,7 +230,8 @@ namespace Spine.Unity.Editor {
 				newPreferences.handleScale = EditorPrefs.GetFloat(SCENE_ICONS_SCALE_KEY, SpinePreferences.DEFAULT_SCENE_ICONS_SCALE);
 			}
 
-			public static void SaveToEditorPrefs(SpinePreferences preferences) {
+			public static void SaveToEditorPrefs(SpinePreferences preferences)
+			{
 				EditorPrefs.SetFloat(DEFAULT_MIX_KEY, preferences.defaultMix);
 				EditorPrefs.SetFloat(DEFAULT_SCALE_KEY, preferences.defaultScale);
 				EditorPrefs.SetFloat(DEFAULT_ZSPACING_KEY, preferences.defaultZSpacing);
@@ -369,66 +382,78 @@ namespace Spine.Unity.Editor {
 #endif // !NEW_PREFERENCES_SETTINGS_PROVIDER
 		}
 
-		static void BoolPrefsField (ref bool currentValue, string editorPrefsKey, GUIContent label) {
+		static void BoolPrefsField(ref bool currentValue, string editorPrefsKey, GUIContent label)
+		{
 			EditorGUI.BeginChangeCheck();
 			currentValue = EditorGUILayout.Toggle(label, currentValue);
 			if (EditorGUI.EndChangeCheck())
 				EditorPrefs.SetBool(editorPrefsKey, currentValue);
 		}
 
-		static void FloatPrefsField (ref float currentValue, string editorPrefsKey, GUIContent label, float min = float.NegativeInfinity, float max = float.PositiveInfinity) {
+		static void FloatPrefsField(ref float currentValue, string editorPrefsKey, GUIContent label, float min = float.NegativeInfinity, float max = float.PositiveInfinity)
+		{
 			EditorGUI.BeginChangeCheck();
 			currentValue = EditorGUILayout.DelayedFloatField(label, currentValue);
-			if (EditorGUI.EndChangeCheck()) {
+			if (EditorGUI.EndChangeCheck())
+			{
 				currentValue = Mathf.Clamp(currentValue, min, max);
 				EditorPrefs.SetFloat(editorPrefsKey, currentValue);
 			}
 		}
 
-		static void Texture2DPrefsField (ref string currentValue, string editorPrefsKey, GUIContent label) {
+		static void Texture2DPrefsField(ref string currentValue, string editorPrefsKey, GUIContent label)
+		{
 			EditorGUI.BeginChangeCheck();
 			EditorGUIUtility.wideMode = true;
 			var texture = (EditorGUILayout.ObjectField(label, AssetDatabase.LoadAssetAtPath<Texture2D>(currentValue), typeof(Object), false) as Texture2D);
 			currentValue = texture != null ? AssetDatabase.GetAssetPath(texture) : "";
-			if (EditorGUI.EndChangeCheck()) {
+			if (EditorGUI.EndChangeCheck())
+			{
 				EditorPrefs.SetString(editorPrefsKey, currentValue);
 			}
 		}
 
-		static void MaterialPrefsField (ref string currentValue, string editorPrefsKey, GUIContent label) {
+		static void MaterialPrefsField(ref string currentValue, string editorPrefsKey, GUIContent label)
+		{
 			EditorGUI.BeginChangeCheck();
 			EditorGUIUtility.wideMode = true;
 			var material = (EditorGUILayout.ObjectField(label, AssetDatabase.LoadAssetAtPath<Material>(currentValue), typeof(Object), false) as Material);
 			currentValue = material != null ? AssetDatabase.GetAssetPath(material) : "";
-			if (EditorGUI.EndChangeCheck()) {
+			if (EditorGUI.EndChangeCheck())
+			{
 				EditorPrefs.SetString(editorPrefsKey, currentValue);
 			}
 		}
 
-		public static void FloatPropertyField (SerializedProperty property, GUIContent label, float min = float.NegativeInfinity, float max = float.PositiveInfinity) {
+		public static void FloatPropertyField(SerializedProperty property, GUIContent label, float min = float.NegativeInfinity, float max = float.PositiveInfinity)
+		{
 			EditorGUI.BeginChangeCheck();
 			property.floatValue = EditorGUILayout.DelayedFloatField(label, property.floatValue);
-			if (EditorGUI.EndChangeCheck()) {
+			if (EditorGUI.EndChangeCheck())
+			{
 				property.floatValue = Mathf.Clamp(property.floatValue, min, max);
 			}
 		}
 
-		public static void ShaderPropertyField (SerializedProperty property, GUIContent label, string fallbackShaderName) {
+		public static void ShaderPropertyField(SerializedProperty property, GUIContent label, string fallbackShaderName)
+		{
 			var shader = (EditorGUILayout.ObjectField(label, Shader.Find(property.stringValue), typeof(Shader), false) as Shader);
 			property.stringValue = shader != null ? shader.name : fallbackShaderName;
 		}
 
-		public static void MaterialPropertyField (SerializedProperty property, GUIContent label) {
+		public static void MaterialPropertyField(SerializedProperty property, GUIContent label)
+		{
 			var material = (EditorGUILayout.ObjectField(label, AssetDatabase.LoadAssetAtPath<Material>(property.stringValue), typeof(Material), false) as Material);
 			property.stringValue = material ? AssetDatabase.GetAssetPath(material) : "";
 		}
 
-	#if NEW_PREFERENCES_SETTINGS_PROVIDER
-		public static void PresetAssetPropertyField (SerializedProperty property, GUIContent label) {
+#if NEW_PREFERENCES_SETTINGS_PROVIDER
+		public static void PresetAssetPropertyField(SerializedProperty property, GUIContent label)
+		{
 			var texturePreset = (EditorGUILayout.ObjectField(label, AssetDatabase.LoadAssetAtPath<UnityEditor.Presets.Preset>(property.stringValue), typeof(UnityEditor.Presets.Preset), false) as UnityEditor.Presets.Preset);
 			bool isTexturePreset = texturePreset != null && texturePreset.GetTargetTypeName() == "TextureImporter";
 			property.stringValue = isTexturePreset ? AssetDatabase.GetAssetPath(texturePreset) : "";
 		}
-	#endif
+#endif
 	}
 }

@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace Framework
 {
-	public abstract class TMonoSingleton<TMono> : MonoBehaviour 
+	public abstract class TMonoSingleton<TMono> : MonoBehaviour
 		where TMono : MonoBehaviour
 	{
-		static TMono m_Instance = null;		// 전역 인스턴스 핸들
-		static bool m_onAppQuit = false;	// 프로그램이 종료될 경우의 예약 처리
+		static TMono m_Instance = null;     // 전역 인스턴스 핸들
+		static bool m_onAppQuit = false;    // 프로그램이 종료될 경우의 예약 처리
 
 		static public TMono Instance
 		{

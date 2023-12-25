@@ -39,22 +39,24 @@ using UnityEngine;
 using UnityEditor;
 using System.Threading;
 
-namespace Spine.Unity.Editor {
+namespace Spine.Unity.Editor
+{
 
-	public class SpinePreferences : ScriptableObject {
+	public class SpinePreferences : ScriptableObject
+	{
 
-		#if NEW_PREFERENCES_SETTINGS_PROVIDER
+#if NEW_PREFERENCES_SETTINGS_PROVIDER
 		static int wasPreferencesDirCreated = 0;
 		static int wasPreferencesAssetCreated = 0;
-		#endif
+#endif
 
 		public const string SPINE_SETTINGS_ASSET_PATH = "Assets/Editor/SpineSettings.asset";
 
-		#if SPINE_TK2D
+#if SPINE_TK2D
 		internal const float DEFAULT_DEFAULT_SCALE = 1f;
-		#else
+#else
 		internal const float DEFAULT_DEFAULT_SCALE = 0.01f;
-		#endif
+#endif
 		public float defaultScale = DEFAULT_DEFAULT_SCALE;
 
 		internal const float DEFAULT_DEFAULT_MIX = 0.2f;
@@ -78,12 +80,15 @@ namespace Spine.Unity.Editor {
 		internal const string DEFAULT_TEXTURE_SETTINGS_REFERENCE = "";
 		public string textureSettingsReference = DEFAULT_TEXTURE_SETTINGS_REFERENCE;
 
-		public bool UsesPMAWorkflow {
-			get {
+		public bool UsesPMAWorkflow
+		{
+			get
+			{
 				return IsPMAWorkflow(textureSettingsReference);
 			}
 		}
-		public static bool IsPMAWorkflow(string textureSettingsReference) {
+		public static bool IsPMAWorkflow(string textureSettingsReference)
+		{
 			if (textureSettingsReference == null)
 				return true;
 			string settingsReference = textureSettingsReference.ToLower();
@@ -100,36 +105,47 @@ namespace Spine.Unity.Editor {
 		public Material blendModeMaterialScreen = null;
 		public Material blendModeMaterialAdditive = null;
 
-		public string FindPathOfAsset (string assetName) {
+		public string FindPathOfAsset(string assetName)
+		{
 			string typeSearchString = assetName;
 			string[] guids = AssetDatabase.FindAssets(typeSearchString);
-			if (guids.Length > 0) {
+			if (guids.Length > 0)
+			{
 				return AssetDatabase.GUIDToAssetPath(guids[0]);
 			}
 			return null;
 		}
 
-		public Material BlendModeMaterialMultiply {
-			get {
-				if (blendModeMaterialMultiply == null) {
+		public Material BlendModeMaterialMultiply
+		{
+			get
+			{
+				if (blendModeMaterialMultiply == null)
+				{
 					string path = FindPathOfAsset(DEFAULT_BLEND_MODE_MULTIPLY_MATERIAL);
 					blendModeMaterialMultiply = AssetDatabase.LoadAssetAtPath<Material>(path);
 				}
 				return blendModeMaterialMultiply;
 			}
 		}
-		public Material BlendModeMaterialScreen {
-			get {
-				if (blendModeMaterialScreen == null) {
+		public Material BlendModeMaterialScreen
+		{
+			get
+			{
+				if (blendModeMaterialScreen == null)
+				{
 					string path = FindPathOfAsset(DEFAULT_BLEND_MODE_SCREEN_MATERIAL);
 					blendModeMaterialScreen = AssetDatabase.LoadAssetAtPath<Material>(path);
 				}
 				return blendModeMaterialScreen;
 			}
 		}
-		public Material BlendModeMaterialAdditive {
-			get {
-				if (blendModeMaterialAdditive == null) {
+		public Material BlendModeMaterialAdditive
+		{
+			get
+			{
+				if (blendModeMaterialAdditive == null)
+				{
 					string path = FindPathOfAsset(DEFAULT_BLEND_MODE_ADDITIVE_MATERIAL);
 					blendModeMaterialAdditive = AssetDatabase.LoadAssetAtPath<Material>(path);
 				}
@@ -164,13 +180,15 @@ namespace Spine.Unity.Editor {
 		public bool timelineUseBlendDuration = DEFAULT_TIMELINE_USE_BLEND_DURATION;
 
 #if NEW_PREFERENCES_SETTINGS_PROVIDER
-		public static void Load () {
+		public static void Load()
+		{
 			GetOrCreateSettings();
 		}
 
 		static SpinePreferences settings = null;
 
-		internal static SpinePreferences GetOrCreateSettings () {
+		internal static SpinePreferences GetOrCreateSettings()
+		{
 			if (settings != null)
 				return settings;
 
@@ -192,10 +210,12 @@ namespace Spine.Unity.Editor {
 			return settings;
 		}
 
-		static SpinePreferences FindSpinePreferences () {
+		static SpinePreferences FindSpinePreferences()
+		{
 			string typeSearchString = " t:SpinePreferences";
 			string[] guids = AssetDatabase.FindAssets(typeSearchString);
-			foreach (string guid in guids) {
+			foreach (string guid in guids)
+			{
 				string path = AssetDatabase.GUIDToAssetPath(guid);
 				var preferences = AssetDatabase.LoadAssetAtPath<SpinePreferences>(path);
 				if (preferences != null)
@@ -204,15 +224,18 @@ namespace Spine.Unity.Editor {
 			return null;
 		}
 
-		public static void HandlePreferencesGUI (SerializedObject settings) {
+		public static void HandlePreferencesGUI(SerializedObject settings)
+		{
 
 			float prevLabelWidth = EditorGUIUtility.labelWidth;
 			EditorGUIUtility.labelWidth = 250;
 
-			using (new EditorGUI.IndentLevelScope()) {
+			using (new EditorGUI.IndentLevelScope())
+			{
 				EditorGUI.BeginChangeCheck();
 				EditorGUILayout.PropertyField(settings.FindProperty("showHierarchyIcons"), new GUIContent("Show Hierarchy Icons", "Show relevant icons on GameObjects with Spine Components on them. Disable this if you have large, complex scenes."));
-				if (EditorGUI.EndChangeCheck()) {
+				if (EditorGUI.EndChangeCheck())
+				{
 #if NEWPLAYMODECALLBACKS
 					SpineEditorUtilities.HierarchyHandler.IconsOnPlaymodeStateChanged(PlayModeStateChange.EnteredEditMode);
 #else
@@ -233,9 +256,11 @@ namespace Spine.Unity.Editor {
 					EditorGUILayout.PropertyField(settings.FindProperty("setTextureImporterSettings"), new GUIContent("Apply Atlas Texture Settings", "Apply reference settings for Texture Importers."));
 					var textureSettingsRef = settings.FindProperty("textureSettingsReference");
 					SpineEditorUtilities.PresetAssetPropertyField(textureSettingsRef, new GUIContent("Atlas Texture Settings", "Apply the selected texture import settings at newly imported atlas textures. When exporting atlas textures from Spine with \"Premultiply alpha\" enabled (the default), you can leave it at \"PMATexturePreset\". If you have disabled \"Premultiply alpha\", set it to \"StraightAlphaTexturePreset\". You can also create your own TextureImporter Preset asset and assign it here."));
-					if (string.IsNullOrEmpty(textureSettingsRef.stringValue)) {
+					if (string.IsNullOrEmpty(textureSettingsRef.stringValue))
+					{
 						var pmaTextureSettingsReferenceGUIDS = AssetDatabase.FindAssets("PMATexturePreset");
-						if (pmaTextureSettingsReferenceGUIDS.Length > 0) {
+						if (pmaTextureSettingsReferenceGUIDS.Length > 0)
+						{
 							var assetPath = AssetDatabase.GUIDToAssetPath(pmaTextureSettingsReferenceGUIDS[0]);
 							if (!string.IsNullOrEmpty(assetPath))
 								textureSettingsRef.stringValue = assetPath;
@@ -274,34 +299,38 @@ namespace Spine.Unity.Editor {
 					EditorGUI.BeginChangeCheck();
 					var scaleProperty = settings.FindProperty("handleScale");
 					EditorGUILayout.PropertyField(scaleProperty, new GUIContent("Editor Bone Scale"));
-					if (EditorGUI.EndChangeCheck()) {
+					if (EditorGUI.EndChangeCheck())
+					{
 						EditorPrefs.SetFloat(SpinePreferences.SCENE_ICONS_SCALE_KEY, scaleProperty.floatValue);
 						SceneView.RepaintAll();
 					}
 				}
 
-				#if SPINE_TK2D_DEFINE
+#if SPINE_TK2D_DEFINE
 				bool isTK2DDefineSet = true;
-				#else
+#else
 				bool isTK2DDefineSet = false;
-				#endif
+#endif
 				bool isTK2DAllowed = SpineEditorUtilities.SpineTK2DEditorUtility.IsTK2DAllowed;
-				if (SpineEditorUtilities.SpineTK2DEditorUtility.IsTK2DInstalled() || isTK2DDefineSet) {
+				if (SpineEditorUtilities.SpineTK2DEditorUtility.IsTK2DInstalled() || isTK2DDefineSet)
+				{
 					GUILayout.Space(20);
 					EditorGUILayout.LabelField("3rd Party Settings", EditorStyles.boldLabel);
-					using (new GUILayout.HorizontalScope()) {
+					using (new GUILayout.HorizontalScope())
+					{
 						EditorGUILayout.PrefixLabel("Define TK2D");
 						if (isTK2DAllowed && GUILayout.Button("Enable", GUILayout.Width(64)))
 							SpineEditorUtilities.SpineTK2DEditorUtility.EnableTK2D();
 						if (GUILayout.Button("Disable", GUILayout.Width(64)))
 							SpineEditorUtilities.SpineTK2DEditorUtility.DisableTK2D();
 					}
-					#if !SPINE_TK2D_DEFINE
-					if (!isTK2DAllowed) {
+#if !SPINE_TK2D_DEFINE
+					if (!isTK2DAllowed)
+					{
 						EditorGUILayout.LabelField("To allow TK2D support, please modify line 67 in", EditorStyles.boldLabel);
 						EditorGUILayout.LabelField("Spine/Editor/spine-unity/Editor/Util./BuildSettings.cs", EditorStyles.boldLabel);
 					}
-					#endif
+#endif
 				}
 
 				GUILayout.Space(20);

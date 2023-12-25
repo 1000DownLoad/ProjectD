@@ -35,7 +35,7 @@ namespace Framework.Pool
 
             for (int i = 0; i < count; ++i)
             {
-                var go          = GameObject.Instantiate(gameObject, ResourceRoot.transform);
+                var go = GameObject.Instantiate(gameObject, ResourceRoot.transform);
                 var cloneRemove = go.name.Replace("(Clone)", "");
                 go.name = cloneRemove;
 

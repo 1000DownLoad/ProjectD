@@ -29,7 +29,8 @@
 
 using UnityEngine;
 
-namespace Spine.Unity {
+namespace Spine.Unity
+{
 
 	/// <summary>
 	/// Utility component to support flipping of hinge chains (chains of HingeJoint objects) along with the parent skeleton.
@@ -39,18 +40,21 @@ namespace Spine.Unity {
 	/// Note: This component is automatically attached when calling "Create Hinge Chain" at <see cref="SkeletonUtilityBone"/>,
 	/// do not attempt to use this component for other purposes.
 	/// </summary>
-	public class FollowSkeletonUtilityRootRotation : MonoBehaviour {
-	
+	public class FollowSkeletonUtilityRootRotation : MonoBehaviour
+	{
+
 		const float FLIP_ANGLE_THRESHOLD = 100.0f;
 
 		public Transform reference;
 		Vector3 prevLocalEulerAngles;
 
-		private void Start () {
+		private void Start()
+		{
 			prevLocalEulerAngles = this.transform.localEulerAngles;
 		}
 
-		void FixedUpdate () {
+		void FixedUpdate()
+		{
 			this.transform.rotation = reference.rotation;
 
 			bool wasFlippedAroundY = Mathf.Abs(this.transform.localEulerAngles.y - prevLocalEulerAngles.y) > FLIP_ANGLE_THRESHOLD;
@@ -67,7 +71,8 @@ namespace Spine.Unity {
 		/// Compensates the position so that a child at the reference position remains in the same place,
 		/// to counter any movement that occurred by rotation.
 		/// </summary>
-		void CompensatePositionToYRotation () {
+		void CompensatePositionToYRotation()
+		{
 			Vector3 newPosition = reference.position + (reference.position - this.transform.position);
 			newPosition.y = this.transform.position.y;
 			this.transform.position = newPosition;
@@ -77,7 +82,8 @@ namespace Spine.Unity {
 		/// Compensates the position so that a child at the reference position remains in the same place,
 		/// to counter any movement that occurred by rotation.
 		/// </summary>
-		void CompensatePositionToXRotation () {
+		void CompensatePositionToXRotation()
+		{
 			Vector3 newPosition = reference.position + (reference.position - this.transform.position);
 			newPosition.x = this.transform.position.x;
 			this.transform.position = newPosition;

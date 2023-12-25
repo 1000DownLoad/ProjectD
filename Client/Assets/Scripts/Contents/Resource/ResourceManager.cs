@@ -25,7 +25,7 @@ class ResourceManager : TSingleton<ResourceManager>
 
     public void InsertResource(ResourceType in_resource_type, long in_count)
     {
-        if(m_resource_dic.ContainsKey(in_resource_type))
+        if (m_resource_dic.ContainsKey(in_resource_type))
         {
             m_resource_dic[in_resource_type].count += in_count;
         }

@@ -34,15 +34,17 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-namespace Spine.Unity {
+namespace Spine.Unity
+{
 
-	#if NEW_PREFAB_SYSTEM
+#if NEW_PREFAB_SYSTEM
 	[ExecuteAlways]
-	#else
+#else
 	[ExecuteInEditMode]
-	#endif
+#endif
 	[HelpURL("http://esotericsoftware.com/spine-unity#BoundingBoxFollower")]
-	public class BoundingBoxFollower : MonoBehaviour {
+	public class BoundingBoxFollower : MonoBehaviour
+	{
 		internal static bool DebugMessages = true;
 
 		#region Inspector
@@ -67,12 +69,15 @@ namespace Spine.Unity {
 		public PolygonCollider2D CurrentCollider { get { return currentCollider; } }
 		public bool IsTrigger { get { return isTrigger; } }
 
-		void Start () {
+		void Start()
+		{
 			Initialize();
 		}
 
-		void OnEnable () {
-			if (skeletonRenderer != null) {
+		void OnEnable()
+		{
+			if (skeletonRenderer != null)
+			{
 				skeletonRenderer.OnRebuild -= HandleRebuild;
 				skeletonRenderer.OnRebuild += HandleRebuild;
 			}
@@ -80,14 +85,16 @@ namespace Spine.Unity {
 			Initialize();
 		}
 
-		void HandleRebuild (SkeletonRenderer sr) {
+		void HandleRebuild(SkeletonRenderer sr)
+		{
 			//if (BoundingBoxFollower.DebugMessages) Debug.Log("Skeleton was rebuilt. Repopulating BoundingBoxFollower.");
 			Initialize();
 		}
 
 		/// <summary>
 		/// Initialize and instantiate the BoundingBoxFollower colliders. This is method checks if the BoundingBoxFollower has already been initialized for the skeleton instance and slotName and prevents overwriting unless it detects a new setup.</summary>
-		public void Initialize (bool overwrite = false) {
+		public void Initialize(bool overwrite = false)
+		{
 			if (skeletonRenderer == null)
 				return;
 
@@ -99,11 +106,11 @@ namespace Spine.Unity {
 			// Don't reinitialize if the setup did not change.
 			if (!overwrite
 				&&
-				colliderTable.Count > 0 && slot != null			// Slot is set and colliders already populated.
+				colliderTable.Count > 0 && slot != null         // Slot is set and colliders already populated.
 				&&
-				skeletonRenderer.skeleton == slot.Skeleton		// Skeleton object did not change.
+				skeletonRenderer.skeleton == slot.Skeleton      // Skeleton object did not change.
 				&&
-				slotName == slot.data.name						// Slot object did not change.
+				slotName == slot.data.name                      // Slot object did not change.
 			)
 				return;
 
@@ -120,7 +127,8 @@ namespace Spine.Unity {
 			slot = skeleton.FindSlot(slotName);
 			int slotIndex = skeleton.FindSlotIndex(slotName);
 
-			if (slot == null) {
+			if (slot == null)
+			{
 				if (BoundingBoxFollower.DebugMessages)
 					Debug.LogWarning(string.Format("Slot '{0}' not found for BoundingBoxFollower on '{1}'. (Previous colliders were disposed.)", slotName, this.gameObject.name));
 				return;
@@ -128,7 +136,8 @@ namespace Spine.Unity {
 
 			int requiredCollidersCount = 0;
 			var colliders = GetComponents<PolygonCollider2D>();
-			if (this.gameObject.activeInHierarchy) {
+			if (this.gameObject.activeInHierarchy)
+			{
 				foreach (var skin in skeleton.Data.Skins)
 					AddCollidersForSkin(skin, slotIndex, colliders, ref requiredCollidersCount);
 
@@ -137,9 +146,11 @@ namespace Spine.Unity {
 			}
 			DisposeExcessCollidersAfter(requiredCollidersCount);
 
-			if (BoundingBoxFollower.DebugMessages) {
+			if (BoundingBoxFollower.DebugMessages)
+			{
 				bool valid = colliderTable.Count != 0;
-				if (!valid) {
+				if (!valid)
+				{
 					if (this.gameObject.activeInHierarchy)
 						Debug.LogWarning("Bounding Box Follower not valid! Slot [" + slotName + "] does not contain any Bounding Box Attachments!");
 					else
@@ -148,20 +159,24 @@ namespace Spine.Unity {
 			}
 		}
 
-		void AddCollidersForSkin (Skin skin, int slotIndex, PolygonCollider2D[] previousColliders, ref int collidersCount) {
+		void AddCollidersForSkin(Skin skin, int slotIndex, PolygonCollider2D[] previousColliders, ref int collidersCount)
+		{
 			if (skin == null) return;
 			var skinEntries = new List<Skin.SkinEntry>();
 			skin.GetAttachments(slotIndex, skinEntries);
 
-			foreach (var entry in skinEntries) {
+			foreach (var entry in skinEntries)
+			{
 				var attachment = skin.GetAttachment(slotIndex, entry.Name);
 				var boundingBoxAttachment = attachment as BoundingBoxAttachment;
 
 				if (BoundingBoxFollower.DebugMessages && attachment != null && boundingBoxAttachment == null)
 					Debug.Log("BoundingBoxFollower tried to follow a slot that contains non-boundingbox attachments: " + slotName);
 
-				if (boundingBoxAttachment != null) {
-					if (!colliderTable.ContainsKey(boundingBoxAttachment)) {
+				if (boundingBoxAttachment != null)
+				{
+					if (!colliderTable.ContainsKey(boundingBoxAttachment))
+					{
 						var bbCollider = collidersCount < previousColliders.Length ?
 							previousColliders[collidersCount] : gameObject.AddComponent<PolygonCollider2D>();
 						++collidersCount;
@@ -177,7 +192,8 @@ namespace Spine.Unity {
 			}
 		}
 
-		void OnDisable () {
+		void OnDisable()
+		{
 			if (clearStateOnDisable)
 				ClearState();
 
@@ -185,7 +201,8 @@ namespace Spine.Unity {
 				skeletonRenderer.OnRebuild -= HandleRebuild;
 		}
 
-		public void ClearState () {
+		public void ClearState()
+		{
 			if (colliderTable != null)
 				foreach (var col in colliderTable.Values)
 					col.enabled = false;
@@ -195,13 +212,16 @@ namespace Spine.Unity {
 			currentCollider = null;
 		}
 
-		void DisposeExcessCollidersAfter (int requiredCount) {
+		void DisposeExcessCollidersAfter(int requiredCount)
+		{
 			var colliders = GetComponents<PolygonCollider2D>();
 			if (colliders.Length == 0) return;
 
-			for (int i = requiredCount; i < colliders.Length; ++i) {
+			for (int i = requiredCount; i < colliders.Length; ++i)
+			{
 				var collider = colliders[i];
-				if (collider != null) {
+				if (collider != null)
+				{
 #if UNITY_EDITOR
 					if (Application.isEditor && !Application.isPlaying)
 						DestroyImmediate(collider);
@@ -212,14 +232,16 @@ namespace Spine.Unity {
 			}
 		}
 
-		void LateUpdate () {
+		void LateUpdate()
+		{
 			if (slot != null && slot.Attachment != currentAttachment)
 				MatchAttachment(slot.Attachment);
 		}
 
 		/// <summary>Sets the current collider to match attachment.</summary>
 		/// <param name="attachment">If the attachment is not a bounding box, it will be treated as null.</param>
-		void MatchAttachment (Attachment attachment) {
+		void MatchAttachment(Attachment attachment)
+		{
 			var bbAttachment = attachment as BoundingBoxAttachment;
 
 			if (BoundingBoxFollower.DebugMessages && attachment != null && bbAttachment == null)
@@ -228,19 +250,25 @@ namespace Spine.Unity {
 			if (currentCollider != null)
 				currentCollider.enabled = false;
 
-			if (bbAttachment == null) {
+			if (bbAttachment == null)
+			{
 				currentCollider = null;
 				currentAttachment = null;
 				currentAttachmentName = null;
-			} else {
+			}
+			else
+			{
 				PolygonCollider2D foundCollider;
 				colliderTable.TryGetValue(bbAttachment, out foundCollider);
-				if (foundCollider != null) {
+				if (foundCollider != null)
+				{
 					currentCollider = foundCollider;
 					currentCollider.enabled = true;
 					currentAttachment = bbAttachment;
 					currentAttachmentName = nameTable[bbAttachment];
-				} else {
+				}
+				else
+				{
 					currentCollider = null;
 					currentAttachment = bbAttachment;
 					currentAttachmentName = null;

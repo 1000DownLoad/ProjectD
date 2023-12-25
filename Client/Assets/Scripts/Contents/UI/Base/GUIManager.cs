@@ -5,11 +5,11 @@ using Framework;
 
 class GUIManager : TMonoSingleton<GUIManager>
 {
-    private GameObject                  m_gui_root;
-    private Transform                   m_root_transform;
-    private GUIBase                     m_cur_open_gui;
+    private GameObject m_gui_root;
+    private Transform m_root_transform;
+    private GUIBase m_cur_open_gui;
     private Dictionary<string, GUIBase> m_gui_resource = new Dictionary<string, GUIBase>();
-    private List<GUIBase>               m_open_gui_stack = new List<GUIBase>();
+    private List<GUIBase> m_open_gui_stack = new List<GUIBase>();
 
     protected override void Awake()
     {
@@ -34,12 +34,12 @@ class GUIManager : TMonoSingleton<GUIManager>
         m_root_transform = rect_transform.transform;
     }
 
-    public T OpenGUI<T>(IGUIOpenParam in_param) 
+    public T OpenGUI<T>(IGUIOpenParam in_param)
         where T : GUIBase
     {
         string GUI_NAME = typeof(T).Name;
 
-        if(m_cur_open_gui != null)
+        if (m_cur_open_gui != null)
         {
             if (m_cur_open_gui.m_gui_name == GUI_NAME)
             {
@@ -51,7 +51,7 @@ class GUIManager : TMonoSingleton<GUIManager>
         {
             out_gui.Open(in_param);
 
-            if(out_gui.m_use_stack)
+            if (out_gui.m_use_stack)
             {
                 m_open_gui_stack.Remove(out_gui);
                 m_open_gui_stack.Add(out_gui);
@@ -88,7 +88,7 @@ class GUIManager : TMonoSingleton<GUIManager>
         m_gui_resource.Remove(go.m_gui_name);
         m_gui_resource.Add(go.m_gui_name, go);
 
-        if(go.m_use_stack)
+        if (go.m_use_stack)
             m_open_gui_stack.Add(go);
 
         NewOpenGUI(go);
@@ -115,7 +115,7 @@ class GUIManager : TMonoSingleton<GUIManager>
         string GUI_NAME = typeof(T).Name;
 
         var find_gui = FindGUI<T>();
-        if(find_gui != null)
+        if (find_gui != null)
         {
             m_gui_resource.Remove(GUI_NAME);
             m_open_gui_stack.Remove(find_gui);
@@ -147,7 +147,7 @@ class GUIManager : TMonoSingleton<GUIManager>
 
     public void GUIStackClear()
     {
-        foreach(var gui in m_open_gui_stack)
+        foreach (var gui in m_open_gui_stack)
             gui.gameObject.SetActive(false);
 
         m_open_gui_stack.Clear();

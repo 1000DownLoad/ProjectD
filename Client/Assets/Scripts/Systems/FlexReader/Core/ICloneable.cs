@@ -1,10 +1,10 @@
 namespace FlexFramework.Excel
-{   
+{
     /// <summary>
     /// Cloneable
     /// </summary>
     public interface ICloneable<T> where T : class
-    {   
+    {
         /// <summary>
         /// Make a deep copy
         /// </summary>

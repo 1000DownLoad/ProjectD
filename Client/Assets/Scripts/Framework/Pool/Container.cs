@@ -22,7 +22,7 @@ namespace Framework.Pool
             if (_objects.Any() == false)
                 return null;
 
-            return _objects.Dequeue(); 
+            return _objects.Dequeue();
         }
 
         public void Release()

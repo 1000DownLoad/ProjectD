@@ -31,12 +31,15 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 
-namespace Spine.Unity.AttachmentTools {
-	public static class AttachmentRegionExtensions {
+namespace Spine.Unity.AttachmentTools
+{
+	public static class AttachmentRegionExtensions
+	{
 		#region GetRegion
 		/// <summary>
 		/// Tries to get the region (image) of a renderable attachment. If the attachment is not renderable, it returns null.</summary>
-		public static AtlasRegion GetRegion (this Attachment attachment) {
+		public static AtlasRegion GetRegion(this Attachment attachment)
+		{
 			var renderableAttachment = attachment as IHasRendererObject;
 			if (renderableAttachment != null)
 				return renderableAttachment.RendererObject as AtlasRegion;
@@ -45,19 +48,22 @@ namespace Spine.Unity.AttachmentTools {
 		}
 
 		/// <summary>Gets the region (image) of a RegionAttachment</summary>
-		public static AtlasRegion GetRegion (this RegionAttachment regionAttachment) {
+		public static AtlasRegion GetRegion(this RegionAttachment regionAttachment)
+		{
 			return regionAttachment.RendererObject as AtlasRegion;
 		}
 
 		/// <summary>Gets the region (image) of a MeshAttachment</summary>
-		public static AtlasRegion GetRegion (this MeshAttachment meshAttachment) {
+		public static AtlasRegion GetRegion(this MeshAttachment meshAttachment)
+		{
 			return meshAttachment.RendererObject as AtlasRegion;
 		}
 		#endregion
 		#region SetRegion
 		/// <summary>
 		/// Tries to set the region (image) of a renderable attachment. If the attachment is not renderable, nothing is applied.</summary>
-		public static void SetRegion (this Attachment attachment, AtlasRegion region, bool updateOffset = true) {
+		public static void SetRegion(this Attachment attachment, AtlasRegion region, bool updateOffset = true)
+		{
 			var regionAttachment = attachment as RegionAttachment;
 			if (regionAttachment != null)
 				regionAttachment.SetRegion(region, updateOffset);
@@ -68,7 +74,8 @@ namespace Spine.Unity.AttachmentTools {
 		}
 
 		/// <summary>Sets the region (image) of a RegionAttachment</summary>
-		public static void SetRegion (this RegionAttachment attachment, AtlasRegion region, bool updateOffset = true) {
+		public static void SetRegion(this RegionAttachment attachment, AtlasRegion region, bool updateOffset = true)
+		{
 			if (region == null) throw new System.ArgumentNullException("region");
 
 			// (AtlasAttachmentLoader.cs)
@@ -85,7 +92,8 @@ namespace Spine.Unity.AttachmentTools {
 		}
 
 		/// <summary>Sets the region (image) of a MeshAttachment</summary>
-		public static void SetRegion (this MeshAttachment attachment, AtlasRegion region, bool updateUVs = true) {
+		public static void SetRegion(this MeshAttachment attachment, AtlasRegion region, bool updateUVs = true)
+		{
 			if (region == null) throw new System.ArgumentNullException("region");
 
 			// (AtlasAttachmentLoader.cs)
@@ -110,13 +118,15 @@ namespace Spine.Unity.AttachmentTools {
 		#region Runtime RegionAttachments
 		/// <summary>
 		/// Creates a RegionAttachment based on a sprite. This method creates a real, usable AtlasRegion. That AtlasRegion uses a new AtlasPage with the Material provided./// </summary>
-		public static RegionAttachment ToRegionAttachment (this Sprite sprite, Material material, float rotation = 0f) {
+		public static RegionAttachment ToRegionAttachment(this Sprite sprite, Material material, float rotation = 0f)
+		{
 			return sprite.ToRegionAttachment(material.ToSpineAtlasPage(), rotation);
 		}
 
 		/// <summary>
 		/// Creates a RegionAttachment based on a sprite. This method creates a real, usable AtlasRegion. That AtlasRegion uses the AtlasPage provided./// </summary>
-		public static RegionAttachment ToRegionAttachment (this Sprite sprite, AtlasPage page, float rotation = 0f) {
+		public static RegionAttachment ToRegionAttachment(this Sprite sprite, AtlasPage page, float rotation = 0f)
+		{
 			if (sprite == null) throw new System.ArgumentNullException("sprite");
 			if (page == null) throw new System.ArgumentNullException("page");
 			var region = sprite.ToAtlasRegion(page);
@@ -129,7 +139,8 @@ namespace Spine.Unity.AttachmentTools {
 		/// Returns a RegionAttachment that uses it. Use this if you plan to use a premultiply alpha shader such as "Spine/Skeleton".</summary>
 		/// <remarks>The duplicate texture is cached for later re-use. See documentation of
 		/// <see cref="AttachmentCloneExtensions.GetRemappedClone"/> for additional details.</remarks>
-		public static RegionAttachment ToRegionAttachmentPMAClone (this Sprite sprite, Shader shader, TextureFormat textureFormat = AtlasUtilities.SpineTextureFormat, bool mipmaps = AtlasUtilities.UseMipMaps, Material materialPropertySource = null, float rotation = 0f) {
+		public static RegionAttachment ToRegionAttachmentPMAClone(this Sprite sprite, Shader shader, TextureFormat textureFormat = AtlasUtilities.SpineTextureFormat, bool mipmaps = AtlasUtilities.UseMipMaps, Material materialPropertySource = null, float rotation = 0f)
+		{
 			if (sprite == null) throw new System.ArgumentNullException("sprite");
 			if (shader == null) throw new System.ArgumentNullException("shader");
 			var region = sprite.ToAtlasRegionPMAClone(shader, textureFormat, mipmaps, materialPropertySource);
@@ -137,13 +148,15 @@ namespace Spine.Unity.AttachmentTools {
 			return region.ToRegionAttachment(sprite.name, unitsPerPixel, rotation);
 		}
 
-		public static RegionAttachment ToRegionAttachmentPMAClone (this Sprite sprite, Material materialPropertySource, TextureFormat textureFormat = AtlasUtilities.SpineTextureFormat, bool mipmaps = AtlasUtilities.UseMipMaps, float rotation = 0f) {
+		public static RegionAttachment ToRegionAttachmentPMAClone(this Sprite sprite, Material materialPropertySource, TextureFormat textureFormat = AtlasUtilities.SpineTextureFormat, bool mipmaps = AtlasUtilities.UseMipMaps, float rotation = 0f)
+		{
 			return sprite.ToRegionAttachmentPMAClone(materialPropertySource.shader, textureFormat, mipmaps, materialPropertySource, rotation);
 		}
 
 		/// <summary>
 		/// Creates a new RegionAttachment from a given AtlasRegion.</summary>
-		public static RegionAttachment ToRegionAttachment (this AtlasRegion region, string attachmentName, float scale = 0.01f, float rotation = 0f) {
+		public static RegionAttachment ToRegionAttachment(this AtlasRegion region, string attachmentName, float scale = 0.01f, float rotation = 0f)
+		{
 			if (string.IsNullOrEmpty(attachmentName)) throw new System.ArgumentException("attachmentName can't be null or empty.", "attachmentName");
 			if (region == null) throw new System.ArgumentNullException("region");
 
@@ -179,31 +192,36 @@ namespace Spine.Unity.AttachmentTools {
 		}
 
 		/// <summary> Sets the scale. Call regionAttachment.UpdateOffset to apply the change.</summary>
-		public static void SetScale (this RegionAttachment regionAttachment, Vector2 scale) {
+		public static void SetScale(this RegionAttachment regionAttachment, Vector2 scale)
+		{
 			regionAttachment.scaleX = scale.x;
 			regionAttachment.scaleY = scale.y;
 		}
 
 		/// <summary> Sets the scale. Call regionAttachment.UpdateOffset to apply the change.</summary>
-		public static void SetScale (this RegionAttachment regionAttachment, float x, float y) {
+		public static void SetScale(this RegionAttachment regionAttachment, float x, float y)
+		{
 			regionAttachment.scaleX = x;
 			regionAttachment.scaleY = y;
 		}
 
 		/// <summary> Sets the position offset. Call regionAttachment.UpdateOffset to apply the change.</summary>
-		public static void SetPositionOffset (this RegionAttachment regionAttachment, Vector2 offset) {
+		public static void SetPositionOffset(this RegionAttachment regionAttachment, Vector2 offset)
+		{
 			regionAttachment.x = offset.x;
 			regionAttachment.y = offset.y;
 		}
 
 		/// <summary> Sets the position offset. Call regionAttachment.UpdateOffset to apply the change.</summary>
-		public static void SetPositionOffset (this RegionAttachment regionAttachment, float x, float y) {
+		public static void SetPositionOffset(this RegionAttachment regionAttachment, float x, float y)
+		{
 			regionAttachment.x = x;
 			regionAttachment.y = y;
 		}
 
 		/// <summary> Sets the rotation. Call regionAttachment.UpdateOffset to apply the change.</summary>
-		public static void SetRotation (this RegionAttachment regionAttachment, float rotation) {
+		public static void SetRotation(this RegionAttachment regionAttachment, float rotation)
+		{
 			regionAttachment.rotation = rotation;
 		}
 		#endregion

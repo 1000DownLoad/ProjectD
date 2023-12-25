@@ -34,7 +34,7 @@ abstract class SpineObject : MonoBehaviour
 
     private void Awake()
     {
-        if(m_skeleton_animation != null)
+        if (m_skeleton_animation != null)
         {
             m_skeleton_animation.AnimationState.Start += OnAnimationStart;
             m_skeleton_animation.AnimationState.Complete += OnAnimationComplete;
@@ -72,7 +72,7 @@ abstract class SpineObject : MonoBehaviour
             return;
 
         var track_entry = m_skeleton_animation.AnimationState.SetAnimation(in_track_index, StateToString(in_state), in_is_loop);
-        if(track_entry != null)
+        if (track_entry != null)
         {
             track_entry.MixDuration = 0.2f;
         }
@@ -118,7 +118,7 @@ abstract class SpineObject : MonoBehaviour
 
     virtual protected void OnAnimationComplete(TrackEntry in_track_entry)
     {
-        if(in_track_entry.TrackIndex == (int)TrackIndexState.ActionAndDefault)
+        if (in_track_entry.TrackIndex == (int)TrackIndexState.ActionAndDefault)
         {
             var cur_default_anim = m_skeleton_animation.AnimationState.GetCurrent((int)TrackIndexState.Default);
             if (cur_default_anim == null)
@@ -145,9 +145,9 @@ abstract class SpineObject : MonoBehaviour
 
     public void AllCompleteTack()
     {
-        foreach(var track in m_skeleton_animation.AnimationState.Tracks)
+        foreach (var track in m_skeleton_animation.AnimationState.Tracks)
         {
-            if(track != null)
+            if (track != null)
                 track.TrackTime = track.AnimationEnd;
         }
     }

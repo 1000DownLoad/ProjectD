@@ -23,7 +23,7 @@ namespace FlexFramework.Excel
         {
             if (Regex.IsMatch(input,
                 @"^\(([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5]),([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5]),([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5]),([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])\)$"))
-                //RGBA in (r,g,b,a) format;  r/g/b/a is between 0 and 255
+            //RGBA in (r,g,b,a) format;  r/g/b/a is between 0 and 255
             {
                 string[] parameters = Split(input.Trim('(', ')'), ',');
                 int r = ValueConverter.Convert<int>(parameters[0]);
@@ -36,7 +36,7 @@ namespace FlexFramework.Excel
 
             if (Regex.IsMatch(input,
                 @"^\(([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5]),([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5]),([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])\)$"))
-                //RGB in (r,g,b) format;  r/g/b is between 0 and 255
+            //RGB in (r,g,b) format;  r/g/b is between 0 and 255
             {
                 string[] parameters = Split(input.Trim('(', ')'), ',');
                 int r = ValueConverter.Convert<int>(parameters[0]);

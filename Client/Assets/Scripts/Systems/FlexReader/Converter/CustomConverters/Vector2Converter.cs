@@ -19,10 +19,10 @@ namespace FlexFramework.Excel
         /// <exception cref="FormatException">Vector2 value expression invalid</exception>
         public override Vector2 Convert(string input)
         {
-           if (!Regex.IsMatch(input, @"^\([-+]?[0-9]*\.?[0-9]+\b,[-+]?[0-9]*\.?[0-9]+\b\)$"))
-           {
-               throw new FormatException("Vector2 value expression invalid: " + input);
-           }
+            if (!Regex.IsMatch(input, @"^\([-+]?[0-9]*\.?[0-9]+\b,[-+]?[0-9]*\.?[0-9]+\b\)$"))
+            {
+                throw new FormatException("Vector2 value expression invalid: " + input);
+            }
 
             string[] parameters = Split(input.Trim('(', ')'), ',');
             float x = ValueConverter.Convert<float>(parameters[0]);

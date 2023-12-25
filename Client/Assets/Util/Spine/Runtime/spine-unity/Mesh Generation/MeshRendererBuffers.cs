@@ -35,26 +35,33 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
-namespace Spine.Unity {
+namespace Spine.Unity
+{
 	/// <summary>A double-buffered Mesh, and a shared material array, bundled for use by Spine components that need to push a Mesh and materials to a Unity MeshRenderer and MeshFilter.</summary>
-	public class MeshRendererBuffers : IDisposable {
+	public class MeshRendererBuffers : IDisposable
+	{
 		DoubleBuffered<SmartMesh> doubleBufferedMesh;
 		internal readonly ExposedList<Material> submeshMaterials = new ExposedList<Material>();
 		internal Material[] sharedMaterials = new Material[0];
 
-		public void Initialize () {
-			if (doubleBufferedMesh != null) {
+		public void Initialize()
+		{
+			if (doubleBufferedMesh != null)
+			{
 				doubleBufferedMesh.GetNext().Clear();
 				doubleBufferedMesh.GetNext().Clear();
 				submeshMaterials.Clear();
-			} else {
+			}
+			else
+			{
 				doubleBufferedMesh = new DoubleBuffered<SmartMesh>();
 			}
 		}
 
 		/// <summary>Returns a sharedMaterials array for use on a MeshRenderer.</summary>
 		/// <returns></returns>
-		public Material[] GetUpdatedSharedMaterialsArray () {
+		public Material[] GetUpdatedSharedMaterialsArray()
+		{
 			if (submeshMaterials.Count == sharedMaterials.Length)
 				submeshMaterials.CopyTo(sharedMaterials);
 			else
@@ -64,7 +71,8 @@ namespace Spine.Unity {
 		}
 
 		/// <summary>Returns true if the materials were modified since the buffers were last updated.</summary>
-		public bool MaterialsChangedInLastUpdate () {
+		public bool MaterialsChangedInLastUpdate()
+		{
 			int newSubmeshMaterials = submeshMaterials.Count;
 			var sharedMaterials = this.sharedMaterials;
 			if (newSubmeshMaterials != sharedMaterials.Length) return true;
@@ -77,7 +85,8 @@ namespace Spine.Unity {
 		}
 
 		/// <summary>Updates the internal shared materials array with the given instruction list.</summary>
-		public void UpdateSharedMaterials (ExposedList<SubmeshInstruction> instructions) {
+		public void UpdateSharedMaterials(ExposedList<SubmeshInstruction> instructions)
+		{
 			int newSize = instructions.Count;
 			{ //submeshMaterials.Resize(instructions.Count);
 				if (newSize > submeshMaterials.Items.Length)
@@ -91,16 +100,19 @@ namespace Spine.Unity {
 				submeshMaterialsItems[i] = instructionsItems[i].material;
 		}
 
-		public SmartMesh GetNextMesh () {
+		public SmartMesh GetNextMesh()
+		{
 			return doubleBufferedMesh.GetNext();
 		}
 
-		public void Clear () {
+		public void Clear()
+		{
 			sharedMaterials = new Material[0];
 			submeshMaterials.Clear();
 		}
 
-		public void Dispose () {
+		public void Dispose()
+		{
 			if (doubleBufferedMesh == null) return;
 			doubleBufferedMesh.GetNext().Dispose();
 			doubleBufferedMesh.GetNext().Dispose();
@@ -108,25 +120,29 @@ namespace Spine.Unity {
 		}
 
 		///<summary>This is a Mesh that also stores the instructions SkeletonRenderer generated for it.</summary>
-		public class SmartMesh : IDisposable {
+		public class SmartMesh : IDisposable
+		{
 			public Mesh mesh = SpineMesh.NewSkeletonMesh();
 			public SkeletonRendererInstruction instructionUsed = new SkeletonRendererInstruction();
 
-			public void Clear () {
+			public void Clear()
+			{
 				mesh.Clear();
 				instructionUsed.Clear();
 			}
 
-			public void Dispose () {
-				if (mesh != null) {
-					#if UNITY_EDITOR
+			public void Dispose()
+			{
+				if (mesh != null)
+				{
+#if UNITY_EDITOR
 					if (Application.isEditor && !Application.isPlaying)
 						UnityEngine.Object.DestroyImmediate(mesh);
 					else
 						UnityEngine.Object.Destroy(mesh);
-					#else
+#else
 					UnityEngine.Object.Destroy(mesh);
-					#endif
+#endif
 				}
 				mesh = null;
 			}

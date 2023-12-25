@@ -93,7 +93,7 @@ namespace Framework.Event
             try
             {
                 var actions = _actions[typeof(T)].OfType<Action<T>>().ToList();
-                if (actions.Any() == false) 
+                if (actions.Any() == false)
                     return;
 
                 foreach (var action in actions)
@@ -116,9 +116,9 @@ namespace Framework.Event
             }
             catch (Exception)
             {
-//#if UNITY_EDITOR
-//                Debug.Log(ex.ToString());
-//#endif
+                //#if UNITY_EDITOR
+                //                Debug.Log(ex.ToString());
+                //#endif
             }
         }
     }

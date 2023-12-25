@@ -39,10 +39,12 @@ using System.Collections.Generic;
 using Spine.Unity;
 using Spine.Unity.Editor;
 
-namespace Spine.Unity.Examples {
+namespace Spine.Unity.Examples
+{
 
 	[CustomEditor(typeof(SkeletonRenderSeparator))]
-	public class SkeletonRenderSeparatorInspector : UnityEditor.Editor {
+	public class SkeletonRenderSeparatorInspector : UnityEditor.Editor
+	{
 		SkeletonRenderSeparator component;
 
 		// Properties
@@ -56,7 +58,8 @@ namespace Spine.Unity.Examples {
 		bool slotsReapplyRequired = false;
 		bool partsRendererInitRequired = false;
 
-		void OnEnable () {
+		void OnEnable()
+		{
 			if (component == null)
 				component = target as SkeletonRenderSeparator;
 
@@ -66,14 +69,16 @@ namespace Spine.Unity.Examples {
 
 			var partsRenderers = component.partsRenderers;
 			partsRenderers_ = serializedObject.FindProperty("partsRenderers");
-			partsRenderers_.isExpanded = partsRenderersExpanded ||	// last state
-				partsRenderers.Contains(null) ||	// null items found
-				partsRenderers.Count < 1 ||			// no parts renderers
+			partsRenderers_.isExpanded = partsRenderersExpanded ||  // last state
+				partsRenderers.Contains(null) ||    // null items found
+				partsRenderers.Count < 1 ||         // no parts renderers
 				(skeletonRenderer_.objectReferenceValue != null && SkeletonRendererSeparatorCount + 1 > partsRenderers.Count); // not enough parts renderers
 		}
 
-		int SkeletonRendererSeparatorCount {
-			get {
+		int SkeletonRendererSeparatorCount
+		{
+			get
+			{
 				if (Application.isPlaying)
 					return component.SkeletonRenderer.separatorSlots.Count;
 				else
@@ -81,22 +86,25 @@ namespace Spine.Unity.Examples {
 			}
 		}
 
-		public override void OnInspectorGUI () {
+		public override void OnInspectorGUI()
+		{
 
 			// Restore mesh part for undo logic after undo of "Add Parts Renderer".
 			// Triggers regeneration and assignment of the mesh filter's mesh.
 
 			bool isMeshFilterAlwaysNull = false;
-			#if UNITY_EDITOR && NEW_PREFAB_SYSTEM
+#if UNITY_EDITOR && NEW_PREFAB_SYSTEM
 			// Don't store mesh or material at the prefab, otherwise it will permanently reload
 			var prefabType = UnityEditor.PrefabUtility.GetPrefabAssetType(component);
 			if (UnityEditor.PrefabUtility.IsPartOfPrefabAsset(component) &&
-				(prefabType == UnityEditor.PrefabAssetType.Regular || prefabType == UnityEditor.PrefabAssetType.Variant)) {
+				(prefabType == UnityEditor.PrefabAssetType.Regular || prefabType == UnityEditor.PrefabAssetType.Variant))
+			{
 				isMeshFilterAlwaysNull = true;
 			}
-			#endif
+#endif
 
-			if (!isMeshFilterAlwaysNull && component.GetComponent<MeshFilter>() && component.GetComponent<MeshFilter>().sharedMesh == null) {
+			if (!isMeshFilterAlwaysNull && component.GetComponent<MeshFilter>() && component.GetComponent<MeshFilter>().sharedMesh == null)
+			{
 				component.OnDisable();
 				component.OnEnable();
 			}
@@ -104,7 +112,8 @@ namespace Spine.Unity.Examples {
 			var componentRenderers = component.partsRenderers;
 			int totalParts;
 
-			using (new SpineInspectorUtility.LabelWidthScope()) {
+			using (new SpineInspectorUtility.LabelWidthScope())
+			{
 				bool componentEnabled = component.enabled;
 				bool checkBox = EditorGUILayout.Toggle("Enable Separator", componentEnabled);
 				if (checkBox != componentEnabled)
@@ -117,7 +126,8 @@ namespace Spine.Unity.Examples {
 			}
 
 			// SkeletonRenderer Box
-			using (new SpineInspectorUtility.BoxScope(false)) {
+			using (new SpineInspectorUtility.BoxScope(false))
+			{
 				// Fancy SkeletonRenderer foldout reference field
 				{
 					EditorGUI.indentLevel++;
@@ -126,7 +136,8 @@ namespace Spine.Unity.Examples {
 					EditorGUI.PropertyField(foldoutSkeletonRendererRect, skeletonRenderer_);
 					if (EditorGUI.EndChangeCheck())
 						serializedObject.ApplyModifiedProperties();
-					if (component.SkeletonRenderer != null) {
+					if (component.SkeletonRenderer != null)
+					{
 						skeletonRendererExpanded = EditorGUI.Foldout(foldoutSkeletonRendererRect, skeletonRendererExpanded, "");
 					}
 					EditorGUI.indentLevel--;
@@ -134,20 +145,25 @@ namespace Spine.Unity.Examples {
 
 				int separatorCount = 0;
 				EditorGUI.BeginChangeCheck();
-				if (component.SkeletonRenderer != null) {
+				if (component.SkeletonRenderer != null)
+				{
 					// Separators from SkeletonRenderer
 					{
 						bool skeletonRendererMismatch = skeletonRendererSerializedObject != null && skeletonRendererSerializedObject.targetObject != component.SkeletonRenderer;
-						if (separatorNamesProp == null || skeletonRendererMismatch) {
-							if (component.SkeletonRenderer != null) {
+						if (separatorNamesProp == null || skeletonRendererMismatch)
+						{
+							if (component.SkeletonRenderer != null)
+							{
 								skeletonRendererSerializedObject = new SerializedObject(component.SkeletonRenderer);
 								separatorNamesProp = skeletonRendererSerializedObject.FindProperty("separatorSlotNames");
 								separatorNamesProp.isExpanded = true;
 							}
 						}
 
-						if (separatorNamesProp != null) {
-							if (skeletonRendererExpanded) {
+						if (separatorNamesProp != null)
+						{
+							if (skeletonRendererExpanded)
+							{
 								EditorGUI.indentLevel++;
 								SkeletonRendererInspector.SeparatorsField(separatorNamesProp);
 								EditorGUI.indentLevel--;
@@ -156,12 +172,14 @@ namespace Spine.Unity.Examples {
 						}
 					}
 
-					if (SkeletonRendererSeparatorCount == 0) {
+					if (SkeletonRendererSeparatorCount == 0)
+					{
 						EditorGUILayout.HelpBox("Separators are empty. Change the size to 1 and choose a slot if you want the render to be separated.", MessageType.Info);
 					}
 				}
 
-				if (EditorGUI.EndChangeCheck()) {
+				if (EditorGUI.EndChangeCheck())
+				{
 					skeletonRendererSerializedObject.ApplyModifiedProperties();
 
 					if (!Application.isPlaying)
@@ -171,11 +189,12 @@ namespace Spine.Unity.Examples {
 
 				totalParts = separatorCount + 1;
 				var counterStyle = skeletonRendererExpanded ? EditorStyles.label : EditorStyles.miniLabel;
-				EditorGUILayout.LabelField(string.Format("{0}: separates into {1}.", SpineInspectorUtility.Pluralize(separatorCount, "separator", "separators"), SpineInspectorUtility.Pluralize(totalParts, "part", "parts") ), counterStyle);
+				EditorGUILayout.LabelField(string.Format("{0}: separates into {1}.", SpineInspectorUtility.Pluralize(separatorCount, "separator", "separators"), SpineInspectorUtility.Pluralize(totalParts, "part", "parts")), counterStyle);
 			}
 
 			// Parts renderers
-			using (new SpineInspectorUtility.BoxScope(false)) {
+			using (new SpineInspectorUtility.BoxScope(false))
+			{
 				EditorGUI.indentLevel++;
 				EditorGUILayout.PropertyField(this.partsRenderers_, true);
 				EditorGUI.indentLevel--;
@@ -186,18 +205,22 @@ namespace Spine.Unity.Examples {
 					EditorGUILayout.HelpBox("Some items in the parts renderers list are null and may cause problems.\n\nYou can right-click on that element and choose 'Delete Array Element' to remove it.", MessageType.Warning);
 
 				// (Button) Match Separators count
-				if (separatorNamesProp != null) {
+				if (separatorNamesProp != null)
+				{
 					int currentRenderers = 0;
-					foreach (var r in componentRenderers) {
+					foreach (var r in componentRenderers)
+					{
 						if (r != null)
 							currentRenderers++;
 					}
 					int extraRenderersNeeded = totalParts - currentRenderers;
 
-					if (component.enabled && component.SkeletonRenderer != null && extraRenderersNeeded > 0) {
+					if (component.enabled && component.SkeletonRenderer != null && extraRenderersNeeded > 0)
+					{
 						EditorGUILayout.HelpBox(string.Format("Insufficient parts renderers. Some parts will not be rendered."), MessageType.Warning);
 						string addMissingLabel = string.Format("Add the missing renderer{1} ({0}) ", extraRenderersNeeded, SpineInspectorUtility.PluralThenS(extraRenderersNeeded));
-						if (GUILayout.Button(addMissingLabel, GUILayout.Height(30f))) {
+						if (GUILayout.Button(addMissingLabel, GUILayout.Height(30f)))
+						{
 							AddPartsRenderer(extraRenderersNeeded);
 							DetectOrphanedPartsRenderers(component);
 							partsRendererInitRequired = true;
@@ -206,15 +229,21 @@ namespace Spine.Unity.Examples {
 				}
 
 				if (partsRenderers_.isExpanded != partsRenderersExpanded) partsRenderersExpanded = partsRenderers_.isExpanded;
-				if (partsRenderers_.isExpanded) {
-					using (new EditorGUILayout.HorizontalScope()) {
+				if (partsRenderers_.isExpanded)
+				{
+					using (new EditorGUILayout.HorizontalScope())
+					{
 						// (Button) Destroy Renderers button
-						if (componentRenderers.Count > 0) {
-							if (GUILayout.Button("Clear Parts Renderers")) {
+						if (componentRenderers.Count > 0)
+						{
+							if (GUILayout.Button("Clear Parts Renderers"))
+							{
 								// Do you really want to destroy all?
 								Undo.RegisterCompleteObjectUndo(component, "Clear Parts Renderers");
-								if (EditorUtility.DisplayDialog("Destroy Renderers", "Do you really want to destroy all the Parts Renderer GameObjects in the list?", "Destroy", "Cancel")) {
-									foreach (var r in componentRenderers) {
+								if (EditorUtility.DisplayDialog("Destroy Renderers", "Do you really want to destroy all the Parts Renderer GameObjects in the list?", "Destroy", "Cancel"))
+								{
+									foreach (var r in componentRenderers)
+									{
 										if (r != null)
 											Undo.DestroyObjectImmediate(r.gameObject);
 									}
@@ -226,7 +255,8 @@ namespace Spine.Unity.Examples {
 						}
 
 						// (Button) Add Part Renderer button
-						if (GUILayout.Button("Add Parts Renderer")) {
+						if (GUILayout.Button("Add Parts Renderer"))
+						{
 							AddPartsRenderer(1);
 							partsRendererInitRequired = true;
 						}
@@ -236,13 +266,15 @@ namespace Spine.Unity.Examples {
 
 			serializedObject.ApplyModifiedProperties();
 
-			if (partsRendererInitRequired) {
+			if (partsRendererInitRequired)
+			{
 				Undo.RegisterCompleteObjectUndo(component.GetComponent<MeshRenderer>(), "Add Parts Renderers");
 				component.OnEnable();
 				partsRendererInitRequired = false;
 			}
 
-			if (slotsReapplyRequired && UnityEngine.Event.current.type == EventType.Repaint) {
+			if (slotsReapplyRequired && UnityEngine.Event.current.type == EventType.Repaint)
+			{
 				component.SkeletonRenderer.ReapplySeparatorSlotNames();
 				component.SkeletonRenderer.LateUpdate();
 				SceneView.RepaintAll();
@@ -250,16 +282,19 @@ namespace Spine.Unity.Examples {
 			}
 		}
 
-		public void AddPartsRenderer (int count) {
+		public void AddPartsRenderer(int count)
+		{
 			var componentRenderers = component.partsRenderers;
 			bool emptyFound = componentRenderers.Contains(null);
-			if (emptyFound) {
+			if (emptyFound)
+			{
 				bool userClearEntries = EditorUtility.DisplayDialog("Empty entries found", "Null entries found. Do you want to remove null entries before adding the new renderer? ", "Clear Empty Entries", "Don't Clear");
 				if (userClearEntries) componentRenderers.RemoveAll(x => x == null);
 			}
 
 			Undo.RegisterCompleteObjectUndo(component, "Add Parts Renderers");
-			for (int i = 0; i < count; i++) {
+			for (int i = 0; i < count; i++)
+			{
 				int index = componentRenderers.Count;
 				var smr = SkeletonPartsRenderer.NewPartsRendererGameObject(component.transform, index.ToString());
 				Undo.RegisterCreatedObjectUndo(smr.gameObject, "New Parts Renderer GameObject.");
@@ -282,18 +317,23 @@ namespace Spine.Unity.Examples {
 		}
 
 		/// <summary>Detects orphaned parts renderers and offers to delete them.</summary>
-		public void DetectOrphanedPartsRenderers (SkeletonRenderSeparator component) {
+		public void DetectOrphanedPartsRenderers(SkeletonRenderSeparator component)
+		{
 			var children = component.GetComponentsInChildren<SkeletonPartsRenderer>();
 
 			var orphans = new System.Collections.Generic.List<SkeletonPartsRenderer>();
-			foreach (var r in children) {
+			foreach (var r in children)
+			{
 				if (!component.partsRenderers.Contains(r))
 					orphans.Add(r);
 			}
 
-			if (orphans.Count > 0) {
-				if (EditorUtility.DisplayDialog("Destroy Submesh Renderers", "Unassigned renderers were found. Do you want to delete them? (These may belong to another Render Separator in the same hierarchy. If you don't have another Render Separator component in the children of this GameObject, it's likely safe to delete. Warning: This operation cannot be undone.)", "Delete", "Cancel")) {
-					foreach (var o in orphans) {
+			if (orphans.Count > 0)
+			{
+				if (EditorUtility.DisplayDialog("Destroy Submesh Renderers", "Unassigned renderers were found. Do you want to delete them? (These may belong to another Render Separator in the same hierarchy. If you don't have another Render Separator component in the children of this GameObject, it's likely safe to delete. Warning: This operation cannot be undone.)", "Delete", "Cancel"))
+				{
+					foreach (var o in orphans)
+					{
 						Undo.DestroyObjectImmediate(o.gameObject);
 					}
 				}
@@ -301,8 +341,9 @@ namespace Spine.Unity.Examples {
 		}
 
 		#region SkeletonRenderer Context Menu Item
-		[MenuItem ("CONTEXT/SkeletonRenderer/Add Skeleton Render Separator")]
-		static void AddRenderSeparatorComponent (MenuCommand cmd) {
+		[MenuItem("CONTEXT/SkeletonRenderer/Add Skeleton Render Separator")]
+		static void AddRenderSeparatorComponent(MenuCommand cmd)
+		{
 			var skeletonRenderer = cmd.context as SkeletonRenderer;
 			var newComponent = skeletonRenderer.gameObject.AddComponent<SkeletonRenderSeparator>();
 
@@ -310,8 +351,9 @@ namespace Spine.Unity.Examples {
 		}
 
 		// Validate
-		[MenuItem ("CONTEXT/SkeletonRenderer/Add Skeleton Render Separator", true)]
-		static bool ValidateAddRenderSeparatorComponent (MenuCommand cmd) {
+		[MenuItem("CONTEXT/SkeletonRenderer/Add Skeleton Render Separator", true)]
+		static bool ValidateAddRenderSeparatorComponent(MenuCommand cmd)
+		{
 			var skeletonRenderer = cmd.context as SkeletonRenderer;
 			var separator = skeletonRenderer.GetComponent<SkeletonRenderSeparator>();
 			bool separatorNotOnObject = separator == null;

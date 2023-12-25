@@ -43,17 +43,20 @@ using UnityEditor;
 using System.Reflection;
 #endif
 
-namespace Spine.Unity {
+namespace Spine.Unity
+{
 	/// <summary>Loads and stores a Spine atlas and list of materials.</summary>
 	[CreateAssetMenu(fileName = "New Spine SpriteAtlas Asset", menuName = "Spine/Spine SpriteAtlas Asset")]
-	public class SpineSpriteAtlasAsset : AtlasAssetBase {
+	public class SpineSpriteAtlasAsset : AtlasAssetBase
+	{
 		public SpriteAtlas spriteAtlasFile;
 		public Material[] materials;
 		protected Atlas atlas;
 		public bool updateRegionsInPlayMode;
 
 		[System.Serializable]
-		protected class SavedRegionInfo {
+		protected class SavedRegionInfo
+		{
 			public float x, y, width, height;
 			public SpritePackingRotation packingRotation;
 		}
@@ -65,17 +68,18 @@ namespace Spine.Unity {
 		public override int MaterialCount { get { return materials == null ? 0 : materials.Length; } }
 		public override Material PrimaryMaterial { get { return materials[0]; } }
 
-	#if UNITY_EDITOR
+#if UNITY_EDITOR
 		static MethodInfo GetPackedSpritesMethod, GetPreviewTexturesMethod;
-		#if !EXPOSES_SPRITE_ATLAS_UTILITIES
+#if !EXPOSES_SPRITE_ATLAS_UTILITIES
 		static MethodInfo PackAtlasesMethod;
-		#endif
-	#endif
+#endif
+#endif
 
 		#region Runtime Instantiation
 		/// <summary>
 		/// Creates a runtime AtlasAsset</summary>
-		public static SpineSpriteAtlasAsset CreateRuntimeInstance (SpriteAtlas spriteAtlasFile, Material[] materials, bool initialize) {
+		public static SpineSpriteAtlasAsset CreateRuntimeInstance(SpriteAtlas spriteAtlasFile, Material[] materials, bool initialize)
+		{
 			SpineSpriteAtlasAsset atlasAsset = ScriptableObject.CreateInstance<SpineSpriteAtlasAsset>();
 			atlasAsset.Reset();
 			atlasAsset.spriteAtlasFile = spriteAtlasFile;
@@ -88,23 +92,28 @@ namespace Spine.Unity {
 		}
 		#endregion
 
-		void Reset () {
+		void Reset()
+		{
 			Clear();
 		}
 
-		public override void Clear () {
+		public override void Clear()
+		{
 			atlas = null;
 		}
 
 		/// <returns>The atlas or null if it could not be loaded.</returns>
-		public override Atlas GetAtlas () {
-			if (spriteAtlasFile == null) {
+		public override Atlas GetAtlas()
+		{
+			if (spriteAtlasFile == null)
+			{
 				Debug.LogError("SpriteAtlas file not set for SpineSpriteAtlasAsset: " + name, this);
 				Clear();
 				return null;
 			}
 
-			if (materials == null || materials.Length == 0) {
+			if (materials == null || materials.Length == 0)
+			{
 				Debug.LogError("Materials not set for SpineSpriteAtlasAsset: " + name, this);
 				Clear();
 				return null;
@@ -112,22 +121,27 @@ namespace Spine.Unity {
 
 			if (atlas != null) return atlas;
 
-			try {
+			try
+			{
 				atlas = LoadAtlas(spriteAtlasFile);
 				return atlas;
-			} catch (Exception ex) {
+			}
+			catch (Exception ex)
+			{
 				Debug.LogError("Error analyzing SpriteAtlas for SpineSpriteAtlasAsset: " + name + "\n" + ex.Message + "\n" + ex.StackTrace, this);
 				return null;
 			}
 		}
 
-		protected void AssignRegionsFromSavedRegions (Sprite[] sprites, Atlas usedAtlas) {
+		protected void AssignRegionsFromSavedRegions(Sprite[] sprites, Atlas usedAtlas)
+		{
 
 			if (savedRegions == null || savedRegions.Length != sprites.Length)
 				return;
 
 			int i = 0;
-			foreach (var region in usedAtlas) {
+			foreach (var region in usedAtlas)
+			{
 				var savedRegion = savedRegions[i];
 				var page = region.page;
 
@@ -141,11 +155,13 @@ namespace Spine.Unity {
 
 				region.u = x / (float)page.width;
 				region.v = y / (float)page.height;
-				if (region.rotate) {
+				if (region.rotate)
+				{
 					region.u2 = (x + height) / (float)page.width;
 					region.v2 = (y + width) / (float)page.height;
 				}
-				else {
+				else
+				{
 					region.u2 = (x + width) / (float)page.width;
 					region.v2 = (y + height) / (float)page.height;
 				}
@@ -171,7 +187,8 @@ namespace Spine.Unity {
 			}
 		}
 
-		private Atlas LoadAtlas (UnityEngine.U2D.SpriteAtlas spriteAtlas) {
+		private Atlas LoadAtlas(UnityEngine.U2D.SpriteAtlas spriteAtlas)
+		{
 
 			List<AtlasPage> pages = new List<AtlasPage>();
 			List<AtlasRegion> regions = new List<AtlasRegion>();
@@ -182,17 +199,17 @@ namespace Spine.Unity {
 				return new Atlas(pages, regions);
 
 			Texture2D texture = null;
-			#if UNITY_EDITOR
+#if UNITY_EDITOR
 			if (!Application.isPlaying)
 				texture = AccessPackedTextureEditor(spriteAtlas);
 			else
-			#endif
+#endif
 				texture = AccessPackedTexture(sprites);
 
 			Material material = materials[0];
-		#if !UNITY_EDITOR
+#if !UNITY_EDITOR
 			material.mainTexture = texture;
-		#endif
+#endif
 
 			Spine.AtlasPage page = new AtlasPage();
 			page.name = spriteAtlas.name;
@@ -210,7 +227,8 @@ namespace Spine.Unity {
 			sprites = AccessPackedSprites(spriteAtlas);
 
 			int i = 0;
-			for ( ; i < sprites.Length; ++i) {
+			for (; i < sprites.Length; ++i)
+			{
 				var sprite = sprites[i];
 				AtlasRegion region = new AtlasRegion();
 				region.name = sprite.name.Replace("(Clone)", "");
@@ -236,17 +254,22 @@ namespace Spine.Unity {
 		}
 
 #if UNITY_EDITOR
-		public static void UpdateByStartingEditorPlayMode () {
+		public static void UpdateByStartingEditorPlayMode()
+		{
 			EditorApplication.isPlaying = true;
 		}
 
-		public static bool AnySpriteAtlasNeedsRegionsLoaded () {
+		public static bool AnySpriteAtlasNeedsRegionsLoaded()
+		{
 			string[] guids = UnityEditor.AssetDatabase.FindAssets("t:SpineSpriteAtlasAsset");
-			foreach (var guid in guids) {
+			foreach (var guid in guids)
+			{
 				string path = UnityEditor.AssetDatabase.GUIDToAssetPath(guid);
-				if (!string.IsNullOrEmpty(path)) {
+				if (!string.IsNullOrEmpty(path))
+				{
 					var atlasAsset = UnityEditor.AssetDatabase.LoadAssetAtPath<SpineSpriteAtlasAsset>(path);
-					if (atlasAsset) {
+					if (atlasAsset)
+					{
 						if (atlasAsset.RegionsNeedLoading)
 							return true;
 					}
@@ -255,7 +278,8 @@ namespace Spine.Unity {
 			return false;
 		}
 
-		public static void UpdateWhenEditorPlayModeStarted () {
+		public static void UpdateWhenEditorPlayModeStarted()
+		{
 			if (!EditorApplication.isPlaying)
 				return;
 
@@ -265,11 +289,14 @@ namespace Spine.Unity {
 				return;
 
 			Debug.Log("Updating SpineSpriteAtlasAssets");
-			foreach (var guid in guids) {
+			foreach (var guid in guids)
+			{
 				string path = UnityEditor.AssetDatabase.GUIDToAssetPath(guid);
-				if (!string.IsNullOrEmpty(path)) {
+				if (!string.IsNullOrEmpty(path))
+				{
 					var atlasAsset = UnityEditor.AssetDatabase.LoadAssetAtPath<SpineSpriteAtlasAsset>(path);
-					if (atlasAsset) {
+					if (atlasAsset)
+					{
 						atlasAsset.atlas = atlasAsset.LoadAtlas(atlasAsset.spriteAtlasFile);
 						atlasAsset.LoadRegionsInEditorPlayMode();
 						Debug.Log(string.Format("Updated regions of '{0}'", atlasAsset.name), atlasAsset);
@@ -280,31 +307,38 @@ namespace Spine.Unity {
 			EditorApplication.isPlaying = false;
 		}
 
-		public bool RegionsNeedLoading {
+		public bool RegionsNeedLoading
+		{
 			get { return savedRegions == null || savedRegions.Length == 0 || updateRegionsInPlayMode; }
 		}
 
-		public void LoadRegionsInEditorPlayMode () {
+		public void LoadRegionsInEditorPlayMode()
+		{
 
 			Sprite[] sprites = null;
 			System.Type T = Type.GetType("UnityEditor.U2D.SpriteAtlasExtensions,UnityEditor");
 			var method = T.GetMethod("GetPackedSprites", BindingFlags.NonPublic | BindingFlags.Static);
-			if (method != null) {
+			if (method != null)
+			{
 				object retval = method.Invoke(null, new object[] { spriteAtlasFile });
 				var spritesArray = retval as Sprite[];
-				if (spritesArray != null && spritesArray.Length > 0) {
+				if (spritesArray != null && spritesArray.Length > 0)
+				{
 					sprites = spritesArray;
 				}
 			}
-			if (sprites == null) {
+			if (sprites == null)
+			{
 				sprites = new UnityEngine.Sprite[spriteAtlasFile.spriteCount];
 				spriteAtlasFile.GetSprites(sprites);
 			}
-			if (sprites.Length == 0) {
+			if (sprites.Length == 0)
+			{
 				Debug.LogWarning(string.Format("SpriteAtlas '{0}' contains no sprites. Please make sure all assigned images are set to import type 'Sprite'.", spriteAtlasFile.name), spriteAtlasFile);
 				return;
 			}
-			else if (sprites[0].packingMode == SpritePackingMode.Tight) {
+			else if (sprites[0].packingMode == SpritePackingMode.Tight)
+			{
 				Debug.LogError(string.Format("SpriteAtlas '{0}': Tight packing is not supported. Please disable 'Tight Packing' in the SpriteAtlas Inspector.", spriteAtlasFile.name), spriteAtlasFile);
 				return;
 			}
@@ -313,7 +347,8 @@ namespace Spine.Unity {
 				savedRegions = new SavedRegionInfo[sprites.Length];
 
 			int i = 0;
-			foreach (var region in atlas) {
+			foreach (var region in atlas)
+			{
 				var sprite = sprites[i];
 				var rect = sprite.textureRect;
 				float x = rect.min.x;
@@ -337,10 +372,11 @@ namespace Spine.Unity {
 			AssetDatabase.SaveAssets();
 		}
 
-		public static Texture2D AccessPackedTextureEditor (SpriteAtlas spriteAtlas) {
-		#if EXPOSES_SPRITE_ATLAS_UTILITIES
+		public static Texture2D AccessPackedTextureEditor(SpriteAtlas spriteAtlas)
+		{
+#if EXPOSES_SPRITE_ATLAS_UTILITIES
 			UnityEditor.U2D.SpriteAtlasUtility.PackAtlases(new SpriteAtlas[] { spriteAtlas }, EditorUserBuildSettings.activeBuildTarget);
-		#else
+#else
 			/*if (PackAtlasesMethod == null) {
 				System.Type T = Type.GetType("UnityEditor.U2D.SpriteAtlasUtility,UnityEditor");
 				PackAtlasesMethod = T.GetMethod("PackAtlases", BindingFlags.NonPublic | BindingFlags.Static);
@@ -348,12 +384,14 @@ namespace Spine.Unity {
 			if (PackAtlasesMethod != null) {
 				PackAtlasesMethod.Invoke(null, new object[] { new SpriteAtlas[] { spriteAtlas }, EditorUserBuildSettings.activeBuildTarget });
 			}*/
-		#endif
-			if (GetPreviewTexturesMethod == null) {
+#endif
+			if (GetPreviewTexturesMethod == null)
+			{
 				System.Type T = Type.GetType("UnityEditor.U2D.SpriteAtlasExtensions,UnityEditor");
 				GetPreviewTexturesMethod = T.GetMethod("GetPreviewTextures", BindingFlags.NonPublic | BindingFlags.Static);
 			}
-			if (GetPreviewTexturesMethod != null) {
+			if (GetPreviewTexturesMethod != null)
+			{
 				object retval = GetPreviewTexturesMethod.Invoke(null, new object[] { spriteAtlas });
 				var textures = retval as Texture2D[];
 				if (textures.Length > 0)
@@ -362,30 +400,37 @@ namespace Spine.Unity {
 			return null;
 		}
 #endif
-		public static Texture2D AccessPackedTexture (Sprite[] sprites) {
+		public static Texture2D AccessPackedTexture(Sprite[] sprites)
+		{
 			return sprites[0].texture;
 		}
 
 
-		public static Sprite[] AccessPackedSprites (UnityEngine.U2D.SpriteAtlas spriteAtlas) {
+		public static Sprite[] AccessPackedSprites(UnityEngine.U2D.SpriteAtlas spriteAtlas)
+		{
 			Sprite[] sprites = null;
 #if UNITY_EDITOR
-			if (!Application.isPlaying) {
+			if (!Application.isPlaying)
+			{
 
-				if (GetPackedSpritesMethod == null) {
+				if (GetPackedSpritesMethod == null)
+				{
 					System.Type T = Type.GetType("UnityEditor.U2D.SpriteAtlasExtensions,UnityEditor");
 					GetPackedSpritesMethod = T.GetMethod("GetPackedSprites", BindingFlags.NonPublic | BindingFlags.Static);
 				}
-				if (GetPackedSpritesMethod != null) {
+				if (GetPackedSpritesMethod != null)
+				{
 					object retval = GetPackedSpritesMethod.Invoke(null, new object[] { spriteAtlas });
 					var spritesArray = retval as Sprite[];
-					if (spritesArray != null && spritesArray.Length > 0) {
+					if (spritesArray != null && spritesArray.Length > 0)
+					{
 						sprites = spritesArray;
 					}
 				}
 			}
 #endif
-			if (sprites == null) {
+			if (sprites == null)
+			{
 				sprites = new UnityEngine.Sprite[spriteAtlas.spriteCount];
 				spriteAtlas.GetSprites(sprites);
 				if (sprites.Length == 0)

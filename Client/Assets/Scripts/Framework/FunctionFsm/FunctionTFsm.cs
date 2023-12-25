@@ -31,11 +31,11 @@ namespace Framework.FunctionFsm
             _states.Remove(state);
         }
 
-        public FunctionTState<T> FindState(T key) 
+        public FunctionTState<T> FindState(T key)
         {
             return _states.FirstOrDefault(state => state.Key.Equals(key));
         }
-    
+
         public bool ChangeState(T key)
         {
             _currentState?.OnExit?.Invoke();
@@ -47,7 +47,7 @@ namespace Framework.FunctionFsm
 
             _currentState = state;
             _currentState.OnEnter?.Invoke();
-        
+
             return true;
         }
 

@@ -40,9 +40,12 @@ using System.Linq;
 using System.Reflection;
 using System.Globalization;
 
-namespace Spine.Unity.Editor {
-	public partial class SpineEditorUtilities {
-		public static class Icons {
+namespace Spine.Unity.Editor
+{
+	public partial class SpineEditorUtilities
+	{
+		public static class Icons
+		{
 			public static Texture2D skeleton;
 			public static Texture2D nullBone;
 			public static Texture2D bone;
@@ -78,11 +81,13 @@ namespace Spine.Unity.Editor {
 			public static Texture2D info;
 			public static Texture2D unity;
 
-			static Texture2D LoadIcon (string filename) {
+			static Texture2D LoadIcon(string filename)
+			{
 				return (Texture2D)AssetDatabase.LoadMainAssetAtPath(SpineEditorUtilities.editorGUIPath + "/" + filename);
 			}
 
-			public static void Initialize () {
+			public static void Initialize()
+			{
 				skeleton = LoadIcon("icon-skeleton.png");
 				nullBone = LoadIcon("icon-null.png");
 				bone = LoadIcon("icon-bone.png");
@@ -125,7 +130,8 @@ namespace Spine.Unity.Editor {
 				unity = EditorGUIUtility.FindTexture("SceneAsset Icon");
 			}
 
-			public static Texture2D GetAttachmentIcon (Attachment attachment) {
+			public static Texture2D GetAttachmentIcon(Attachment attachment)
+			{
 				// Analysis disable once CanBeReplacedWithTryCastAndCheckForNull
 				if (attachment is RegionAttachment)
 					return Icons.image;

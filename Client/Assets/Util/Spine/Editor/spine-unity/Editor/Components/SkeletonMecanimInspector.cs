@@ -32,10 +32,12 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Spine.Unity.Editor {
+namespace Spine.Unity.Editor
+{
 	[CustomEditor(typeof(SkeletonMecanim))]
 	[CanEditMultipleObjects]
-	public class SkeletonMecanimInspector : SkeletonRendererInspector {
+	public class SkeletonMecanimInspector : SkeletonRendererInspector
+	{
 		public static bool mecanimSettingsFoldout;
 
 		protected SerializedProperty autoReset;
@@ -43,7 +45,8 @@ namespace Spine.Unity.Editor {
 		protected SerializedProperty layerMixModes;
 		protected SerializedProperty layerBlendModes;
 
-		protected override void OnEnable () {
+		protected override void OnEnable()
+		{
 			base.OnEnable();
 			SerializedProperty mecanimTranslator = serializedObject.FindProperty("translator");
 			autoReset = mecanimTranslator.FindPropertyRelative("autoReset");
@@ -52,15 +55,18 @@ namespace Spine.Unity.Editor {
 			layerBlendModes = mecanimTranslator.FindPropertyRelative("layerBlendModes");
 		}
 
-		protected override void DrawInspectorGUI (bool multi) {
+		protected override void DrawInspectorGUI(bool multi)
+		{
 
 			AddRootMotionComponentIfEnabled();
 
 			base.DrawInspectorGUI(multi);
 
-			using (new SpineInspectorUtility.BoxScope()) {
+			using (new SpineInspectorUtility.BoxScope())
+			{
 				mecanimSettingsFoldout = EditorGUILayout.Foldout(mecanimSettingsFoldout, "Mecanim Translator");
-				if (mecanimSettingsFoldout) {
+				if (mecanimSettingsFoldout)
+				{
 					EditorGUILayout.PropertyField(autoReset, new GUIContent("Auto Reset",
 						"When set to true, the skeleton state is mixed out to setup-" +
 						"pose when an animation finishes, according to the " +
@@ -69,7 +75,8 @@ namespace Spine.Unity.Editor {
 					EditorGUILayout.PropertyField(useCustomMixMode, new GUIContent("Custom MixMode",
 						"When disabled, the recommended MixMode is used according to the layer blend mode. Enable to specify a custom MixMode for each Mecanim layer."));
 
-					if (useCustomMixMode.hasMultipleDifferentValues || useCustomMixMode.boolValue == true) {
+					if (useCustomMixMode.hasMultipleDifferentValues || useCustomMixMode.boolValue == true)
+					{
 						DrawLayerSettings();
 						EditorGUILayout.Space();
 					}
@@ -77,24 +84,30 @@ namespace Spine.Unity.Editor {
 			}
 		}
 
-		protected void AddRootMotionComponentIfEnabled () {
-			foreach (var t in targets) {
+		protected void AddRootMotionComponentIfEnabled()
+		{
+			foreach (var t in targets)
+			{
 				var component = t as Component;
 				var animator = component.GetComponent<Animator>();
-				if (animator != null && animator.applyRootMotion) {
-					if (component.GetComponent<SkeletonMecanimRootMotion>() == null) {
+				if (animator != null && animator.applyRootMotion)
+				{
+					if (component.GetComponent<SkeletonMecanimRootMotion>() == null)
+					{
 						component.gameObject.AddComponent<SkeletonMecanimRootMotion>();
 					}
 				}
 			}
 		}
 
-		protected void DrawLayerSettings () {
+		protected void DrawLayerSettings()
+		{
 			string[] layerNames = GetLayerNames();
 			float widthLayerColumn = 140;
 			float widthMixColumn = 84;
 
-			using (new GUILayout.HorizontalScope()) {
+			using (new GUILayout.HorizontalScope())
+			{
 				var rect = GUILayoutUtility.GetRect(EditorGUIUtility.currentViewWidth, EditorGUIUtility.singleLineHeight);
 				rect.width = widthLayerColumn;
 				EditorGUI.LabelField(rect, SpineInspectorUtility.TempContent("Mecanim Layer"), EditorStyles.boldLabel);
@@ -109,10 +122,13 @@ namespace Spine.Unity.Editor {
 				EditorGUI.indentLevel = savedIndent;
 			}
 
-			using (new SpineInspectorUtility.IndentScope()) {
+			using (new SpineInspectorUtility.IndentScope())
+			{
 				int layerCount = layerMixModes.arraySize;
-				for (int i = 0; i < layerCount; ++i) {
-					using (new GUILayout.HorizontalScope()) {
+				for (int i = 0; i < layerCount; ++i)
+				{
+					using (new GUILayout.HorizontalScope())
+					{
 						string layerName = i < layerNames.Length ? layerNames[i] : ("Layer " + i);
 
 						var rect = GUILayoutUtility.GetRect(EditorGUIUtility.currentViewWidth, EditorGUIUtility.singleLineHeight);
@@ -133,13 +149,16 @@ namespace Spine.Unity.Editor {
 			}
 		}
 
-		protected string[] GetLayerNames () {
+		protected string[] GetLayerNames()
+		{
 			int maxLayerCount = 0;
 			int maxIndex = 0;
-			for (int i = 0; i < targets.Length; ++i) {
+			for (int i = 0; i < targets.Length; ++i)
+			{
 				var skeletonMecanim = ((SkeletonMecanim)targets[i]);
 				int count = skeletonMecanim.Translator.MecanimLayerCount;
-				if (count > maxLayerCount) {
+				if (count > maxLayerCount)
+				{
 					maxLayerCount = count;
 					maxIndex = i;
 				}

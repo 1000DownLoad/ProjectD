@@ -34,12 +34,14 @@
 using UnityEngine;
 using UnityEditor;
 
-namespace Spine.Unity.Editor {
+namespace Spine.Unity.Editor
+{
 	using Icons = SpineEditorUtilities.Icons;
 
 	[CustomEditor(typeof(SkeletonGraphic))]
 	[CanEditMultipleObjects]
-	public class SkeletonGraphicInspector : UnityEditor.Editor {
+	public class SkeletonGraphicInspector : UnityEditor.Editor
+	{
 
 		const string SeparatorSlotNamesFieldName = "separatorSlotNames";
 		const string ReloadButtonString = "Reload";
@@ -61,24 +63,30 @@ namespace Spine.Unity.Editor {
 		protected bool slotsReapplyRequired = false;
 		protected bool forceReloadQueued = false;
 
-		protected bool TargetIsValid {
-			get {
-				if (serializedObject.isEditingMultipleObjects) {
-					foreach (var o in targets) {
+		protected bool TargetIsValid
+		{
+			get
+			{
+				if (serializedObject.isEditingMultipleObjects)
+				{
+					foreach (var o in targets)
+					{
 						var component = (SkeletonGraphic)o;
 						if (!component.IsValid)
 							return false;
 					}
 					return true;
 				}
-				else {
+				else
+				{
 					var component = (SkeletonGraphic)target;
 					return component.IsValid;
 				}
 			}
 		}
 
-		void OnEnable () {
+		void OnEnable()
+		{
 #if NEW_PREFAB_SYSTEM
 			isInspectingPrefab = false;
 #else
@@ -123,19 +131,26 @@ namespace Spine.Unity.Editor {
 			separatorSlotNames.isExpanded = true;
 		}
 
-		public override void OnInspectorGUI () {
+		public override void OnInspectorGUI()
+		{
 
-			if (UnityEngine.Event.current.type == EventType.Layout) {
-				if (forceReloadQueued) {
+			if (UnityEngine.Event.current.type == EventType.Layout)
+			{
+				if (forceReloadQueued)
+				{
 					forceReloadQueued = false;
-					foreach (var c in targets) {
+					foreach (var c in targets)
+					{
 						SpineEditorUtilities.ReloadSkeletonDataAssetAndComponent(c as SkeletonGraphic);
 					}
 				}
-				else {
-					foreach (var c in targets) {
+				else
+				{
+					foreach (var c in targets)
+					{
 						var component = c as SkeletonGraphic;
-						if (!component.IsValid) {
+						if (!component.IsValid)
+						{
 							SpineEditorUtilities.ReinitializeComponent(component);
 							if (!component.IsValid) continue;
 						}
@@ -146,7 +161,8 @@ namespace Spine.Unity.Editor {
 			bool wasChanged = false;
 			EditorGUI.BeginChangeCheck();
 
-			using (new EditorGUILayout.HorizontalScope(EditorStyles.helpBox)) {
+			using (new EditorGUILayout.HorizontalScope(EditorStyles.helpBox))
+			{
 				SpineInspectorUtility.PropertyFieldFitLabel(skeletonDataAsset, SkeletonDataAssetLabel);
 				if (GUILayout.Button(ReloadButtonString, ReloadButtonStyle, ReloadButtonWidth))
 					forceReloadQueued = true;
@@ -155,7 +171,8 @@ namespace Spine.Unity.Editor {
 			EditorGUILayout.PropertyField(material);
 			EditorGUILayout.PropertyField(color);
 
-			if (thisSkeletonGraphic.skeletonDataAsset == null) {
+			if (thisSkeletonGraphic.skeletonDataAsset == null)
+			{
 				EditorGUILayout.HelpBox("You need to assign a SkeletonDataAsset first.", MessageType.Info);
 				serializedObject.ApplyModifiedProperties();
 				serializedObject.Update();
@@ -164,7 +181,8 @@ namespace Spine.Unity.Editor {
 
 			string errorMessage = null;
 			if (SpineEditorUtilities.Preferences.componentMaterialWarning &&
-				MaterialChecks.IsMaterialSetupProblematic(thisSkeletonGraphic, ref errorMessage)) {
+				MaterialChecks.IsMaterialSetupProblematic(thisSkeletonGraphic, ref errorMessage))
+			{
 				EditorGUILayout.HelpBox(errorMessage, MessageType.Error, true);
 			}
 
@@ -177,21 +195,26 @@ namespace Spine.Unity.Editor {
 			if (isSeparationEnabledButNotMultipleRenderers || meshRendersIncorrectlyWithSingleRenderer)
 				meshGeneratorSettings.isExpanded = true;
 
-			using (new SpineInspectorUtility.BoxScope()) {
+			using (new SpineInspectorUtility.BoxScope())
+			{
 
 				EditorGUILayout.PropertyField(meshGeneratorSettings, SpineInspectorUtility.TempContent("Advanced..."), includeChildren: true);
 				SkeletonRendererInspector.advancedFoldout = meshGeneratorSettings.isExpanded;
 
-				if (meshGeneratorSettings.isExpanded) {
+				if (meshGeneratorSettings.isExpanded)
+				{
 					EditorGUILayout.Space();
-					using (new SpineInspectorUtility.IndentScope()) {
+					using (new SpineInspectorUtility.IndentScope())
+					{
 						EditorGUILayout.BeginHorizontal();
 						EditorGUILayout.PropertyField(allowMultipleCanvasRenderers, SpineInspectorUtility.TempContent("Multiple CanvasRenderers"));
 
 						if (GUILayout.Button(new GUIContent("Trim Renderers", "Remove currently unused CanvasRenderer GameObjects. These will be regenerated whenever needed."),
-							EditorStyles.miniButton, GUILayout.Width(100f))) {
+							EditorStyles.miniButton, GUILayout.Width(100f)))
+						{
 
-							foreach (var skeletonGraphic in targets) {
+							foreach (var skeletonGraphic in targets)
+							{
 								((SkeletonGraphic)skeletonGraphic).TrimRenderers();
 							}
 						}
@@ -200,14 +223,18 @@ namespace Spine.Unity.Editor {
 						EditorGUILayout.PropertyField(updateWhenInvisible);
 
 						// warning box
-						if (isSeparationEnabledButNotMultipleRenderers) {
-							using (new SpineInspectorUtility.BoxScope()) {
+						if (isSeparationEnabledButNotMultipleRenderers)
+						{
+							using (new SpineInspectorUtility.BoxScope())
+							{
 								meshGeneratorSettings.isExpanded = true;
 								EditorGUILayout.LabelField(SpineInspectorUtility.TempContent("'Multiple Canvas Renderers' must be enabled\nwhen 'Enable Separation' is enabled.", Icons.warning), GUILayout.Height(42), GUILayout.Width(340));
 							}
 						}
-						else if (meshRendersIncorrectlyWithSingleRenderer) {
-							using (new SpineInspectorUtility.BoxScope()) {
+						else if (meshRendersIncorrectlyWithSingleRenderer)
+						{
+							using (new SpineInspectorUtility.BoxScope())
+							{
 								meshGeneratorSettings.isExpanded = true;
 								EditorGUILayout.LabelField(SpineInspectorUtility.TempContent("This mesh uses multiple atlas pages. You\n" +
 																							"need to enable 'Multiple Canvas Renderers'\n" +
@@ -250,33 +277,41 @@ namespace Spine.Unity.Editor {
 
 			EditorGUILayout.BeginHorizontal(GUILayout.Height(EditorGUIUtility.singleLineHeight + 5));
 			EditorGUILayout.PrefixLabel("Match RectTransform with Mesh");
-			if (GUILayout.Button("Match", EditorStyles.miniButton, GUILayout.Width(65f))) {
-				foreach (var skeletonGraphic in targets) {
+			if (GUILayout.Button("Match", EditorStyles.miniButton, GUILayout.Width(65f)))
+			{
+				foreach (var skeletonGraphic in targets)
+				{
 					MatchRectTransformWithBounds((SkeletonGraphic)skeletonGraphic);
 				}
 			}
 			EditorGUILayout.EndHorizontal();
 
-			if (TargetIsValid && !isInspectingPrefab) {
+			if (TargetIsValid && !isInspectingPrefab)
+			{
 				EditorGUILayout.Space();
 				if (SpineInspectorUtility.CenteredButton(new GUIContent("Add Skeleton Utility", Icons.skeletonUtility), 21, true, 200f))
-				foreach (var t in targets) {
-					var component = t as Component;
-					if (component.GetComponent<SkeletonUtility>() == null) {
-						component.gameObject.AddComponent<SkeletonUtility>();
+					foreach (var t in targets)
+					{
+						var component = t as Component;
+						if (component.GetComponent<SkeletonUtility>() == null)
+						{
+							component.gameObject.AddComponent<SkeletonUtility>();
+						}
 					}
-				}
 			}
 
 			wasChanged |= EditorGUI.EndChangeCheck();
 
-			if (wasChanged) {
+			if (wasChanged)
+			{
 				serializedObject.ApplyModifiedProperties();
 				slotsReapplyRequired = true;
 			}
 
-			if (slotsReapplyRequired && UnityEngine.Event.current.type == EventType.Repaint) {
-				foreach (var target in targets) {
+			if (slotsReapplyRequired && UnityEngine.Event.current.type == EventType.Repaint)
+			{
+				foreach (var target in targets)
+				{
 					var skeletonGraphic = (SkeletonGraphic)target;
 					skeletonGraphic.ReapplySeparatorSlotNames();
 					skeletonGraphic.LateUpdate();
@@ -286,8 +321,10 @@ namespace Spine.Unity.Editor {
 			}
 		}
 
-		protected bool SkeletonHasMultipleSubmeshes () {
-			foreach (var target in targets) {
+		protected bool SkeletonHasMultipleSubmeshes()
+		{
+			foreach (var target in targets)
+			{
 				var skeletonGraphic = (SkeletonGraphic)target;
 				if (skeletonGraphic.HasMultipleSubmeshInstructions())
 					return true;
@@ -295,29 +332,36 @@ namespace Spine.Unity.Editor {
 			return false;
 		}
 
-		public static void SetSeparatorSlotNames (SkeletonRenderer skeletonRenderer, string[] newSlotNames) {
+		public static void SetSeparatorSlotNames(SkeletonRenderer skeletonRenderer, string[] newSlotNames)
+		{
 			var field = SpineInspectorUtility.GetNonPublicField(typeof(SkeletonRenderer), SeparatorSlotNamesFieldName);
 			field.SetValue(skeletonRenderer, newSlotNames);
 		}
 
-		public static string[] GetSeparatorSlotNames (SkeletonRenderer skeletonRenderer) {
+		public static string[] GetSeparatorSlotNames(SkeletonRenderer skeletonRenderer)
+		{
 			var field = SpineInspectorUtility.GetNonPublicField(typeof(SkeletonRenderer), SeparatorSlotNamesFieldName);
 			return field.GetValue(skeletonRenderer) as string[];
 		}
 
-		public static void SeparatorsField (SerializedProperty separatorSlotNames, SerializedProperty enableSeparatorSlots,
-			SerializedProperty updateSeparatorPartLocation) {
+		public static void SeparatorsField(SerializedProperty separatorSlotNames, SerializedProperty enableSeparatorSlots,
+			SerializedProperty updateSeparatorPartLocation)
+		{
 
 			bool multi = separatorSlotNames.serializedObject.isEditingMultipleObjects;
 			bool hasTerminalSlot = false;
-			if (!multi) {
+			if (!multi)
+			{
 				var sr = separatorSlotNames.serializedObject.targetObject as ISkeletonComponent;
 				var skeleton = sr.Skeleton;
 				int lastSlot = skeleton.Slots.Count - 1;
-				if (skeleton != null) {
-					for (int i = 0, n = separatorSlotNames.arraySize; i < n; i++) {
+				if (skeleton != null)
+				{
+					for (int i = 0, n = separatorSlotNames.arraySize; i < n; i++)
+					{
 						int index = skeleton.FindSlotIndex(separatorSlotNames.GetArrayElementAtIndex(i).stringValue);
-						if (index == 0 || index == lastSlot) {
+						if (index == 0 || index == lastSlot)
+						{
 							hasTerminalSlot = true;
 							break;
 						}
@@ -327,13 +371,16 @@ namespace Spine.Unity.Editor {
 
 			string terminalSlotWarning = hasTerminalSlot ? " (!)" : "";
 
-			using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox)) {
+			using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
+			{
 				const string SeparatorsDescription = "Stored names of slots where the Skeleton's render will be split into different batches. This is used by separate components that split the render into different MeshRenderers or GameObjects.";
-				if (separatorSlotNames.isExpanded) {
+				if (separatorSlotNames.isExpanded)
+				{
 					EditorGUILayout.PropertyField(separatorSlotNames, SpineInspectorUtility.TempContent(separatorSlotNames.displayName + terminalSlotWarning, Icons.slotRoot, SeparatorsDescription), true);
 					GUILayout.BeginHorizontal();
 					GUILayout.FlexibleSpace();
-					if (GUILayout.Button("+", GUILayout.MaxWidth(28f), GUILayout.MaxHeight(15f))) {
+					if (GUILayout.Button("+", GUILayout.MaxWidth(28f), GUILayout.MaxHeight(15f)))
+					{
 						separatorSlotNames.arraySize++;
 					}
 					GUILayout.EndHorizontal();
@@ -342,24 +389,27 @@ namespace Spine.Unity.Editor {
 					EditorGUILayout.PropertyField(separatorSlotNames, new GUIContent(separatorSlotNames.displayName + string.Format("{0} [{1}]", terminalSlotWarning, separatorSlotNames.arraySize), SeparatorsDescription), true);
 
 				EditorGUILayout.PropertyField(enableSeparatorSlots, SpineInspectorUtility.TempContent("Enable Separation", tooltip: "Whether to enable separation at the above separator slots."));
-				EditorGUILayout.PropertyField(updateSeparatorPartLocation, SpineInspectorUtility.TempContent("Update Part Location", tooltip:"Update separator part GameObject location to match the position of the SkeletonGraphic. This can be helpful when re-parenting parts to a different GameObject."));
+				EditorGUILayout.PropertyField(updateSeparatorPartLocation, SpineInspectorUtility.TempContent("Update Part Location", tooltip: "Update separator part GameObject location to match the position of the SkeletonGraphic. This can be helpful when re-parenting parts to a different GameObject."));
 			}
 		}
 
 		#region Menus
 		[MenuItem("CONTEXT/SkeletonGraphic/Match RectTransform with Mesh Bounds")]
-		static void MatchRectTransformWithBounds (MenuCommand command) {
+		static void MatchRectTransformWithBounds(MenuCommand command)
+		{
 			var skeletonGraphic = (SkeletonGraphic)command.context;
 			MatchRectTransformWithBounds(skeletonGraphic);
 		}
 
-		static void MatchRectTransformWithBounds (SkeletonGraphic skeletonGraphic) {
+		static void MatchRectTransformWithBounds(SkeletonGraphic skeletonGraphic)
+		{
 			if (!skeletonGraphic.MatchRectTransformWithBounds())
 				Debug.Log("Mesh was not previously generated.");
 		}
 
 		[MenuItem("GameObject/Spine/SkeletonGraphic (UnityUI)", false, 15)]
-		static public void SkeletonGraphicCreateMenuItem () {
+		static public void SkeletonGraphicCreateMenuItem()
+		{
 			var parentGameObject = Selection.activeObject as GameObject;
 			var parentTransform = parentGameObject == null ? null : parentGameObject.GetComponent<RectTransform>();
 
@@ -374,15 +424,18 @@ namespace Spine.Unity.Editor {
 		}
 
 		// SpineEditorUtilities.InstantiateDelegate. Used by drag and drop.
-		public static Component SpawnSkeletonGraphicFromDrop (SkeletonDataAsset data) {
+		public static Component SpawnSkeletonGraphicFromDrop(SkeletonDataAsset data)
+		{
 			return InstantiateSkeletonGraphic(data);
 		}
 
-		public static SkeletonGraphic InstantiateSkeletonGraphic (SkeletonDataAsset skeletonDataAsset, string skinName) {
+		public static SkeletonGraphic InstantiateSkeletonGraphic(SkeletonDataAsset skeletonDataAsset, string skinName)
+		{
 			return InstantiateSkeletonGraphic(skeletonDataAsset, skeletonDataAsset.GetSkeletonData(true).FindSkin(skinName));
 		}
 
-		public static SkeletonGraphic InstantiateSkeletonGraphic (SkeletonDataAsset skeletonDataAsset, Skin skin = null) {
+		public static SkeletonGraphic InstantiateSkeletonGraphic(SkeletonDataAsset skeletonDataAsset, Skin skin = null)
+		{
 			string spineGameObjectName = string.Format("SkeletonGraphic ({0})", skeletonDataAsset.name.Replace("_SkeletonData", ""));
 			var go = NewSkeletonGraphicGameObject(spineGameObjectName);
 			var graphic = go.GetComponent<SkeletonGraphic>();
@@ -390,8 +443,10 @@ namespace Spine.Unity.Editor {
 
 			SkeletonData data = skeletonDataAsset.GetSkeletonData(true);
 
-			if (data == null) {
-				for (int i = 0; i < skeletonDataAsset.atlasAssets.Length; i++) {
+			if (data == null)
+			{
+				for (int i = 0; i < skeletonDataAsset.atlasAssets.Length; i++)
+				{
 					string reloadAtlasPath = AssetDatabase.GetAssetPath(skeletonDataAsset.atlasAssets[i]);
 					skeletonDataAsset.atlasAssets[i] = (AtlasAssetBase)AssetDatabase.LoadAssetAtPath(reloadAtlasPath, typeof(AtlasAssetBase));
 				}
@@ -411,15 +466,18 @@ namespace Spine.Unity.Editor {
 			return graphic;
 		}
 
-		static GameObject NewSkeletonGraphicGameObject (string gameObjectName) {
+		static GameObject NewSkeletonGraphicGameObject(string gameObjectName)
+		{
 			var go = EditorInstantiation.NewGameObject(gameObjectName, true, typeof(RectTransform), typeof(CanvasRenderer), typeof(SkeletonGraphic));
 			var graphic = go.GetComponent<SkeletonGraphic>();
 			graphic.material = SkeletonGraphicInspector.DefaultSkeletonGraphicMaterial;
 			return go;
 		}
 
-		public static Material DefaultSkeletonGraphicMaterial {
-			get {
+		public static Material DefaultSkeletonGraphicMaterial
+		{
+			get
+			{
 				var guids = AssetDatabase.FindAssets("SkeletonGraphicDefault t:material");
 				if (guids.Length <= 0) return null;
 

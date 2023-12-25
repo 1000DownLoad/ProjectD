@@ -46,13 +46,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Reflection;
 
-namespace Spine.Unity.Editor {
+namespace Spine.Unity.Editor
+{
 	using Event = UnityEngine.Event;
 	using Icons = SpineEditorUtilities.Icons;
 
 	[CustomEditor(typeof(SkeletonRenderer))]
 	[CanEditMultipleObjects]
-	public class SkeletonRendererInspector : UnityEditor.Editor {
+	public class SkeletonRendererInspector : UnityEditor.Editor
+	{
 		public static bool advancedFoldout;
 
 		const string SeparatorSlotNamesFieldName = "separatorSlotNames";
@@ -84,23 +86,30 @@ namespace Spine.Unity.Editor {
 		static GUILayoutOption ReloadButtonWidth { get { return reloadButtonWidth = reloadButtonWidth ?? GUILayout.Width(GUI.skin.label.CalcSize(new GUIContent(ReloadButtonString)).x + 20); } }
 		static GUIStyle ReloadButtonStyle { get { return EditorStyles.miniButton; } }
 
-		protected bool TargetIsValid {
-			get {
-				if (serializedObject.isEditingMultipleObjects) {
-					foreach (var o in targets) {
+		protected bool TargetIsValid
+		{
+			get
+			{
+				if (serializedObject.isEditingMultipleObjects)
+				{
+					foreach (var o in targets)
+					{
 						var component = (SkeletonRenderer)o;
 						if (!component.valid)
 							return false;
 					}
 					return true;
-				} else {
+				}
+				else
+				{
 					var component = (SkeletonRenderer)target;
 					return component.valid;
 				}
 			}
 		}
 
-		protected virtual void OnEnable () {
+		protected virtual void OnEnable()
+		{
 #if NEW_PREFAB_SYSTEM
 			isInspectingPrefab = false;
 #else
@@ -158,7 +167,8 @@ namespace Spine.Unity.Editor {
 			sortingProperties = new SpineInspectorUtility.SerializedSortingProperties(renderersSerializedObject);
 		}
 
-		public void OnSceneGUI () {
+		public void OnSceneGUI()
+		{
 			var skeletonRenderer = (SkeletonRenderer)target;
 			var skeleton = skeletonRenderer.Skeleton;
 			var transform = skeletonRenderer.transform;
@@ -167,13 +177,16 @@ namespace Spine.Unity.Editor {
 			SpineHandles.DrawBones(transform, skeleton);
 		}
 
-		override public void OnInspectorGUI () {
+		override public void OnInspectorGUI()
+		{
 			bool multi = serializedObject.isEditingMultipleObjects;
 			DrawInspectorGUI(multi);
 			HandleSkinChange();
 			if (serializedObject.ApplyModifiedProperties() || SpineInspectorUtility.UndoRedoPerformed(Event.current) ||
-				AreAnyMaskMaterialsMissing()) {
-				if (!Application.isPlaying) {
+				AreAnyMaskMaterialsMissing())
+			{
+				if (!Application.isPlaying)
+				{
 					foreach (var o in targets)
 						SpineEditorUtilities.ReinitializeComponent((SkeletonRenderer)o);
 					SceneView.RepaintAll();
@@ -181,52 +194,65 @@ namespace Spine.Unity.Editor {
 			}
 		}
 
-		protected virtual void DrawInspectorGUI (bool multi) {
+		protected virtual void DrawInspectorGUI(bool multi)
+		{
 			// Initialize.
-			if (Event.current.type == EventType.Layout) {
-				if (forceReloadQueued) {
+			if (Event.current.type == EventType.Layout)
+			{
+				if (forceReloadQueued)
+				{
 					forceReloadQueued = false;
-					foreach (var c in targets) {
+					foreach (var c in targets)
+					{
 						SpineEditorUtilities.ReloadSkeletonDataAssetAndComponent(c as SkeletonRenderer);
 					}
-				} else {
-					foreach (var c in targets) {
+				}
+				else
+				{
+					foreach (var c in targets)
+					{
 						var component = c as SkeletonRenderer;
-						if (!component.valid) {
+						if (!component.valid)
+						{
 							SpineEditorUtilities.ReinitializeComponent(component);
 							if (!component.valid) continue;
 						}
 					}
 				}
 
-				#if BUILT_IN_SPRITE_MASK_COMPONENT
-				if (setMaskNoneMaterialsQueued) {
+#if BUILT_IN_SPRITE_MASK_COMPONENT
+				if (setMaskNoneMaterialsQueued)
+				{
 					setMaskNoneMaterialsQueued = false;
 					foreach (var c in targets)
 						EditorSetMaskMaterials(c as SkeletonRenderer, SpriteMaskInteraction.None);
 				}
-				if (setInsideMaskMaterialsQueued) {
+				if (setInsideMaskMaterialsQueued)
+				{
 					setInsideMaskMaterialsQueued = false;
 					foreach (var c in targets)
 						EditorSetMaskMaterials(c as SkeletonRenderer, SpriteMaskInteraction.VisibleInsideMask);
 				}
-				if (setOutsideMaskMaterialsQueued) {
+				if (setOutsideMaskMaterialsQueued)
+				{
 					setOutsideMaskMaterialsQueued = false;
 					foreach (var c in targets)
 						EditorSetMaskMaterials(c as SkeletonRenderer, SpriteMaskInteraction.VisibleOutsideMask);
 				}
 
-				if (deleteInsideMaskMaterialsQueued) {
+				if (deleteInsideMaskMaterialsQueued)
+				{
 					deleteInsideMaskMaterialsQueued = false;
 					foreach (var c in targets)
 						EditorDeleteMaskMaterials(c as SkeletonRenderer, SpriteMaskInteraction.VisibleInsideMask);
 				}
-				if (deleteOutsideMaskMaterialsQueued) {
+				if (deleteOutsideMaskMaterialsQueued)
+				{
 					deleteOutsideMaskMaterialsQueued = false;
 					foreach (var c in targets)
 						EditorDeleteMaskMaterials(c as SkeletonRenderer, SpriteMaskInteraction.VisibleOutsideMask);
 				}
-				#endif
+#endif
 
 #if NO_PREFAB_MESH
 				if (isInspectingPrefab) {
@@ -243,8 +269,10 @@ namespace Spine.Unity.Editor {
 			bool valid = TargetIsValid;
 
 			// Fields.
-			if (multi) {
-				using (new EditorGUILayout.HorizontalScope(EditorStyles.helpBox)) {
+			if (multi)
+			{
+				using (new EditorGUILayout.HorizontalScope(EditorStyles.helpBox))
+				{
 					SpineInspectorUtility.PropertyFieldFitLabel(skeletonDataAsset, SkeletonDataAssetLabel);
 					if (GUILayout.Button(ReloadButtonString, ReloadButtonStyle, ReloadButtonWidth))
 						forceReloadQueued = true;
@@ -252,23 +280,29 @@ namespace Spine.Unity.Editor {
 
 				if (valid) EditorGUILayout.PropertyField(initialSkinName, SpineInspectorUtility.TempContent("Initial Skin"));
 
-			} else {
+			}
+			else
+			{
 				var component = (SkeletonRenderer)target;
 
-				using (new EditorGUILayout.HorizontalScope(EditorStyles.helpBox)) {
+				using (new EditorGUILayout.HorizontalScope(EditorStyles.helpBox))
+				{
 					SpineInspectorUtility.PropertyFieldFitLabel(skeletonDataAsset, SkeletonDataAssetLabel);
-					if (component.valid) {
+					if (component.valid)
+					{
 						if (GUILayout.Button(ReloadButtonString, ReloadButtonStyle, ReloadButtonWidth))
 							forceReloadQueued = true;
 					}
 				}
 
-				if (component.skeletonDataAsset == null) {
+				if (component.skeletonDataAsset == null)
+				{
 					EditorGUILayout.HelpBox("Skeleton Data Asset required", MessageType.Warning);
 					return;
 				}
 
-				if (!SpineEditorUtilities.SkeletonDataAssetIsValid(component.skeletonDataAsset)) {
+				if (!SpineEditorUtilities.SkeletonDataAssetIsValid(component.skeletonDataAsset))
+				{
 					EditorGUILayout.HelpBox("Skeleton Data Asset error. Please check Skeleton Data Asset.", MessageType.Error);
 					return;
 				}
@@ -290,29 +324,37 @@ namespace Spine.Unity.Editor {
 
 			string errorMessage = null;
 			if (SpineEditorUtilities.Preferences.componentMaterialWarning &&
-				MaterialChecks.IsMaterialSetupProblematic((SkeletonRenderer)this.target, ref errorMessage)) {
+				MaterialChecks.IsMaterialSetupProblematic((SkeletonRenderer)this.target, ref errorMessage))
+			{
 				EditorGUILayout.HelpBox(errorMessage, MessageType.Error, true);
 			}
 
 			// More Render Options...
-			using (new SpineInspectorUtility.BoxScope()) {
+			using (new SpineInspectorUtility.BoxScope())
+			{
 				EditorGUI.BeginChangeCheck();
 
 				EditorGUILayout.BeginHorizontal(GUILayout.Height(EditorGUIUtility.singleLineHeight + 5));
 				advancedFoldout = EditorGUILayout.Foldout(advancedFoldout, "Advanced");
-				if (advancedFoldout) {
+				if (advancedFoldout)
+				{
 					EditorGUILayout.Space();
 					if (GUILayout.Button("Debug", EditorStyles.miniButton, GUILayout.Width(65f)))
 						SkeletonDebugWindow.Init();
-				} else {
+				}
+				else
+				{
 					EditorGUILayout.Space();
 				}
 				EditorGUILayout.EndHorizontal();
 
-				if (advancedFoldout) {
+				if (advancedFoldout)
+				{
 
-					using (new SpineInspectorUtility.IndentScope()) {
-						using (new EditorGUILayout.HorizontalScope()) {
+					using (new SpineInspectorUtility.IndentScope())
+					{
+						using (new EditorGUILayout.HorizontalScope())
+						{
 							SpineInspectorUtility.ToggleLeftLayout(initialFlipX);
 							SpineInspectorUtility.ToggleLeftLayout(initialFlipY);
 							EditorGUILayout.Space();
@@ -320,14 +362,15 @@ namespace Spine.Unity.Editor {
 
 						EditorGUILayout.Space();
 						EditorGUILayout.LabelField("Renderer Settings", EditorStyles.boldLabel);
-						using (new SpineInspectorUtility.LabelWidthScope()) {
+						using (new SpineInspectorUtility.LabelWidthScope())
+						{
 							// Optimization options
 							if (updateWhenInvisible != null) EditorGUILayout.PropertyField(updateWhenInvisible, UpdateWhenInvisibleLabel);
 
 							if (singleSubmesh != null) EditorGUILayout.PropertyField(singleSubmesh, SingleSubmeshLabel);
-							#if PER_MATERIAL_PROPERTY_BLOCKS
+#if PER_MATERIAL_PROPERTY_BLOCKS
 							if (fixDrawOrder != null) EditorGUILayout.PropertyField(fixDrawOrder, FixDrawOrderLabel);
-							#endif
+#endif
 							if (immutableTriangles != null) EditorGUILayout.PropertyField(immutableTriangles, ImmubleTrianglesLabel);
 							EditorGUILayout.PropertyField(clearStateOnDisable, ClearStateOnDisableLabel);
 							EditorGUILayout.Space();
@@ -342,7 +385,8 @@ namespace Spine.Unity.Editor {
 						EditorGUILayout.Slider(zSpacing, MinZSpacing, MaxZSpacing, ZSpacingLabel);
 						EditorGUILayout.Space();
 
-						using (new SpineInspectorUtility.LabelWidthScope()) {
+						using (new SpineInspectorUtility.LabelWidthScope())
+						{
 							EditorGUILayout.LabelField(SpineInspectorUtility.TempContent("Vertex Data", SpineInspectorUtility.UnityIcon<MeshFilter>()), EditorStyles.boldLabel);
 							if (pmaVertexColors != null) EditorGUILayout.PropertyField(pmaVertexColors, PMAVertexColorsLabel);
 							EditorGUILayout.PropertyField(tintBlack, TintBlackLabel);
@@ -352,27 +396,30 @@ namespace Spine.Unity.Editor {
 							if (tangents != null) EditorGUILayout.PropertyField(tangents, TangentsLabel);
 						}
 
-						#if BUILT_IN_SPRITE_MASK_COMPONENT
+#if BUILT_IN_SPRITE_MASK_COMPONENT
 						EditorGUILayout.Space();
-						if (maskMaterialsNone.arraySize > 0 || maskMaterialsInside.arraySize > 0 || maskMaterialsOutside.arraySize > 0) {
+						if (maskMaterialsNone.arraySize > 0 || maskMaterialsInside.arraySize > 0 || maskMaterialsOutside.arraySize > 0)
+						{
 							EditorGUILayout.LabelField(SpineInspectorUtility.TempContent("Mask Interaction Materials", SpineInspectorUtility.UnityIcon<SpriteMask>()), EditorStyles.boldLabel);
 							bool differentMaskModesSelected = maskInteraction.hasMultipleDifferentValues;
 							int activeMaskInteractionValue = differentMaskModesSelected ? -1 : maskInteraction.intValue;
 
 							bool ignoredParam = true;
 							MaskMaterialsEditingField(ref setMaskNoneMaterialsQueued, ref ignoredParam, maskMaterialsNone, MaskMaterialsNoneLabel,
-														differentMaskModesSelected, allowDelete : false, isActiveMaterial : activeMaskInteractionValue == (int)SpriteMaskInteraction.None);
+														differentMaskModesSelected, allowDelete: false, isActiveMaterial: activeMaskInteractionValue == (int)SpriteMaskInteraction.None);
 							MaskMaterialsEditingField(ref setInsideMaskMaterialsQueued, ref deleteInsideMaskMaterialsQueued, maskMaterialsInside, MaskMaterialsInsideLabel,
 														differentMaskModesSelected, allowDelete: true, isActiveMaterial: activeMaskInteractionValue == (int)SpriteMaskInteraction.VisibleInsideMask);
 							MaskMaterialsEditingField(ref setOutsideMaskMaterialsQueued, ref deleteOutsideMaskMaterialsQueued, maskMaterialsOutside, MaskMaterialsOutsideLabel,
-														differentMaskModesSelected, allowDelete : true, isActiveMaterial: activeMaskInteractionValue == (int)SpriteMaskInteraction.VisibleOutsideMask);
+														differentMaskModesSelected, allowDelete: true, isActiveMaterial: activeMaskInteractionValue == (int)SpriteMaskInteraction.VisibleOutsideMask);
 						}
-						#endif
+#endif
 
 						EditorGUILayout.Space();
 
-						if (valid && !isInspectingPrefab) {
-							if (multi) {
+						if (valid && !isInspectingPrefab)
+						{
+							if (multi)
+							{
 								// Support multi-edit SkeletonUtility button.
 								//	EditorGUILayout.Space();
 								//	bool addSkeletonUtility = GUILayout.Button(buttonContent, GUILayout.Height(30));
@@ -381,9 +428,12 @@ namespace Spine.Unity.Editor {
 								//		if (addSkeletonUtility && component.GetComponent<SkeletonUtility>() == null)
 								//			component.gameObject.AddComponent<SkeletonUtility>();
 								//	}
-							} else {
+							}
+							else
+							{
 								var component = (Component)target;
-								if (component.GetComponent<SkeletonUtility>() == null) {
+								if (component.GetComponent<SkeletonUtility>() == null)
+								{
 									if (SpineInspectorUtility.CenteredButton(SkeletonUtilityButtonContent, 21, true, 200f))
 										component.gameObject.AddComponent<SkeletonUtility>();
 								}
@@ -399,40 +449,53 @@ namespace Spine.Unity.Editor {
 			}
 		}
 
-		protected void SkeletonRootMotionParameter() {
+		protected void SkeletonRootMotionParameter()
+		{
 			SkeletonRootMotionParameter(targets);
 		}
 
-		public static void SkeletonRootMotionParameter(Object[] targets) {
+		public static void SkeletonRootMotionParameter(Object[] targets)
+		{
 			int rootMotionComponentCount = 0;
-			foreach (var t in targets) {
+			foreach (var t in targets)
+			{
 				var component = t as Component;
-				if (component.GetComponent<SkeletonRootMotion>() != null) {
+				if (component.GetComponent<SkeletonRootMotion>() != null)
+				{
 					++rootMotionComponentCount;
 				}
 			}
 			bool allHaveRootMotion = rootMotionComponentCount == targets.Length;
 			bool anyHaveRootMotion = rootMotionComponentCount > 0;
 
-			using (new GUILayout.HorizontalScope()) {
+			using (new GUILayout.HorizontalScope())
+			{
 				EditorGUILayout.PrefixLabel("Root Motion");
 
-				if (!allHaveRootMotion) {
-					if (GUILayout.Button(SpineInspectorUtility.TempContent("Add Component", Icons.constraintTransform), GUILayout.MaxWidth(130), GUILayout.Height(18))) {
-						foreach (var t in targets) {
+				if (!allHaveRootMotion)
+				{
+					if (GUILayout.Button(SpineInspectorUtility.TempContent("Add Component", Icons.constraintTransform), GUILayout.MaxWidth(130), GUILayout.Height(18)))
+					{
+						foreach (var t in targets)
+						{
 							var component = t as Component;
-							if (component.GetComponent<SkeletonRootMotion>() == null) {
+							if (component.GetComponent<SkeletonRootMotion>() == null)
+							{
 								component.gameObject.AddComponent<SkeletonRootMotion>();
 							}
 						}
 					}
 				}
-				if (anyHaveRootMotion) {
-					if (GUILayout.Button(SpineInspectorUtility.TempContent("Remove Component", Icons.constraintTransform), GUILayout.MaxWidth(140), GUILayout.Height(18))) {
-						foreach (var t in targets) {
+				if (anyHaveRootMotion)
+				{
+					if (GUILayout.Button(SpineInspectorUtility.TempContent("Remove Component", Icons.constraintTransform), GUILayout.MaxWidth(140), GUILayout.Height(18)))
+					{
+						foreach (var t in targets)
+						{
 							var component = t as Component;
 							var rootMotionComponent = component.GetComponent<SkeletonRootMotion>();
-							if (rootMotionComponent  != null) {
+							if (rootMotionComponent != null)
+							{
 								DestroyImmediate(rootMotionComponent);
 							}
 						}
@@ -441,27 +504,34 @@ namespace Spine.Unity.Editor {
 			}
 		}
 
-		public static void SetSeparatorSlotNames (SkeletonRenderer skeletonRenderer, string[] newSlotNames) {
+		public static void SetSeparatorSlotNames(SkeletonRenderer skeletonRenderer, string[] newSlotNames)
+		{
 			var field = SpineInspectorUtility.GetNonPublicField(typeof(SkeletonRenderer), SeparatorSlotNamesFieldName);
 			field.SetValue(skeletonRenderer, newSlotNames);
 		}
 
-		public static string[] GetSeparatorSlotNames (SkeletonRenderer skeletonRenderer) {
+		public static string[] GetSeparatorSlotNames(SkeletonRenderer skeletonRenderer)
+		{
 			var field = SpineInspectorUtility.GetNonPublicField(typeof(SkeletonRenderer), SeparatorSlotNamesFieldName);
 			return field.GetValue(skeletonRenderer) as string[];
 		}
 
-		public static void SeparatorsField (SerializedProperty separatorSlotNames) {
+		public static void SeparatorsField(SerializedProperty separatorSlotNames)
+		{
 			bool multi = separatorSlotNames.serializedObject.isEditingMultipleObjects;
 			bool hasTerminalSlot = false;
-			if (!multi) {
+			if (!multi)
+			{
 				var sr = separatorSlotNames.serializedObject.targetObject as ISkeletonComponent;
 				var skeleton = sr.Skeleton;
 				int lastSlot = skeleton.Slots.Count - 1;
-				if (skeleton != null) {
-					for (int i = 0, n = separatorSlotNames.arraySize; i < n; i++) {
+				if (skeleton != null)
+				{
+					for (int i = 0, n = separatorSlotNames.arraySize; i < n; i++)
+					{
 						int index = skeleton.FindSlotIndex(separatorSlotNames.GetArrayElementAtIndex(i).stringValue);
-						if (index == 0 || index == lastSlot) {
+						if (index == 0 || index == lastSlot)
+						{
 							hasTerminalSlot = true;
 							break;
 						}
@@ -471,27 +541,33 @@ namespace Spine.Unity.Editor {
 
 			string terminalSlotWarning = hasTerminalSlot ? " (!)" : "";
 
-			using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox)) {
+			using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
+			{
 				const string SeparatorsDescription = "Stored names of slots where the Skeleton's render will be split into different batches. This is used by separate components that split the render into different MeshRenderers or GameObjects.";
-				if (separatorSlotNames.isExpanded) {
+				if (separatorSlotNames.isExpanded)
+				{
 					EditorGUILayout.PropertyField(separatorSlotNames, SpineInspectorUtility.TempContent(separatorSlotNames.displayName + terminalSlotWarning, Icons.slotRoot, SeparatorsDescription), true);
 					GUILayout.BeginHorizontal();
 					GUILayout.FlexibleSpace();
-					if (GUILayout.Button("+", GUILayout.MaxWidth(28f), GUILayout.MaxHeight(15f))) {
+					if (GUILayout.Button("+", GUILayout.MaxWidth(28f), GUILayout.MaxHeight(15f)))
+					{
 						separatorSlotNames.arraySize++;
 					}
 					GUILayout.EndHorizontal();
 
 					EditorGUILayout.Space();
-				} else
+				}
+				else
 					EditorGUILayout.PropertyField(separatorSlotNames, new GUIContent(separatorSlotNames.displayName + string.Format("{0} [{1}]", terminalSlotWarning, separatorSlotNames.arraySize), SeparatorsDescription), true);
 			}
 		}
 
 		public void MaskMaterialsEditingField(ref bool wasSetRequested, ref bool wasDeleteRequested,
 													SerializedProperty maskMaterials, GUIContent label,
-													bool differentMaskModesSelected, bool allowDelete, bool isActiveMaterial) {
-			using (new EditorGUILayout.HorizontalScope()) {
+													bool differentMaskModesSelected, bool allowDelete, bool isActiveMaterial)
+		{
+			using (new EditorGUILayout.HorizontalScope())
+			{
 
 				EditorGUILayout.LabelField(label, isActiveMaterial ? EditorStyles.boldLabel : EditorStyles.label, GUILayout.MinWidth(80f), GUILayout.MaxWidth(140));
 				EditorGUILayout.LabelField(maskMaterials.hasMultipleDifferentValues ? "-" : maskMaterials.arraySize.ToString(), EditorStyles.miniLabel, GUILayout.Width(42f));
@@ -500,17 +576,20 @@ namespace Spine.Unity.Editor {
 				bool enableClearButtons = differentMaskModesSelected || (maskMaterials.arraySize != 0 && !isActiveMaterial);
 
 				EditorGUI.BeginDisabledGroup(!enableSetButton);
-				if (GUILayout.Button(SetMaterialButtonLabel, EditorStyles.miniButtonLeft, GUILayout.Width(46f))) {
+				if (GUILayout.Button(SetMaterialButtonLabel, EditorStyles.miniButtonLeft, GUILayout.Width(46f)))
+				{
 					wasSetRequested = true;
 				}
 				EditorGUI.EndDisabledGroup();
 
 				EditorGUI.BeginDisabledGroup(!enableClearButtons);
 				{
-					if (GUILayout.Button(ClearMaterialButtonLabel, allowDelete ? EditorStyles.miniButtonMid : EditorStyles.miniButtonRight, GUILayout.Width(46f))) {
+					if (GUILayout.Button(ClearMaterialButtonLabel, allowDelete ? EditorStyles.miniButtonMid : EditorStyles.miniButtonRight, GUILayout.Width(46f)))
+					{
 						maskMaterials.ClearArray();
 					}
-					else if (allowDelete && GUILayout.Button(DeleteMaterialButtonLabel, EditorStyles.miniButtonRight, GUILayout.Width(46f))) {
+					else if (allowDelete && GUILayout.Button(DeleteMaterialButtonLabel, EditorStyles.miniButtonRight, GUILayout.Width(46f)))
+					{
 						wasDeleteRequested = true;
 					}
 					if (!allowDelete)
@@ -520,22 +599,27 @@ namespace Spine.Unity.Editor {
 			}
 		}
 
-		void HandleSkinChange() {
-			if (!Application.isPlaying && Event.current.type == EventType.Layout && !initialSkinName.hasMultipleDifferentValues) {
+		void HandleSkinChange()
+		{
+			if (!Application.isPlaying && Event.current.type == EventType.Layout && !initialSkinName.hasMultipleDifferentValues)
+			{
 				bool mismatchDetected = false;
 				string newSkinName = initialSkinName.stringValue;
-				foreach (var o in targets) {
+				foreach (var o in targets)
+				{
 					mismatchDetected |= UpdateIfSkinMismatch((SkeletonRenderer)o, newSkinName);
 				}
 
-				if (mismatchDetected) {
+				if (mismatchDetected)
+				{
 					mismatchDetected = false;
 					UnityEditorInternal.InternalEditorUtility.RepaintAllViews();
 				}
 			}
 		}
 
-		static bool UpdateIfSkinMismatch (SkeletonRenderer skeletonRenderer, string componentSkinName) {
+		static bool UpdateIfSkinMismatch(SkeletonRenderer skeletonRenderer, string componentSkinName)
+		{
 			if (!skeletonRenderer.valid || skeletonRenderer.EditorSkipSkinSync) return false;
 
 			var skin = skeletonRenderer.Skeleton.Skin;
@@ -543,7 +627,8 @@ namespace Spine.Unity.Editor {
 			bool defaultCase = skin == null && string.IsNullOrEmpty(componentSkinName);
 			bool fieldMatchesSkin = defaultCase || string.Equals(componentSkinName, skeletonSkinName, System.StringComparison.Ordinal);
 
-			if (!fieldMatchesSkin) {
+			if (!fieldMatchesSkin)
+			{
 				Skin skinToSet = string.IsNullOrEmpty(componentSkinName) ? null : skeletonRenderer.Skeleton.Data.FindSkin(componentSkinName);
 				skeletonRenderer.Skeleton.SetSkin(skinToSet);
 				skeletonRenderer.Skeleton.SetSlotsToSetupPose();
@@ -552,9 +637,9 @@ namespace Spine.Unity.Editor {
 				// solution or in a separate commit. The current solution does not repaint the Game view because
 				// it is first applying values and in the next editor pass is calling this skin-changing method.
 				if (skeletonRenderer is SkeletonAnimation)
-					((SkeletonAnimation) skeletonRenderer).Update(0f);
+					((SkeletonAnimation)skeletonRenderer).Update(0f);
 				else if (skeletonRenderer is SkeletonMecanim)
-					((SkeletonMecanim) skeletonRenderer).Update();
+					((SkeletonMecanim)skeletonRenderer).Update();
 
 				skeletonRenderer.LateUpdate();
 				return true;
@@ -562,20 +647,22 @@ namespace Spine.Unity.Editor {
 			return false;
 		}
 
-		bool AreAnyMaskMaterialsMissing() {
-			#if BUILT_IN_SPRITE_MASK_COMPONENT
-			foreach (var o in targets) {
+		bool AreAnyMaskMaterialsMissing()
+		{
+#if BUILT_IN_SPRITE_MASK_COMPONENT
+			foreach (var o in targets)
+			{
 				var component = (SkeletonRenderer)o;
 				if (!component.valid)
 					continue;
 				if (SpineMaskUtilities.AreMaskMaterialsMissing(component))
 					return true;
 			}
-			#endif
+#endif
 			return false;
 		}
 
-		#if BUILT_IN_SPRITE_MASK_COMPONENT
+#if BUILT_IN_SPRITE_MASK_COMPONENT
 		static void EditorSetMaskMaterials(SkeletonRenderer component, SpriteMaskInteraction maskType)
 		{
 			if (component == null) return;
@@ -583,11 +670,12 @@ namespace Spine.Unity.Editor {
 			SpineMaskUtilities.EditorInitMaskMaterials(component, component.maskMaterials, maskType);
 		}
 
-		static void EditorDeleteMaskMaterials(SkeletonRenderer component, SpriteMaskInteraction maskType) {
+		static void EditorDeleteMaskMaterials(SkeletonRenderer component, SpriteMaskInteraction maskType)
+		{
 			if (component == null) return;
 			if (!SpineEditorUtilities.SkeletonDataAssetIsValid(component.SkeletonDataAsset)) return;
 			SpineMaskUtilities.EditorDeleteMaskMaterials(component.maskMaterials, maskType);
 		}
-		#endif
+#endif
 	}
 }

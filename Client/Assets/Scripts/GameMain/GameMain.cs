@@ -3,18 +3,18 @@ using UnityEngine;
 
 public class GameMain : Framework.TMonoSingleton<GameMain>
 {
- 	static public bool Started { get; protected set; }
+    static public bool Started { get; protected set; }
 
-	protected override void Awake()
-	{
-		if (!PreAwake())
-			return;
+    protected override void Awake()
+    {
+        if (!PreAwake())
+            return;
 
-		Started = true;
-		StaticInitialize();
+        Started = true;
+        StaticInitialize();
 
         PostAwake();
-	}
+    }
 
     void OnApplicationFocus(bool focus)
     {
@@ -27,17 +27,17 @@ public class GameMain : Framework.TMonoSingleton<GameMain>
     }
 
     void Update()
-	{
+    {
         if (false == Started)
             return;
 
         UpdateNetworkGroup();
         UpdateSystemGroup();
-	}
+    }
 
     private void UpdateNetworkGroup()
     {
-        
+
     }
 
     private void UpdateSystemGroup()
@@ -48,7 +48,7 @@ public class GameMain : Framework.TMonoSingleton<GameMain>
     private void StaticInitialize()
     {
         InitializeSystemGroup();
-        InitializeNetworkGroup(); 
+        InitializeNetworkGroup();
     }
 
     private void InitializeSystemGroup()

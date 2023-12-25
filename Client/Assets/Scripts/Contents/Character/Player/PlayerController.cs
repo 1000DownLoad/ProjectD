@@ -10,7 +10,7 @@ class PlayerController : MonoBehaviour
     private void Awake()
     {
         var player_obj = GameObject.FindWithTag("Player");
-        if(player_obj != null)
+        if (player_obj != null)
         {
             m_player_obj = player_obj.GetComponent<PlayerObject>();
         }
@@ -30,7 +30,7 @@ class PlayerController : MonoBehaviour
             key_dir.y += 1f;
         }
 
-        if(Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A))
         {
             key_dir.x += -1f;
         }
@@ -57,7 +57,7 @@ class PlayerController : MonoBehaviour
 
         m_player_obj.transform.Translate(new Vector3(key_dir.x * 0.01f * 10, key_dir.y * 0.01f * 10, 0f));
 
-        if(is_attack)
+        if (is_attack)
         {
             //m_player_obj.SetTimeScaleByTrack(m_player_obj.GetTrackIndex(SpineState.Attack1), 2f);
 
@@ -65,7 +65,7 @@ class PlayerController : MonoBehaviour
                 m_player_obj.SetState(SpineState.Attack1);
         }
 
-        if(is_death)
+        if (is_death)
         {
             m_player_obj.AllCompleteTack();
             m_player_obj.SetState(SpineState.Death);

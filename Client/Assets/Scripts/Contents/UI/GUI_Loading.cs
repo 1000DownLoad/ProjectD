@@ -12,7 +12,7 @@ class GUI_Loading : GUIBase
 
     public class OpenParam : IGUIOpenParam
     {
-        public OpenParam(string in_next_scene_name) 
+        public OpenParam(string in_next_scene_name)
         {
             next_scene_name = in_next_scene_name;
         }
@@ -25,7 +25,7 @@ class GUI_Loading : GUIBase
         base.Open(in_param);
 
         var param_data = in_param as OpenParam;
-        if(param_data != null)
+        if (param_data != null)
         {
             StartCoroutine(LoadSceneAsync(param_data.next_scene_name));
         }

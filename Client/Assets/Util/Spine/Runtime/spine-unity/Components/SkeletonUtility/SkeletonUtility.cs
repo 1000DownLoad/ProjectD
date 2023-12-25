@@ -34,47 +34,56 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-namespace Spine.Unity {
+namespace Spine.Unity
+{
 
-	#if NEW_PREFAB_SYSTEM
+#if NEW_PREFAB_SYSTEM
 	[ExecuteAlways]
-	#else
+#else
 	[ExecuteInEditMode]
-	#endif
+#endif
 	[RequireComponent(typeof(ISkeletonAnimation))]
 	[HelpURL("http://esotericsoftware.com/spine-unity#SkeletonUtility")]
-	public sealed class SkeletonUtility : MonoBehaviour {
+	public sealed class SkeletonUtility : MonoBehaviour
+	{
 
 		#region BoundingBoxAttachment
-		public static PolygonCollider2D AddBoundingBoxGameObject (Skeleton skeleton, string skinName, string slotName, string attachmentName, Transform parent, bool isTrigger = true) {
+		public static PolygonCollider2D AddBoundingBoxGameObject(Skeleton skeleton, string skinName, string slotName, string attachmentName, Transform parent, bool isTrigger = true)
+		{
 			Skin skin = string.IsNullOrEmpty(skinName) ? skeleton.data.defaultSkin : skeleton.data.FindSkin(skinName);
-			if (skin == null) {
+			if (skin == null)
+			{
 				Debug.LogError("Skin " + skinName + " not found!");
 				return null;
 			}
 
 			var attachment = skin.GetAttachment(skeleton.FindSlotIndex(slotName), attachmentName);
-			if (attachment == null) {
+			if (attachment == null)
+			{
 				Debug.LogFormat("Attachment in slot '{0}' named '{1}' not found in skin '{2}'.", slotName, attachmentName, skin.name);
 				return null;
 			}
 
 			var box = attachment as BoundingBoxAttachment;
-			if (box != null) {
+			if (box != null)
+			{
 				var slot = skeleton.FindSlot(slotName);
 				return AddBoundingBoxGameObject(box.Name, box, slot, parent, isTrigger);
-			} else {
+			}
+			else
+			{
 				Debug.LogFormat("Attachment '{0}' was not a Bounding Box.", attachmentName);
 				return null;
 			}
 		}
 
-		public static PolygonCollider2D AddBoundingBoxGameObject (string name, BoundingBoxAttachment box, Slot slot, Transform parent, bool isTrigger = true) {
+		public static PolygonCollider2D AddBoundingBoxGameObject(string name, BoundingBoxAttachment box, Slot slot, Transform parent, bool isTrigger = true)
+		{
 			var go = new GameObject("[BoundingBox]" + (string.IsNullOrEmpty(name) ? box.Name : name));
 #if UNITY_EDITOR
 			if (!Application.isPlaying)
 				UnityEditor.Undo.RegisterCreatedObjectUndo(go, "Spawn BoundingBox");
-# endif
+#endif
 			var got = go.transform;
 			got.parent = parent;
 			got.localPosition = Vector3.zero;
@@ -83,7 +92,8 @@ namespace Spine.Unity {
 			return AddBoundingBoxAsComponent(box, slot, go, isTrigger);
 		}
 
-		public static PolygonCollider2D AddBoundingBoxAsComponent (BoundingBoxAttachment box, Slot slot, GameObject gameObject, bool isTrigger = true) {
+		public static PolygonCollider2D AddBoundingBoxAsComponent(BoundingBoxAttachment box, Slot slot, GameObject gameObject, bool isTrigger = true)
+		{
 			if (box == null) return null;
 			var collider = gameObject.AddComponent<PolygonCollider2D>();
 			collider.isTrigger = isTrigger;
@@ -91,18 +101,21 @@ namespace Spine.Unity {
 			return collider;
 		}
 
-		public static void SetColliderPointsLocal (PolygonCollider2D collider, Slot slot, BoundingBoxAttachment box, float scale = 1.0f) {
+		public static void SetColliderPointsLocal(PolygonCollider2D collider, Slot slot, BoundingBoxAttachment box, float scale = 1.0f)
+		{
 			if (box == null) return;
 			if (box.IsWeighted()) Debug.LogWarning("UnityEngine.PolygonCollider2D does not support weighted or animated points. Collider points will not be animated and may have incorrect orientation. If you want to use it as a collider, please remove weights and animations from the bounding box in Spine editor.");
 			var verts = box.GetLocalVertices(slot, null);
-			if (scale != 1.0f) {
+			if (scale != 1.0f)
+			{
 				for (int i = 0, n = verts.Length; i < n; ++i)
 					verts[i] *= scale;
 			}
 			collider.SetPath(0, verts);
 		}
 
-		public static Bounds GetBoundingBoxBounds (BoundingBoxAttachment boundingBox, float depth = 0) {
+		public static Bounds GetBoundingBoxBounds(BoundingBoxAttachment boundingBox, float depth = 0)
+		{
 			float[] floats = boundingBox.Vertices;
 			int floatCount = floats.Length;
 
@@ -119,9 +132,11 @@ namespace Spine.Unity {
 			return bounds;
 		}
 
-		public static Rigidbody2D AddBoneRigidbody2D (GameObject gameObject, bool isKinematic = true, float gravityScale = 0f) {
+		public static Rigidbody2D AddBoneRigidbody2D(GameObject gameObject, bool isKinematic = true, float gravityScale = 0f)
+		{
 			var rb = gameObject.GetComponent<Rigidbody2D>();
-			if (rb == null) {
+			if (rb == null)
+			{
 				rb = gameObject.AddComponent<Rigidbody2D>();
 				rb.isKinematic = isKinematic;
 				rb.gravityScale = gravityScale;
@@ -130,7 +145,7 @@ namespace Spine.Unity {
 		}
 		#endregion
 
-		public delegate void SkeletonUtilityDelegate ();
+		public delegate void SkeletonUtilityDelegate();
 		public event SkeletonUtilityDelegate OnReset;
 		public Transform boneRoot;
 		/// <summary>
@@ -143,22 +158,27 @@ namespace Spine.Unity {
 		/// </summary>
 		public bool flipBy180DegreeRotation = false;
 
-		void Update () {
+		void Update()
+		{
 			var skeleton = skeletonComponent.Skeleton;
-			if (skeleton != null && boneRoot != null) {
+			if (skeleton != null && boneRoot != null)
+			{
 
-				if (flipBy180DegreeRotation) {
+				if (flipBy180DegreeRotation)
+				{
 					boneRoot.localScale = new Vector3(Mathf.Abs(skeleton.ScaleX), Mathf.Abs(skeleton.ScaleY), 1f);
 					boneRoot.eulerAngles = new Vector3(skeleton.ScaleY > 0 ? 0 : 180,
 																	skeleton.ScaleX > 0 ? 0 : 180,
 																	0);
 				}
-				else {
+				else
+				{
 					boneRoot.localScale = new Vector3(skeleton.ScaleX, skeleton.ScaleY, 1f);
 				}
 			}
 
-			if (canvas != null) {
+			if (canvas != null)
+			{
 				positionScale = canvas.referencePixelsPerUnit;
 			}
 		}
@@ -173,9 +193,12 @@ namespace Spine.Unity {
 		[System.NonSerialized] public List<SkeletonUtilityConstraint> constraintComponents = new List<SkeletonUtilityConstraint>();
 
 
-		public ISkeletonComponent SkeletonComponent {
-			get {
-				if (skeletonComponent == null) {
+		public ISkeletonComponent SkeletonComponent
+		{
+			get
+			{
+				if (skeletonComponent == null)
+				{
 					skeletonComponent = skeletonRenderer != null ? skeletonRenderer.GetComponent<ISkeletonComponent>() :
 										skeletonGraphic != null ? skeletonGraphic.GetComponent<ISkeletonComponent>() :
 										GetComponent<ISkeletonComponent>();
@@ -183,16 +206,20 @@ namespace Spine.Unity {
 				return skeletonComponent;
 			}
 		}
-		public Skeleton Skeleton {
-			get {
+		public Skeleton Skeleton
+		{
+			get
+			{
 				if (SkeletonComponent == null)
 					return null;
 				return skeletonComponent.Skeleton;
 			}
 		}
 
-		public bool IsValid {
-			get {
+		public bool IsValid
+		{
+			get
+			{
 				return (skeletonRenderer != null && skeletonRenderer.valid) ||
 					(skeletonGraphic != null && skeletonGraphic.IsValid);
 			}
@@ -205,34 +232,42 @@ namespace Spine.Unity {
 		bool hasConstraints;
 		bool needToReprocessBones;
 
-		public void ResubscribeEvents () {
+		public void ResubscribeEvents()
+		{
 			OnDisable();
 			OnEnable();
 		}
 
-		void OnEnable () {
-			if (skeletonRenderer == null) {
+		void OnEnable()
+		{
+			if (skeletonRenderer == null)
+			{
 				skeletonRenderer = GetComponent<SkeletonRenderer>();
 			}
-			if (skeletonGraphic == null) {
+			if (skeletonGraphic == null)
+			{
 				skeletonGraphic = GetComponent<SkeletonGraphic>();
 			}
-			if (skeletonAnimation == null) {
+			if (skeletonAnimation == null)
+			{
 				skeletonAnimation = skeletonRenderer != null ? skeletonRenderer.GetComponent<ISkeletonAnimation>() :
 									skeletonGraphic != null ? skeletonGraphic.GetComponent<ISkeletonAnimation>() :
 									GetComponent<ISkeletonAnimation>();
 			}
-			if (skeletonComponent == null) {
+			if (skeletonComponent == null)
+			{
 				skeletonComponent = skeletonRenderer != null ? skeletonRenderer.GetComponent<ISkeletonComponent>() :
 									skeletonGraphic != null ? skeletonGraphic.GetComponent<ISkeletonComponent>() :
 									GetComponent<ISkeletonComponent>();
 			}
 
-			if (skeletonRenderer != null) {
+			if (skeletonRenderer != null)
+			{
 				skeletonRenderer.OnRebuild -= HandleRendererReset;
 				skeletonRenderer.OnRebuild += HandleRendererReset;
 			}
-			else if (skeletonGraphic != null) {
+			else if (skeletonGraphic != null)
+			{
 				skeletonGraphic.OnRebuild -= HandleRendererReset;
 				skeletonGraphic.OnRebuild += HandleRendererReset;
 				canvas = skeletonGraphic.canvas;
@@ -242,7 +277,8 @@ namespace Spine.Unity {
 					positionScale = 100.0f;
 			}
 
-			if (skeletonAnimation != null) {
+			if (skeletonAnimation != null)
+			{
 				skeletonAnimation.UpdateLocal -= UpdateLocal;
 				skeletonAnimation.UpdateLocal += UpdateLocal;
 			}
@@ -250,65 +286,80 @@ namespace Spine.Unity {
 			CollectBones();
 		}
 
-		void Start () {
+		void Start()
+		{
 			//recollect because order of operations failure when switching between game mode and edit mode...
 			CollectBones();
 		}
 
-		void OnDisable () {
+		void OnDisable()
+		{
 			if (skeletonRenderer != null)
 				skeletonRenderer.OnRebuild -= HandleRendererReset;
 			if (skeletonGraphic != null)
 				skeletonGraphic.OnRebuild -= HandleRendererReset;
 
-			if (skeletonAnimation != null) {
+			if (skeletonAnimation != null)
+			{
 				skeletonAnimation.UpdateLocal -= UpdateLocal;
 				skeletonAnimation.UpdateWorld -= UpdateWorld;
 				skeletonAnimation.UpdateComplete -= UpdateComplete;
 			}
 		}
 
-		void HandleRendererReset (SkeletonRenderer r) {
+		void HandleRendererReset(SkeletonRenderer r)
+		{
 			if (OnReset != null) OnReset();
 			CollectBones();
 		}
 
-		void HandleRendererReset (SkeletonGraphic g) {
+		void HandleRendererReset(SkeletonGraphic g)
+		{
 			if (OnReset != null) OnReset();
 			CollectBones();
 		}
 
-		public void RegisterBone (SkeletonUtilityBone bone) {
-			if (boneComponents.Contains(bone)) {
+		public void RegisterBone(SkeletonUtilityBone bone)
+		{
+			if (boneComponents.Contains(bone))
+			{
 				return;
-			} else {
+			}
+			else
+			{
 				boneComponents.Add(bone);
 				needToReprocessBones = true;
 			}
 		}
 
-		public void UnregisterBone (SkeletonUtilityBone bone) {
+		public void UnregisterBone(SkeletonUtilityBone bone)
+		{
 			boneComponents.Remove(bone);
 		}
 
-		public void RegisterConstraint (SkeletonUtilityConstraint constraint) {
+		public void RegisterConstraint(SkeletonUtilityConstraint constraint)
+		{
 			if (constraintComponents.Contains(constraint))
 				return;
-			else {
+			else
+			{
 				constraintComponents.Add(constraint);
 				needToReprocessBones = true;
 			}
 		}
 
-		public void UnregisterConstraint (SkeletonUtilityConstraint constraint) {
+		public void UnregisterConstraint(SkeletonUtilityConstraint constraint)
+		{
 			constraintComponents.Remove(constraint);
 		}
 
-		public void CollectBones () {
+		public void CollectBones()
+		{
 			var skeleton = skeletonComponent.Skeleton;
 			if (skeleton == null) return;
 
-			if (boneRoot != null) {
+			if (boneRoot != null)
+			{
 				var constraintTargets = new List<System.Object>();
 				var ikConstraints = skeleton.IkConstraints;
 				for (int i = 0, n = ikConstraints.Count; i < n; i++)
@@ -319,9 +370,11 @@ namespace Spine.Unity {
 					constraintTargets.Add(transformConstraints.Items[i].target);
 
 				var boneComponents = this.boneComponents;
-				for (int i = 0, n = boneComponents.Count; i < n; i++) {
+				for (int i = 0, n = boneComponents.Count; i < n; i++)
+				{
 					var b = boneComponents[i];
-					if (b.bone == null) {
+					if (b.bone == null)
+					{
 						b.DoUpdate(SkeletonUtilityBone.UpdatePhase.Local);
 						if (b.bone == null) continue;
 					}
@@ -331,7 +384,8 @@ namespace Spine.Unity {
 
 				hasConstraints |= constraintComponents.Count > 0;
 
-				if (skeletonAnimation != null) {
+				if (skeletonAnimation != null)
+				{
 					skeletonAnimation.UpdateWorld -= UpdateWorld;
 					skeletonAnimation.UpdateComplete -= UpdateComplete;
 
@@ -343,13 +397,16 @@ namespace Spine.Unity {
 				}
 
 				needToReprocessBones = false;
-			} else {
+			}
+			else
+			{
 				boneComponents.Clear();
 				constraintComponents.Clear();
 			}
 		}
 
-		void UpdateLocal (ISkeletonAnimation anim) {
+		void UpdateLocal(ISkeletonAnimation anim)
+		{
 			if (needToReprocessBones)
 				CollectBones();
 
@@ -361,17 +418,20 @@ namespace Spine.Unity {
 			UpdateAllBones(SkeletonUtilityBone.UpdatePhase.Local);
 		}
 
-		void UpdateWorld (ISkeletonAnimation anim) {
+		void UpdateWorld(ISkeletonAnimation anim)
+		{
 			UpdateAllBones(SkeletonUtilityBone.UpdatePhase.World);
 			for (int i = 0, n = constraintComponents.Count; i < n; i++)
 				constraintComponents[i].DoUpdate();
 		}
 
-		void UpdateComplete (ISkeletonAnimation anim) {
+		void UpdateComplete(ISkeletonAnimation anim)
+		{
 			UpdateAllBones(SkeletonUtilityBone.UpdatePhase.Complete);
 		}
 
-		void UpdateAllBones (SkeletonUtilityBone.UpdatePhase phase) {
+		void UpdateAllBones(SkeletonUtilityBone.UpdatePhase phase)
+		{
 			if (boneRoot == null)
 				CollectBones();
 
@@ -381,7 +441,8 @@ namespace Spine.Unity {
 				boneComponents[i].DoUpdate(phase);
 		}
 
-		public Transform GetBoneRoot () {
+		public Transform GetBoneRoot()
+		{
 			if (boneRoot != null)
 				return boneRoot;
 
@@ -402,7 +463,8 @@ namespace Spine.Unity {
 			return boneRoot;
 		}
 
-		public GameObject SpawnRoot (SkeletonUtilityBone.Mode mode, bool pos, bool rot, bool sca) {
+		public GameObject SpawnRoot(SkeletonUtilityBone.Mode mode, bool pos, bool rot, bool sca)
+		{
 			GetBoneRoot();
 			Skeleton skeleton = this.skeletonComponent.Skeleton;
 
@@ -411,7 +473,8 @@ namespace Spine.Unity {
 			return go;
 		}
 
-		public GameObject SpawnHierarchy (SkeletonUtilityBone.Mode mode, bool pos, bool rot, bool sca) {
+		public GameObject SpawnHierarchy(SkeletonUtilityBone.Mode mode, bool pos, bool rot, bool sca)
+		{
 			GetBoneRoot();
 			Skeleton skeleton = this.skeletonComponent.Skeleton;
 			GameObject go = SpawnBoneRecursively(skeleton.RootBone, boneRoot, mode, pos, rot, sca);
@@ -419,11 +482,13 @@ namespace Spine.Unity {
 			return go;
 		}
 
-		public GameObject SpawnBoneRecursively (Bone bone, Transform parent, SkeletonUtilityBone.Mode mode, bool pos, bool rot, bool sca) {
+		public GameObject SpawnBoneRecursively(Bone bone, Transform parent, SkeletonUtilityBone.Mode mode, bool pos, bool rot, bool sca)
+		{
 			GameObject go = SpawnBone(bone, parent, mode, pos, rot, sca);
 
 			ExposedList<Bone> childrenBones = bone.Children;
-			for (int i = 0, n = childrenBones.Count; i < n; i++) {
+			for (int i = 0, n = childrenBones.Count; i < n; i++)
+			{
 				Bone child = childrenBones.Items[i];
 				SpawnBoneRecursively(child, go.transform, mode, pos, rot, sca);
 			}
@@ -431,12 +496,13 @@ namespace Spine.Unity {
 			return go;
 		}
 
-		public GameObject SpawnBone (Bone bone, Transform parent, SkeletonUtilityBone.Mode mode, bool pos, bool rot, bool sca) {
+		public GameObject SpawnBone(Bone bone, Transform parent, SkeletonUtilityBone.Mode mode, bool pos, bool rot, bool sca)
+		{
 			GameObject go = new GameObject(bone.Data.Name);
-		#if UNITY_EDITOR
+#if UNITY_EDITOR
 			if (!Application.isPlaying)
 				UnityEditor.Undo.RegisterCreatedObjectUndo(go, "Spawn Bone");
-		#endif
+#endif
 			if (skeletonGraphic != null)
 				go.AddComponent<RectTransform>();
 
@@ -455,7 +521,8 @@ namespace Spine.Unity {
 			b.boneName = bone.Data.Name;
 			b.valid = true;
 
-			if (mode == SkeletonUtilityBone.Mode.Override) {
+			if (mode == SkeletonUtilityBone.Mode.Override)
+			{
 				if (rot) goTransform.localRotation = Quaternion.Euler(0, 0, b.bone.AppliedRotation);
 				if (pos) goTransform.localPosition = new Vector3(b.bone.X * positionScale, b.bone.Y * positionScale, 0);
 				goTransform.localScale = new Vector3(b.bone.scaleX, b.bone.scaleY, 0);

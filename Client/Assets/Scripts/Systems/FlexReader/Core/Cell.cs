@@ -202,7 +202,7 @@ namespace FlexFramework.Excel
             var split_str = ToString().Split(in_separator);
             int[] integers = new int[split_str.Length];
 
-            for(int i = 0; i < split_str.Length; i++)
+            for (int i = 0; i < split_str.Length; i++)
                 integers[i] = Convert.ToInt32(split_str[i]);
 
             return integers;

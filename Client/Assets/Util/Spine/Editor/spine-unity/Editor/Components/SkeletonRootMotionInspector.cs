@@ -30,16 +30,19 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Spine.Unity.Editor {
+namespace Spine.Unity.Editor
+{
 	[CustomEditor(typeof(SkeletonRootMotion))]
 	[CanEditMultipleObjects]
-	public class SkeletonRootMotionInspector : SkeletonRootMotionBaseInspector {
+	public class SkeletonRootMotionInspector : SkeletonRootMotionBaseInspector
+	{
 		protected SerializedProperty animationTrackFlags;
 		protected GUIContent animationTrackFlagsLabel;
 
 		string[] TrackNames;
 
-		protected override void OnEnable () {
+		protected override void OnEnable()
+		{
 			base.OnEnable();
 
 			animationTrackFlags = serializedObject.FindProperty("animationTrackFlags");
@@ -48,7 +51,8 @@ namespace Spine.Unity.Editor {
 				" animation track (index 0).");
 		}
 
-		override public void OnInspectorGUI () {
+		override public void OnInspectorGUI()
+		{
 
 			base.MainPropertyFields();
 			AnimationTracksPropertyField();
@@ -57,9 +61,11 @@ namespace Spine.Unity.Editor {
 			serializedObject.ApplyModifiedProperties();
 		}
 
-		protected void AnimationTracksPropertyField () {
+		protected void AnimationTracksPropertyField()
+		{
 
-			if (TrackNames == null) {
+			if (TrackNames == null)
+			{
 				InitTrackNames();
 
 			}
@@ -68,10 +74,12 @@ namespace Spine.Unity.Editor {
 				animationTrackFlagsLabel, animationTrackFlags.intValue, TrackNames);
 		}
 
-		protected void InitTrackNames () {
+		protected void InitTrackNames()
+		{
 			int numEntries = 32;
 			TrackNames = new string[numEntries];
-			for (int i = 0; i < numEntries; ++i) {
+			for (int i = 0; i < numEntries; ++i)
+			{
 				TrackNames[i] = string.Format("Track {0}", i);
 			}
 		}

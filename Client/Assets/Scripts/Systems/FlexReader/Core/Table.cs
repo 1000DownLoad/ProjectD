@@ -41,7 +41,7 @@ namespace FlexFramework.Excel
                 return this.SelectMany(row => row).Where(cell => range.Contains(cell.Address));
             }
         }
-        
+
         public abstract Table DeepClone();
         public abstract Table ShallowClone();
     }

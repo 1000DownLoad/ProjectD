@@ -52,30 +52,38 @@ using System.Linq;
 using System.Reflection;
 using System.Globalization;
 
-namespace Spine.Unity.Editor {
-	public partial class SpineEditorUtilities {
-		public static class SpineTK2DEditorUtility {
+namespace Spine.Unity.Editor
+{
+	public partial class SpineEditorUtilities
+	{
+		public static class SpineTK2DEditorUtility
+		{
 			const string SPINE_TK2D_DEFINE = "SPINE_TK2D";
 
-			internal static bool IsTK2DInstalled () {
+			internal static bool IsTK2DInstalled()
+			{
 				return (Shader.Find("tk2d/SolidVertexColor") != null ||
 					Shader.Find("tk2d/AdditiveVertexColor") != null);
 			}
 
-			internal static bool IsTK2DAllowed {
-				get {
+			internal static bool IsTK2DAllowed
+			{
+				get
+				{
 					return false; // replace with "return true;" to allow TK2D support
 				}
 			}
 
-			internal static void EnableTK2D () {
+			internal static void EnableTK2D()
+			{
 				if (!IsTK2DAllowed)
 					return;
 				SpineBuildEnvUtility.DisableSpineAsmdefFiles();
 				SpineBuildEnvUtility.EnableBuildDefine(SPINE_TK2D_DEFINE);
 			}
 
-			internal static void DisableTK2D () {
+			internal static void DisableTK2D()
+			{
 				SpineBuildEnvUtility.EnableSpineAsmdefFiles();
 				SpineBuildEnvUtility.DisableBuildDefine(SPINE_TK2D_DEFINE);
 			}
@@ -84,7 +92,8 @@ namespace Spine.Unity.Editor {
 
 	public static class SpineBuildEnvUtility
 	{
-		static bool IsInvalidGroup (BuildTargetGroup group) {
+		static bool IsInvalidGroup(BuildTargetGroup group)
+		{
 			int gi = (int)group;
 			return
 				gi == 15 || gi == 16
@@ -92,16 +101,19 @@ namespace Spine.Unity.Editor {
 				group == BuildTargetGroup.Unknown;
 		}
 
-		public static bool EnableBuildDefine (string define) {
+		public static bool EnableBuildDefine(string define)
+		{
 
 			bool wasDefineAdded = false;
 			Debug.LogWarning("Please ignore errors \"PlayerSettings Validation: Requested build target group doesn't exist\" below");
-			foreach (BuildTargetGroup group in System.Enum.GetValues(typeof(BuildTargetGroup))) {
+			foreach (BuildTargetGroup group in System.Enum.GetValues(typeof(BuildTargetGroup)))
+			{
 				if (IsInvalidGroup(group))
 					continue;
 
 				string defines = PlayerSettings.GetScriptingDefineSymbolsForGroup(group);
-				if (!defines.Contains(define)) {
+				if (!defines.Contains(define))
+				{
 					wasDefineAdded = true;
 					if (defines.EndsWith(";", System.StringComparison.Ordinal))
 						defines += define;
@@ -113,24 +125,29 @@ namespace Spine.Unity.Editor {
 			}
 			Debug.LogWarning("Please ignore errors \"PlayerSettings Validation: Requested build target group doesn't exist\" above");
 
-			if (wasDefineAdded) {
+			if (wasDefineAdded)
+			{
 				Debug.LogWarning("Setting Scripting Define Symbol " + define);
 			}
-			else {
+			else
+			{
 				Debug.LogWarning("Already Set Scripting Define Symbol " + define);
 			}
 			return wasDefineAdded;
 		}
 
-		public static bool DisableBuildDefine (string define) {
+		public static bool DisableBuildDefine(string define)
+		{
 
 			bool wasDefineRemoved = false;
-			foreach (BuildTargetGroup group in System.Enum.GetValues(typeof(BuildTargetGroup))) {
+			foreach (BuildTargetGroup group in System.Enum.GetValues(typeof(BuildTargetGroup)))
+			{
 				if (IsInvalidGroup(group))
 					continue;
 
 				string defines = PlayerSettings.GetScriptingDefineSymbolsForGroup(group);
-				if (defines.Contains(define)) {
+				if (defines.Contains(define))
+				{
 					wasDefineRemoved = true;
 					if (defines.Contains(define + ";"))
 						defines = defines.Replace(define + ";", "");
@@ -141,37 +158,44 @@ namespace Spine.Unity.Editor {
 				}
 			}
 
-			if (wasDefineRemoved) {
+			if (wasDefineRemoved)
+			{
 				Debug.LogWarning("Removing Scripting Define Symbol " + define);
 			}
-			else {
+			else
+			{
 				Debug.LogWarning("Already Removed Scripting Define Symbol " + define);
 			}
 			return wasDefineRemoved;
 		}
 
-		public static void DisableSpineAsmdefFiles () {
+		public static void DisableSpineAsmdefFiles()
+		{
 			SetAsmdefFileActive("spine-unity-editor", false);
 			SetAsmdefFileActive("spine-unity", false);
 		}
 
-		public static void EnableSpineAsmdefFiles () {
+		public static void EnableSpineAsmdefFiles()
+		{
 			SetAsmdefFileActive("spine-unity-editor", true);
 			SetAsmdefFileActive("spine-unity", true);
 		}
 
-		internal static void SetAsmdefFileActive (string filename, bool setActive) {
+		internal static void SetAsmdefFileActive(string filename, bool setActive)
+		{
 
 			string typeSearchString = setActive ? " t:TextAsset" : " t:AssemblyDefinitionAsset";
 			string extensionBeforeChange = setActive ? ".txt" : ".asmdef";
 			string[] guids = AssetDatabase.FindAssets(filename + typeSearchString);
-			foreach (string guid in guids) {
+			foreach (string guid in guids)
+			{
 				string currentPath = AssetDatabase.GUIDToAssetPath(guid);
 				if (System.IO.Path.GetExtension(currentPath) != extensionBeforeChange) // asmdef is also found as t:TextAsset, so check
 					continue;
 
 				string targetPath = System.IO.Path.ChangeExtension(currentPath, setActive ? "asmdef" : "txt");
-				if (System.IO.File.Exists(currentPath) && !System.IO.File.Exists(targetPath)) {
+				if (System.IO.File.Exists(currentPath) && !System.IO.File.Exists(targetPath))
+				{
 					System.IO.File.Copy(currentPath, targetPath);
 					System.IO.File.Copy(currentPath + ".meta", targetPath + ".meta");
 				}

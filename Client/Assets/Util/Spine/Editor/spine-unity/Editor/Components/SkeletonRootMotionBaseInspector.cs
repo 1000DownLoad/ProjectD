@@ -30,10 +30,12 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Spine.Unity.Editor {
+namespace Spine.Unity.Editor
+{
 	[CustomEditor(typeof(SkeletonRootMotionBase))]
 	[CanEditMultipleObjects]
-	public class SkeletonRootMotionBaseInspector : UnityEditor.Editor {
+	public class SkeletonRootMotionBaseInspector : UnityEditor.Editor
+	{
 		protected SerializedProperty rootMotionBoneName;
 		protected SerializedProperty transformPositionX;
 		protected SerializedProperty transformPositionY;
@@ -54,7 +56,8 @@ namespace Spine.Unity.Editor {
 		protected GUIContent rigidBody2DLabel;
 		protected GUIContent rigidBodyLabel;
 
-		protected virtual void OnEnable () {
+		protected virtual void OnEnable()
+		{
 
 			rootMotionBoneName = serializedObject.FindProperty("rootMotionBoneName");
 			transformPositionX = serializedObject.FindProperty("transformPositionX");
@@ -87,13 +90,15 @@ namespace Spine.Unity.Editor {
 				"Some jitter may result at certain framerates.");
 		}
 
-		public override void OnInspectorGUI () {
+		public override void OnInspectorGUI()
+		{
 			MainPropertyFields();
 			OptionalPropertyFields();
 			serializedObject.ApplyModifiedProperties();
 		}
 
-		protected virtual void MainPropertyFields () {
+		protected virtual void MainPropertyFields()
+		{
 			EditorGUILayout.PropertyField(rootMotionBoneName, rootMotionBoneNameLabel);
 			EditorGUILayout.PropertyField(transformPositionX, transformPositionXLabel);
 			EditorGUILayout.PropertyField(transformPositionY, transformPositionYLabel);
@@ -105,7 +110,8 @@ namespace Spine.Unity.Editor {
 			EditorGUILayout.PropertyField(rootMotionTranslateYPerX, rootMotionTranslateYPerXLabel);
 		}
 
-		protected virtual void OptionalPropertyFields () {
+		protected virtual void OptionalPropertyFields()
+		{
 			EditorGUILayout.PropertyField(rigidBody2D, rigidBody2DLabel);
 			EditorGUILayout.PropertyField(rigidBody, rigidBodyLabel);
 		}

@@ -40,12 +40,16 @@ using System.Linq;
 using System.Reflection;
 using System.Globalization;
 
-namespace Spine.Unity.Editor {
+namespace Spine.Unity.Editor
+{
 	using EventType = UnityEngine.EventType;
 
-	public partial class SpineEditorUtilities {
-		public static class DragAndDropInstantiation {
-			public struct SpawnMenuData {
+	public partial class SpineEditorUtilities
+	{
+		public static class DragAndDropInstantiation
+		{
+			public struct SpawnMenuData
+			{
 				public Vector3 spawnPoint;
 				public Transform parent;
 				public SkeletonDataAsset skeletonDataAsset;
@@ -53,32 +57,39 @@ namespace Spine.Unity.Editor {
 				public bool isUI;
 			}
 
-			public static void SceneViewDragAndDrop (SceneView sceneview) {
+			public static void SceneViewDragAndDrop(SceneView sceneview)
+			{
 				var current = UnityEngine.Event.current;
 				var references = DragAndDrop.objectReferences;
 				if (current.type == EventType.Layout)
 					return;
 
 				// Allow drag and drop of one SkeletonDataAsset.
-				if (references.Length == 1) {
+				if (references.Length == 1)
+				{
 					var skeletonDataAsset = references[0] as SkeletonDataAsset;
-					if (skeletonDataAsset != null) {
+					if (skeletonDataAsset != null)
+					{
 						var mousePos = current.mousePosition;
 
 						bool invalidSkeletonData = skeletonDataAsset.GetSkeletonData(true) == null;
-						if (invalidSkeletonData) {
+						if (invalidSkeletonData)
+						{
 							DragAndDrop.visualMode = DragAndDropVisualMode.Rejected;
 							Handles.BeginGUI();
 							GUI.Label(new Rect(mousePos + new Vector2(20f, 20f), new Vector2(400f, 40f)), new GUIContent(string.Format("{0} is invalid.\nCannot create new Spine GameObject.", skeletonDataAsset.name), SpineEditorUtilities.Icons.warning));
 							Handles.EndGUI();
 							return;
-						} else {
+						}
+						else
+						{
 							DragAndDrop.visualMode = DragAndDropVisualMode.Copy;
 							Handles.BeginGUI();
 							GUI.Label(new Rect(mousePos + new Vector2(20f, 20f), new Vector2(400f, 20f)), new GUIContent(string.Format("Create Spine GameObject ({0})", skeletonDataAsset.skeletonJSON.name), SpineEditorUtilities.Icons.skeletonDataAssetIcon));
 							Handles.EndGUI();
 
-							if (current.type == EventType.DragPerform) {
+							if (current.type == EventType.DragPerform)
+							{
 								RectTransform rectTransform = (Selection.activeGameObject == null) ? null : Selection.activeGameObject.GetComponent<RectTransform>();
 								Plane plane = (rectTransform == null) ? new Plane(Vector3.back, Vector3.zero) : new Plane(-rectTransform.forward, rectTransform.position);
 								Vector3 spawnPoint = MousePointToWorldPoint2D(mousePos, sceneview.camera, plane);
@@ -91,11 +102,13 @@ namespace Spine.Unity.Editor {
 				}
 			}
 
-			public static void ShowInstantiateContextMenu (SkeletonDataAsset skeletonDataAsset, Vector3 spawnPoint, Transform parent) {
+			public static void ShowInstantiateContextMenu(SkeletonDataAsset skeletonDataAsset, Vector3 spawnPoint, Transform parent)
+			{
 				var menu = new GenericMenu();
 
 				// SkeletonAnimation
-				menu.AddItem(new GUIContent("SkeletonAnimation"), false, HandleSkeletonComponentDrop, new SpawnMenuData {
+				menu.AddItem(new GUIContent("SkeletonAnimation"), false, HandleSkeletonComponentDrop, new SpawnMenuData
+				{
 					skeletonDataAsset = skeletonDataAsset,
 					spawnPoint = spawnPoint,
 					parent = parent,
@@ -105,10 +118,12 @@ namespace Spine.Unity.Editor {
 
 				// SkeletonGraphic
 				var skeletonGraphicInspectorType = System.Type.GetType("Spine.Unity.Editor.SkeletonGraphicInspector");
-				if (skeletonGraphicInspectorType != null) {
+				if (skeletonGraphicInspectorType != null)
+				{
 					var graphicInstantiateDelegate = skeletonGraphicInspectorType.GetMethod("SpawnSkeletonGraphicFromDrop", BindingFlags.Static | BindingFlags.Public);
 					if (graphicInstantiateDelegate != null)
-						menu.AddItem(new GUIContent("SkeletonGraphic (UI)"), false, HandleSkeletonComponentDrop, new SpawnMenuData {
+						menu.AddItem(new GUIContent("SkeletonGraphic (UI)"), false, HandleSkeletonComponentDrop, new SpawnMenuData
+						{
 							skeletonDataAsset = skeletonDataAsset,
 							spawnPoint = spawnPoint,
 							parent = parent,
@@ -120,7 +135,8 @@ namespace Spine.Unity.Editor {
 #if SPINE_SKELETONMECANIM
 				menu.AddSeparator("");
 				// SkeletonMecanim
-				menu.AddItem(new GUIContent("SkeletonMecanim"), false, HandleSkeletonComponentDrop, new SpawnMenuData {
+				menu.AddItem(new GUIContent("SkeletonMecanim"), false, HandleSkeletonComponentDrop, new SpawnMenuData
+				{
 					skeletonDataAsset = skeletonDataAsset,
 					spawnPoint = spawnPoint,
 					parent = parent,
@@ -132,10 +148,12 @@ namespace Spine.Unity.Editor {
 				menu.ShowAsContext();
 			}
 
-			public static void HandleSkeletonComponentDrop (object spawnMenuData) {
+			public static void HandleSkeletonComponentDrop(object spawnMenuData)
+			{
 				var data = (SpawnMenuData)spawnMenuData;
 
-				if (data.skeletonDataAsset.GetSkeletonData(true) == null) {
+				if (data.skeletonDataAsset.GetSkeletonData(true) == null)
+				{
 					EditorUtility.DisplayDialog("Invalid SkeletonDataAsset", "Unable to create Spine GameObject.\n\nPlease check your SkeletonDataAsset.", "Ok");
 					return;
 				}
@@ -152,8 +170,10 @@ namespace Spine.Unity.Editor {
 
 				newTransform.position = isUI ? data.spawnPoint : RoundVector(data.spawnPoint, 2);
 
-				if (isUI) {
-					if (usedParent != null && usedParent.GetComponent<RectTransform>() != null) {
+				if (isUI)
+				{
+					if (usedParent != null && usedParent.GetComponent<RectTransform>() != null)
+					{
 						((SkeletonGraphic)newSkeletonComponent).MatchRectTransformWithBounds();
 					}
 					else
@@ -171,7 +191,8 @@ namespace Spine.Unity.Editor {
 			/// <summary>
 			/// Rounds off vector components to a number of decimal digits.
 			/// </summary>
-			public static Vector3 RoundVector (Vector3 vector, int digits) {
+			public static Vector3 RoundVector(Vector3 vector, int digits)
+			{
 				vector.x = (float)System.Math.Round(vector.x, digits);
 				vector.y = (float)System.Math.Round(vector.y, digits);
 				vector.z = (float)System.Math.Round(vector.z, digits);
@@ -181,7 +202,8 @@ namespace Spine.Unity.Editor {
 			/// <summary>
 			/// Converts a mouse point to a world point on a plane.
 			/// </summary>
-			static Vector3 MousePointToWorldPoint2D (Vector2 mousePosition, Camera camera, Plane plane) {
+			static Vector3 MousePointToWorldPoint2D(Vector2 mousePosition, Camera camera, Plane plane)
+			{
 				var screenPos = new Vector3(mousePosition.x, camera.pixelHeight - mousePosition.y, 0f);
 				var ray = camera.ScreenPointToRay(screenPos);
 				float distance;

@@ -32,9 +32,11 @@ using UnityEngine;
 
 #if UNITY_EDITOR
 
-namespace Spine.Unity {
+namespace Spine.Unity
+{
 	/// <summary>Utility class providing methods to check material settings for incorrect combinations.</summary>
-	public class MaterialChecks {
+	public class MaterialChecks
+	{
 
 		static readonly int STRAIGHT_ALPHA_PARAM_ID = Shader.PropertyToID("_StraightAlphaInput");
 		static readonly string ALPHAPREMULTIPLY_ON_KEYWORD = "_ALPHAPREMULTIPLY_ON";
@@ -94,24 +96,30 @@ namespace Spine.Unity {
 			+ "b) disable 'Canvas Group Tint Black' at the SkeletonGraphic component under 'Advanced'.\n"
 			+ "You may want to duplicate the 'SkeletonGraphicDefault' material and change settings at the duplicate to not affect all instances.";
 
-		public static bool IsMaterialSetupProblematic (SkeletonRenderer renderer, ref string errorMessage) {
+		public static bool IsMaterialSetupProblematic(SkeletonRenderer renderer, ref string errorMessage)
+		{
 			var materials = renderer.GetComponent<Renderer>().sharedMaterials;
 			bool isProblematic = false;
-			foreach (var material in materials) {
+			foreach (var material in materials)
+			{
 				if (material == null) continue;
 				isProblematic |= IsMaterialSetupProblematic(material, ref errorMessage);
-				if (renderer.zSpacing == 0) {
+				if (renderer.zSpacing == 0)
+				{
 					isProblematic |= IsZSpacingRequired(material, ref errorMessage);
 				}
-				if (renderer.addNormals == false && RequiresMeshNormals(material)) {
+				if (renderer.addNormals == false && RequiresMeshNormals(material))
+				{
 					isProblematic = true;
 					errorMessage += kAddNormalsMessage;
 				}
-				if (renderer.calculateTangents == false && RequiresTangents(material)) {
+				if (renderer.calculateTangents == false && RequiresTangents(material))
+				{
 					isProblematic = true;
 					errorMessage += kSolveTangentsMessage;
 				}
-				if (renderer.tintBlack == false && RequiresTintBlack(material)) {
+				if (renderer.tintBlack == false && RequiresTintBlack(material))
+				{
 					isProblematic = true;
 					errorMessage += kTintBlackMessage;
 				}
@@ -123,29 +131,36 @@ namespace Spine.Unity {
 		{
 			var material = skeletonGraphic.material;
 			bool isProblematic = false;
-			if (material) {
+			if (material)
+			{
 				isProblematic |= IsMaterialSetupProblematic(material, ref errorMessage);
 				var settings = skeletonGraphic.MeshGenerator.settings;
-				if (settings.zSpacing == 0) {
+				if (settings.zSpacing == 0)
+				{
 					isProblematic |= IsZSpacingRequired(material, ref errorMessage);
 				}
-				if (IsSpineNonSkeletonGraphicMaterial(material)) {
+				if (IsSpineNonSkeletonGraphicMaterial(material))
+				{
 					isProblematic = true;
 					errorMessage += kNoSkeletonGraphicMaterialMessage;
 				}
-				if (settings.tintBlack == false && RequiresTintBlack(material)) {
+				if (settings.tintBlack == false && RequiresTintBlack(material))
+				{
 					isProblematic = true;
 					errorMessage += kTintBlackMessage;
 				}
-				if (settings.tintBlack == true && CanvasNotSetupForTintBlack(skeletonGraphic)) {
+				if (settings.tintBlack == true && CanvasNotSetupForTintBlack(skeletonGraphic))
+				{
 					isProblematic = true;
 					errorMessage += kCanvasTintBlackMessage;
 				}
-				if (settings.canvasGroupTintBlack == true && !IsSkeletonGraphicTintBlackMaterial(material)) {
+				if (settings.canvasGroupTintBlack == true && !IsSkeletonGraphicTintBlackMaterial(material))
+				{
 					isProblematic = true;
 					errorMessage += kNoSkeletonGraphicTintBlackMaterialMessage;
 				}
-				if (settings.canvasGroupTintBlack == true && !IsCanvasGroupCompatible(material)) {
+				if (settings.canvasGroupTintBlack == true && !IsCanvasGroupCompatible(material))
+				{
 					isProblematic = true;
 					errorMessage += kCanvasGroupCompatibleMessage;
 				}
@@ -153,27 +168,34 @@ namespace Spine.Unity {
 			return isProblematic;
 		}
 
-		public static bool IsMaterialSetupProblematic(Material material, ref string errorMessage) {
+		public static bool IsMaterialSetupProblematic(Material material, ref string errorMessage)
+		{
 			return !IsColorSpaceSupported(material, ref errorMessage);
 		}
 
-		public static bool IsZSpacingRequired(Material material, ref string errorMessage) {
+		public static bool IsZSpacingRequired(Material material, ref string errorMessage)
+		{
 			bool hasForwardAddPass = material.FindPass("FORWARD_DELTA") >= 0;
-			if (hasForwardAddPass) {
+			if (hasForwardAddPass)
+			{
 				errorMessage += kZSpacingRequiredMessage;
 				return true;
 			}
 			bool zWrite = material.HasProperty("_ZWrite") && material.GetFloat("_ZWrite") > 0.0f;
-			if (zWrite) {
+			if (zWrite)
+			{
 				errorMessage += kZSpacingRecommendedMessage;
 				return true;
 			}
 			return false;
 		}
 
-		public static bool IsColorSpaceSupported (Material material, ref string errorMessage) {
-			if (QualitySettings.activeColorSpace == ColorSpace.Linear) {
-				if (IsPMAMaterial(material)) {
+		public static bool IsColorSpaceSupported(Material material, ref string errorMessage)
+		{
+			if (QualitySettings.activeColorSpace == ColorSpace.Linear)
+			{
+				if (IsPMAMaterial(material))
+				{
 					errorMessage += kPMANotSupportedLinearMessage;
 					return false;
 				}
@@ -182,24 +204,29 @@ namespace Spine.Unity {
 		}
 
 
-		public static bool UsesSpineShader (Material material) {
+		public static bool UsesSpineShader(Material material)
+		{
 			return material.shader.name.Contains("Spine/");
 		}
 
-		public static bool IsTextureSetupProblematic (Material material, ColorSpace colorSpace,
+		public static bool IsTextureSetupProblematic(Material material, ColorSpace colorSpace,
 			bool sRGBTexture, bool mipmapEnabled, bool alphaIsTransparency,
 			string texturePath, string materialPath,
-			ref string errorMessage) {
+			ref string errorMessage)
+		{
 
-			if (material == null || !UsesSpineShader(material)) {
+			if (material == null || !UsesSpineShader(material))
+			{
 				return false;
 			}
 
 			bool isProblematic = false;
-			if (IsPMAMaterial(material)) {
+			if (IsPMAMaterial(material))
+			{
 				// 'sRGBTexture = true' generates incorrectly weighted mipmaps at PMA textures,
 				// causing white borders due to undesired custom weighting.
-				if (sRGBTexture && mipmapEnabled && colorSpace == ColorSpace.Gamma) {
+				if (sRGBTexture && mipmapEnabled && colorSpace == ColorSpace.Gamma)
+				{
 					errorMessage += string.Format("`{0}` : Problematic Texture Settings found: " +
 						"When enabling `Generate Mip Maps` in Gamma color space, it is recommended " +
 						"to disable `sRGB (Color Texture)` on `Premultiply alpha` textures. Otherwise " +
@@ -208,7 +235,8 @@ namespace Spine.Unity {
 						"(You can disable this warning in `Edit - Preferences - Spine`)\n", texturePath);
 					isProblematic = true;
 				}
-				if (alphaIsTransparency) {
+				if (alphaIsTransparency)
+				{
 					string materialName = System.IO.Path.GetFileName(materialPath);
 					errorMessage += string.Format("`{0}` and material `{1}` : Problematic " +
 						"Texture / Material Settings found: It is recommended to disable " +
@@ -219,8 +247,10 @@ namespace Spine.Unity {
 					isProblematic = true;
 				}
 			}
-			else { // straight alpha texture
-				if (!alphaIsTransparency) {
+			else
+			{ // straight alpha texture
+				if (!alphaIsTransparency)
+				{
 					string materialName = System.IO.Path.GetFileName(materialPath);
 					errorMessage += string.Format("`{0}` and material `{1}` : Incorrect" +
 						"Texture / Material Settings found: It is strongly recommended " +
@@ -234,15 +264,18 @@ namespace Spine.Unity {
 			return isProblematic;
 		}
 
-		public static void EnablePMAAtMaterial (Material material, bool enablePMA) {
-			if (material.HasProperty(STRAIGHT_ALPHA_PARAM_ID)) {
+		public static void EnablePMAAtMaterial(Material material, bool enablePMA)
+		{
+			if (material.HasProperty(STRAIGHT_ALPHA_PARAM_ID))
+			{
 				material.SetInt(STRAIGHT_ALPHA_PARAM_ID, enablePMA ? 0 : 1);
 				if (enablePMA)
 					material.DisableKeyword(STRAIGHT_ALPHA_KEYWORD);
 				else
 					material.EnableKeyword(STRAIGHT_ALPHA_KEYWORD);
 			}
-			else {
+			else
+			{
 				if (enablePMA)
 					material.EnableKeyword(ALPHAPREMULTIPLY_ON_KEYWORD);
 				else
@@ -250,7 +283,8 @@ namespace Spine.Unity {
 			}
 		}
 
-		static bool IsPMAMaterial (Material material) {
+		static bool IsPMAMaterial(Material material)
+		{
 			bool usesAlphaPremultiplyKeyword = IsSpriteShader(material);
 			if (usesAlphaPremultiplyKeyword)
 				return material.IsKeywordEnabled(ALPHAPREMULTIPLY_ON_KEYWORD);
@@ -258,27 +292,34 @@ namespace Spine.Unity {
 				return material.HasProperty(STRAIGHT_ALPHA_PARAM_ID) && material.GetInt(STRAIGHT_ALPHA_PARAM_ID) == 0;
 		}
 
-		static bool IsURP3DMaterial (Material material) {
+		static bool IsURP3DMaterial(Material material)
+		{
 			return material.shader.name.Contains("Universal Render Pipeline/Spine");
 		}
 
-		static bool IsSpineNonSkeletonGraphicMaterial (Material material) {
+		static bool IsSpineNonSkeletonGraphicMaterial(Material material)
+		{
 			return material.shader.name.Contains("Spine") && !material.shader.name.Contains("SkeletonGraphic");
 		}
 
-		static bool IsSkeletonGraphicTintBlackMaterial (Material material) {
+		static bool IsSkeletonGraphicTintBlackMaterial(Material material)
+		{
 			return material.shader.name.Contains("Spine") && material.shader.name.Contains("SkeletonGraphic")
 				&& material.shader.name.Contains("Black");
 		}
 
-		static bool AreShadowsDisabled (Material material) {
+		static bool AreShadowsDisabled(Material material)
+		{
 			return material.IsKeywordEnabled("_RECEIVE_SHADOWS_OFF");
 		}
 
-		static bool RequiresMeshNormals (Material material) {
+		static bool RequiresMeshNormals(Material material)
+		{
 			bool anyFixedNormalSet = false;
-			foreach (string fixedNormalKeyword in FIXED_NORMALS_KEYWORDS) {
-				if (material.IsKeywordEnabled(fixedNormalKeyword)) {
+			foreach (string fixedNormalKeyword in FIXED_NORMALS_KEYWORDS)
+			{
+				if (material.IsKeywordEnabled(fixedNormalKeyword))
+				{
 					anyFixedNormalSet = true;
 					break;
 				}
@@ -287,7 +328,8 @@ namespace Spine.Unity {
 			return isShaderWithMeshNormals && !anyFixedNormalSet;
 		}
 
-		static bool IsSpriteShader (Material material) {
+		static bool IsSpriteShader(Material material)
+		{
 			string shaderName = material.shader.name;
 			return shaderName.Contains("Spine/Sprite/Pixel Lit") ||
 				shaderName.Contains("Spine/Sprite/Vertex Lit") ||
@@ -295,21 +337,25 @@ namespace Spine.Unity {
 				shaderName.Contains("Pipeline/Spine/Sprite"); // covers both URP and LWRP
 		}
 
-		static bool RequiresTintBlack (Material material) {
+		static bool RequiresTintBlack(Material material)
+		{
 			bool isTintBlackShader =
 				material.shader.name.Contains("Spine") &&
 				material.shader.name.Contains("Tint Black");
 			return isTintBlackShader;
 		}
 
-		static bool RequiresTangents (Material material) {
+		static bool RequiresTangents(Material material)
+		{
 			return material.IsKeywordEnabled(NORMALMAP_KEYWORD);
 		}
-		static bool IsCanvasGroupCompatible (Material material) {
+		static bool IsCanvasGroupCompatible(Material material)
+		{
 			return material.IsKeywordEnabled(CANVAS_GROUP_COMPATIBLE_KEYWORD);
 		}
 
-		static bool CanvasNotSetupForTintBlack (SkeletonGraphic skeletonGraphic) {
+		static bool CanvasNotSetupForTintBlack(SkeletonGraphic skeletonGraphic)
+		{
 			Canvas canvas = skeletonGraphic.canvas;
 			if (!canvas)
 				return false;

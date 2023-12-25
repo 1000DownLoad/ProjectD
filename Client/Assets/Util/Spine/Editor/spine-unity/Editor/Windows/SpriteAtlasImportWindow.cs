@@ -32,16 +32,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-namespace Spine.Unity.Editor {
+namespace Spine.Unity.Editor
+{
 
 	using Editor = UnityEditor.Editor;
 	using Icons = SpineEditorUtilities.Icons;
 
-	public class SpriteAtlasImportWindow : EditorWindow {
+	public class SpriteAtlasImportWindow : EditorWindow
+	{
 		const bool IsUtilityWindow = false;
 
 		[MenuItem("Window/Spine/SpriteAtlas Import", false, 5000)]
-		public static void Init (MenuCommand command) {
+		public static void Init(MenuCommand command)
+		{
 			var window = EditorWindow.GetWindow<SpriteAtlasImportWindow>(IsUtilityWindow);
 			window.minSize = new Vector2(284f, 256f);
 			window.maxSize = new Vector2(500f, 256f);
@@ -55,31 +58,38 @@ namespace Spine.Unity.Editor {
 
 		SerializedObject so;
 
-		void OnEnable () {
+		void OnEnable()
+		{
 			if (!SpineSpriteAtlasAsset.AnySpriteAtlasNeedsRegionsLoaded())
 				return;
 			EditorApplication.update -= SpineSpriteAtlasAsset.UpdateWhenEditorPlayModeStarted;
 			EditorApplication.update += SpineSpriteAtlasAsset.UpdateWhenEditorPlayModeStarted;
 		}
 
-		void OnDisable () {
+		void OnDisable()
+		{
 			EditorApplication.update -= SpineSpriteAtlasAsset.UpdateWhenEditorPlayModeStarted;
 		}
 
-		void OnGUI () {
+		void OnGUI()
+		{
 			so = so ?? new SerializedObject(this);
 
 			EditorGUIUtility.wideMode = true;
 			EditorGUILayout.LabelField("Spine SpriteAtlas Import", EditorStyles.boldLabel);
 
-			using (new SpineInspectorUtility.BoxScope()) {
+			using (new SpineInspectorUtility.BoxScope())
+			{
 				EditorGUI.BeginChangeCheck();
 				var spriteAtlasAssetProperty = so.FindProperty("spriteAtlasAsset");
 				EditorGUILayout.PropertyField(spriteAtlasAssetProperty, new GUIContent("SpriteAtlas", EditorGUIUtility.IconContent("SpriteAtlas Icon").image));
-				if (EditorGUI.EndChangeCheck()) {
+				if (EditorGUI.EndChangeCheck())
+				{
 					so.ApplyModifiedProperties();
-					if (spriteAtlasAsset != null) {
-						if (AssetUtility.SpriteAtlasSettingsNeedAdjustment(spriteAtlasAsset)) {
+					if (spriteAtlasAsset != null)
+					{
+						if (AssetUtility.SpriteAtlasSettingsNeedAdjustment(spriteAtlasAsset))
+						{
 							AssetUtility.AdjustSpriteAtlasSettings(spriteAtlasAsset);
 						}
 						GenerateAssetsFromSpriteAtlas(spriteAtlasAsset);
@@ -89,29 +99,37 @@ namespace Spine.Unity.Editor {
 				var spineSpriteAtlasAssetProperty = so.FindProperty("spineSpriteAtlasAsset");
 				EditorGUI.BeginChangeCheck();
 				EditorGUILayout.PropertyField(spineSpriteAtlasAssetProperty, new GUIContent("SpineSpriteAtlasAsset", EditorGUIUtility.IconContent("ScriptableObject Icon").image));
-				if (spineSpriteAtlasAssetProperty.objectReferenceValue == null) {
+				if (spineSpriteAtlasAssetProperty.objectReferenceValue == null)
+				{
 					spineSpriteAtlasAssetProperty.objectReferenceValue = spineSpriteAtlasAsset = FindSpineSpriteAtlasAsset(spriteAtlasAsset);
 				}
-				if (EditorGUI.EndChangeCheck()) {
+				if (EditorGUI.EndChangeCheck())
+				{
 					so.ApplyModifiedProperties();
 				}
 				EditorGUILayout.Space();
 
-				using (new EditorGUI.DisabledScope(spineSpriteAtlasAsset == null)) {
-					if (SpineInspectorUtility.LargeCenteredButton(new GUIContent("Load regions by entering Play mode"))) {
+				using (new EditorGUI.DisabledScope(spineSpriteAtlasAsset == null))
+				{
+					if (SpineInspectorUtility.LargeCenteredButton(new GUIContent("Load regions by entering Play mode")))
+					{
 						GenerateAssetsFromSpriteAtlas(spriteAtlasAsset);
 						SpineSpriteAtlasAsset.UpdateByStartingEditorPlayMode();
 					}
 				}
 
-				using (new SpineInspectorUtility.BoxScope()) {
-					if (spriteAtlasAsset == null) {
+				using (new SpineInspectorUtility.BoxScope())
+				{
+					if (spriteAtlasAsset == null)
+					{
 						EditorGUILayout.LabelField(SpineInspectorUtility.TempContent("Please assign SpriteAtlas file.", Icons.warning), GUILayout.Height(46));
 					}
-					else if (spineSpriteAtlasAsset == null || spineSpriteAtlasAsset.RegionsNeedLoading) {
+					else if (spineSpriteAtlasAsset == null || spineSpriteAtlasAsset.RegionsNeedLoading)
+					{
 						EditorGUILayout.LabelField(SpineInspectorUtility.TempContent("Please hit 'Load regions ..' to load\nregion info. Play mode is started\nand stopped automatically.", Icons.warning), GUILayout.Height(54));
 					}
-					else {
+					else
+					{
 						EditorGUILayout.LabelField(SpineInspectorUtility.TempContent("SpriteAtlas imported\nsuccessfully.", Icons.spine), GUILayout.Height(46));
 					}
 				}
@@ -119,19 +137,24 @@ namespace Spine.Unity.Editor {
 
 			bool isAtlasComplete = (spineSpriteAtlasAsset != null && !spineSpriteAtlasAsset.RegionsNeedLoading);
 			bool canImportSkeleton = (spriteAtlasAsset != null && skeletonDataFile != null);
-			using (new SpineInspectorUtility.BoxScope()) {
+			using (new SpineInspectorUtility.BoxScope())
+			{
 
-				using (new EditorGUI.DisabledScope(!isAtlasComplete)) {
+				using (new EditorGUI.DisabledScope(!isAtlasComplete))
+				{
 					var skeletonDataAssetProperty = so.FindProperty("skeletonDataFile");
 					EditorGUI.BeginChangeCheck();
 					EditorGUILayout.PropertyField(skeletonDataAssetProperty, SpineInspectorUtility.TempContent("Skeleton json/skel file", Icons.spine));
-					if (EditorGUI.EndChangeCheck()) {
+					if (EditorGUI.EndChangeCheck())
+					{
 						so.ApplyModifiedProperties();
 					}
 					EditorGUILayout.Space();
 				}
-				using (new EditorGUI.DisabledScope(!canImportSkeleton)) {
-					if (SpineInspectorUtility.LargeCenteredButton(new GUIContent("Import Skeleton"))) {
+				using (new EditorGUI.DisabledScope(!canImportSkeleton))
+				{
+					if (SpineInspectorUtility.LargeCenteredButton(new GUIContent("Import Skeleton")))
+					{
 						//AssetUtility.IngestSpriteAtlas(spriteAtlasAsset, null);
 						string skeletonPath = AssetDatabase.GetAssetPath(skeletonDataFile);
 						string[] skeletons = new string[] { skeletonPath };
@@ -141,27 +164,33 @@ namespace Spine.Unity.Editor {
 			}
 		}
 
-		void GenerateAssetsFromSpriteAtlas (UnityEngine.U2D.SpriteAtlas spriteAtlasAsset) {
+		void GenerateAssetsFromSpriteAtlas(UnityEngine.U2D.SpriteAtlas spriteAtlasAsset)
+		{
 			AssetUtility.IngestSpriteAtlas(spriteAtlasAsset, null);
 			string texturePath;
-			if (AssetUtility.GeneratePngFromSpriteAtlas(spriteAtlasAsset, out texturePath)) {
+			if (AssetUtility.GeneratePngFromSpriteAtlas(spriteAtlasAsset, out texturePath))
+			{
 				Debug.Log(string.Format("Generated SpriteAtlas texture '{0}'", texturePath), spriteAtlasAsset);
 			}
 		}
 
-		SpineSpriteAtlasAsset FindSpineSpriteAtlasAsset (UnityEngine.U2D.SpriteAtlas spriteAtlasAsset) {
+		SpineSpriteAtlasAsset FindSpineSpriteAtlasAsset(UnityEngine.U2D.SpriteAtlas spriteAtlasAsset)
+		{
 			string path = AssetDatabase.GetAssetPath(spriteAtlasAsset).Replace(".spriteatlas", AssetUtility.SpriteAtlasSuffix + ".asset");
-			if (System.IO.File.Exists(path)) {
+			if (System.IO.File.Exists(path))
+			{
 				return AssetDatabase.LoadAssetAtPath<SpineSpriteAtlasAsset>(path);
 			}
 			return null;
 		}
 
-		SkeletonDataAsset FindSkeletonDataAsset (TextAsset skeletonDataFile) {
+		SkeletonDataAsset FindSkeletonDataAsset(TextAsset skeletonDataFile)
+		{
 			string path = AssetDatabase.GetAssetPath(skeletonDataFile);
 			path = path.Replace(".json", AssetUtility.SkeletonDataSuffix + ".asset");
 			path = path.Replace(".skel.bytes", AssetUtility.SkeletonDataSuffix + ".asset");
-			if (System.IO.File.Exists(path)) {
+			if (System.IO.File.Exists(path))
+			{
 				return AssetDatabase.LoadAssetAtPath<SkeletonDataAsset>(path);
 			}
 			return null;

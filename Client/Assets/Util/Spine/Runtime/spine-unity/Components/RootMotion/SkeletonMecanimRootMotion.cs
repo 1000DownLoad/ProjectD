@@ -31,7 +31,8 @@ using UnityEngine;
 using System.Collections.Generic;
 using Spine.Unity.AnimationTools;
 
-namespace Spine.Unity {
+namespace Spine.Unity
+{
 
 	/// <summary>
 	/// Add this component to a SkeletonMecanim GameObject
@@ -46,7 +47,8 @@ namespace Spine.Unity {
 	/// <see cref="SkeletonRootMotion">SkeletonRootMotion</see> instead.
 	/// </remarks>
 	[HelpURL("http://esotericsoftware.com/spine-unity#SkeletonMecanimRootMotion")]
-	public class SkeletonMecanimRootMotion : SkeletonRootMotionBase {
+	public class SkeletonMecanimRootMotion : SkeletonRootMotionBase
+	{
 		#region Inspector
 		const int DefaultMecanimLayerFlags = -1;
 		public int mecanimLayerFlags = DefaultMecanimLayerFlags;
@@ -55,13 +57,16 @@ namespace Spine.Unity {
 		protected Vector2 movementDelta;
 
 		SkeletonMecanim skeletonMecanim;
-		public SkeletonMecanim SkeletonMecanim {
-			get {
+		public SkeletonMecanim SkeletonMecanim
+		{
+			get
+			{
 				return skeletonMecanim ? skeletonMecanim : skeletonMecanim = GetComponent<SkeletonMecanim>();
 			}
 		}
 
-		public override Vector2 GetRemainingRootMotion (int layerIndex) {
+		public override Vector2 GetRemainingRootMotion(int layerIndex)
+		{
 			var pair = skeletonMecanim.Translator.GetActiveAnimationAndTime(layerIndex);
 			var animation = pair.Key;
 			var time = pair.Value;
@@ -73,7 +78,8 @@ namespace Spine.Unity {
 			return GetAnimationRootMotion(start, end, animation);
 		}
 
-		public override RootMotionInfo GetRootMotionInfo (int layerIndex) {
+		public override RootMotionInfo GetRootMotionInfo(int layerIndex)
+		{
 			var pair = skeletonMecanim.Translator.GetActiveAnimationAndTime(layerIndex);
 			var animation = pair.Key;
 			var time = pair.Value;
@@ -82,35 +88,42 @@ namespace Spine.Unity {
 			return GetAnimationRootMotionInfo(animation, time);
 		}
 
-		protected override void Reset () {
+		protected override void Reset()
+		{
 			base.Reset();
 			mecanimLayerFlags = DefaultMecanimLayerFlags;
 		}
 
-		protected override void Start () {
+		protected override void Start()
+		{
 			base.Start();
 			skeletonMecanim = GetComponent<SkeletonMecanim>();
-			if (skeletonMecanim) {
+			if (skeletonMecanim)
+			{
 				skeletonMecanim.Translator.OnClipApplied -= OnClipApplied;
 				skeletonMecanim.Translator.OnClipApplied += OnClipApplied;
 			}
 		}
 
 		void OnClipApplied(Spine.Animation animation, int layerIndex, float weight,
-				float time, float lastTime, bool playsBackward) {
+				float time, float lastTime, bool playsBackward)
+		{
 
-			if (((mecanimLayerFlags & 1<<layerIndex) == 0) || weight == 0)
+			if (((mecanimLayerFlags & 1 << layerIndex) == 0) || weight == 0)
 				return;
 
-			if (!playsBackward) {
+			if (!playsBackward)
+			{
 				movementDelta += weight * GetAnimationRootMotion(lastTime, time, animation);
 			}
-			else {
+			else
+			{
 				movementDelta -= weight * GetAnimationRootMotion(time, lastTime, animation);
 			}
 		}
 
-		protected override Vector2 CalculateAnimationsMovementDelta () {
+		protected override Vector2 CalculateAnimationsMovementDelta()
+		{
 			// Note: movement delta is not gather after animation but
 			// in OnClipApplied after every applied animation.
 			Vector2 result = movementDelta;

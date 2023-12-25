@@ -44,22 +44,27 @@ using System.Linq;
 using System.Reflection;
 using System.Globalization;
 
-namespace Spine.Unity.Editor {
+namespace Spine.Unity.Editor
+{
 
-	public partial class SpineEditorUtilities {
-		public static class DataReloadHandler {
+	public partial class SpineEditorUtilities
+	{
+		public static class DataReloadHandler
+		{
 
 			internal static Dictionary<int, string> savedSkeletonDataAssetAtSKeletonGraphicID = new Dictionary<int, string>();
 
-		#if NEWPLAYMODECALLBACKS
-			internal static void OnPlaymodeStateChanged (PlayModeStateChange stateChange) {
-		#else
+#if NEWPLAYMODECALLBACKS
+			internal static void OnPlaymodeStateChanged(PlayModeStateChange stateChange)
+			{
+#else
 			internal static void OnPlaymodeStateChanged () {
-		#endif
+#endif
 				ReloadAllActiveSkeletonsEditMode();
 			}
 
-			public static void ReloadAllActiveSkeletonsEditMode () {
+			public static void ReloadAllActiveSkeletonsEditMode()
+			{
 
 				if (EditorApplication.isPaused) return;
 				if (EditorApplication.isPlaying) return;
@@ -69,7 +74,8 @@ namespace Spine.Unity.Editor {
 				var skeletonDataAssetsToReload = new HashSet<SkeletonDataAsset>();
 
 				var activeSkeletonRenderers = GameObject.FindObjectsOfType<SkeletonRenderer>();
-				foreach (var sr in activeSkeletonRenderers) {
+				foreach (var sr in activeSkeletonRenderers)
+				{
 					var skeletonDataAsset = sr.skeletonDataAsset;
 					if (skeletonDataAsset != null) skeletonDataAssetsToReload.Add(skeletonDataAsset);
 				}
@@ -80,9 +86,11 @@ namespace Spine.Unity.Editor {
 				// Here we save the skeletonGraphic.skeletonDataAsset asset path in order
 				// to restore it later.
 				var activeSkeletonGraphics = GameObject.FindObjectsOfType<SkeletonGraphic>();
-				foreach (var sg in activeSkeletonGraphics) {
+				foreach (var sg in activeSkeletonGraphics)
+				{
 					var skeletonDataAsset = sg.skeletonDataAsset;
-					if (skeletonDataAsset != null) {
+					if (skeletonDataAsset != null)
+					{
 						var assetPath = AssetDatabase.GetAssetPath(skeletonDataAsset);
 						var sgID = sg.GetInstanceID();
 						savedSkeletonDataAssetAtSKeletonGraphicID[sgID] = assetPath;
@@ -90,50 +98,61 @@ namespace Spine.Unity.Editor {
 					}
 				}
 
-				foreach (var sda in skeletonDataAssetsToReload) {
+				foreach (var sda in skeletonDataAssetsToReload)
+				{
 					sda.Clear();
 					sda.GetSkeletonData(true);
 				}
 
-				foreach (var sr in activeSkeletonRenderers) {
+				foreach (var sr in activeSkeletonRenderers)
+				{
 					var meshRenderer = sr.GetComponent<MeshRenderer>();
 					var sharedMaterials = meshRenderer.sharedMaterials;
-					foreach (var m in sharedMaterials) {
-						if (m == null) {
+					foreach (var m in sharedMaterials)
+					{
+						if (m == null)
+						{
 							sr.Initialize(true);
 							break;
 						}
 					}
 				}
 
-				foreach (var sg in activeSkeletonGraphics) {
+				foreach (var sg in activeSkeletonGraphics)
+				{
 					if (sg.mainTexture == null)
 						sg.Initialize(true);
 				}
 			}
 
-			public static void ReloadSceneSkeletonComponents (SkeletonDataAsset skeletonDataAsset) {
+			public static void ReloadSceneSkeletonComponents(SkeletonDataAsset skeletonDataAsset)
+			{
 				if (EditorApplication.isPaused) return;
 				if (EditorApplication.isPlaying) return;
 				if (EditorApplication.isCompiling) return;
 				if (EditorApplication.isPlayingOrWillChangePlaymode) return;
 
 				var activeSkeletonRenderers = GameObject.FindObjectsOfType<SkeletonRenderer>();
-				foreach (var sr in activeSkeletonRenderers) {
+				foreach (var sr in activeSkeletonRenderers)
+				{
 					if (sr.isActiveAndEnabled && sr.skeletonDataAsset == skeletonDataAsset) sr.Initialize(true);
 				}
 
 				var activeSkeletonGraphics = GameObject.FindObjectsOfType<SkeletonGraphic>();
-				foreach (var sg in activeSkeletonGraphics) {
+				foreach (var sg in activeSkeletonGraphics)
+				{
 					if (sg.isActiveAndEnabled && sg.skeletonDataAsset == skeletonDataAsset) sg.Initialize(true);
 				}
 			}
 
-			public static void ReloadAnimationReferenceAssets (SkeletonDataAsset skeletonDataAsset) {
+			public static void ReloadAnimationReferenceAssets(SkeletonDataAsset skeletonDataAsset)
+			{
 				string[] guids = UnityEditor.AssetDatabase.FindAssets("t:AnimationReferenceAsset");
-				foreach (string guid in guids) {
+				foreach (string guid in guids)
+				{
 					string path = UnityEditor.AssetDatabase.GUIDToAssetPath(guid);
-					if (!string.IsNullOrEmpty(path)) {
+					if (!string.IsNullOrEmpty(path))
+					{
 						var referenceAsset = UnityEditor.AssetDatabase.LoadAssetAtPath<AnimationReferenceAsset>(path);
 						if (referenceAsset.SkeletonDataAsset == skeletonDataAsset)
 							referenceAsset.Initialize();

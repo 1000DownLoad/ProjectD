@@ -11,8 +11,8 @@ namespace Framework.Scheduler.Base
 
     public abstract class Task
     {
-        private     bool        m_is_init       = false;
-        protected   ETaskState  m_task_state    = ETaskState.Process;
+        private bool m_is_init = false;
+        protected ETaskState m_task_state = ETaskState.Process;
 
         protected void Complete(ETaskState in_task_state)
         {

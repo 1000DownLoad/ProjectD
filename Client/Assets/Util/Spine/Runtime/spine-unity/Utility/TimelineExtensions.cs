@@ -31,13 +31,16 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 
-namespace Spine.Unity.AnimationTools {
-	public static class TimelineExtensions {
+namespace Spine.Unity.AnimationTools
+{
+	public static class TimelineExtensions
+	{
 
 		/// <summary>Evaluates the resulting value of a TranslateTimeline at a given time.
 		/// SkeletonData can be accessed from Skeleton.Data or from SkeletonDataAsset.GetSkeletonData.
 		/// If no SkeletonData is given, values are computed relative to setup pose instead of local-absolute.</summary>
-		public static Vector2 Evaluate (this TranslateTimeline timeline, float time, SkeletonData skeletonData = null) {
+		public static Vector2 Evaluate(this TranslateTimeline timeline, float time, SkeletonData skeletonData = null)
+		{
 			const int PREV_TIME = -3, PREV_X = -2, PREV_Y = -1;
 			const int X = 1, Y = 2;
 
@@ -45,11 +48,13 @@ namespace Spine.Unity.AnimationTools {
 			if (time < frames[0]) return Vector2.zero;
 
 			float x, y;
-			if (time >= frames[frames.Length - TranslateTimeline.ENTRIES]) { // Time is after last frame.
+			if (time >= frames[frames.Length - TranslateTimeline.ENTRIES])
+			{ // Time is after last frame.
 				x = frames[frames.Length + PREV_X];
 				y = frames[frames.Length + PREV_Y];
 			}
-			else {
+			else
+			{
 				// Interpolate between the previous frame and the current frame.
 				int frame = Animation.BinarySearch(frames, time, TranslateTimeline.ENTRIES);
 				x = frames[frame + PREV_X];
@@ -63,10 +68,12 @@ namespace Spine.Unity.AnimationTools {
 			}
 
 			Vector2 xy = new Vector2(x, y);
-			if (skeletonData == null) {
+			if (skeletonData == null)
+			{
 				return xy;
 			}
-			else {
+			else
+			{
 				var boneData = skeletonData.bones.Items[timeline.boneIndex];
 				return xy + new Vector2(boneData.x, boneData.y);
 			}
@@ -76,8 +83,10 @@ namespace Spine.Unity.AnimationTools {
 		/// You can get the boneIndex using SkeletonData.FindBoneIndex.
 		/// The root bone is always boneIndex 0.
 		/// This will return null if a TranslateTimeline is not found.</summary>
-		public static TranslateTimeline FindTranslateTimelineForBone (this Animation a, int boneIndex) {
-			foreach (var timeline in a.timelines) {
+		public static TranslateTimeline FindTranslateTimelineForBone(this Animation a, int boneIndex)
+		{
+			foreach (var timeline in a.timelines)
+			{
 				if (timeline.GetType().IsSubclassOf(typeof(TranslateTimeline)))
 					continue;
 

@@ -40,14 +40,16 @@ using System.Linq;
 using System.Reflection;
 using System.Globalization;
 
-namespace Spine.Unity.Editor {
+namespace Spine.Unity.Editor
+{
 	using EventType = UnityEngine.EventType;
 
-	public static class SpineHandles {
+	public static class SpineHandles
+	{
 		public static Color BoneColor { get { return new Color(0.8f, 0.8f, 0.8f, 0.4f); } }
-		public static Color PathColor { get { return new Color(254/255f, 127/255f, 0); } }
-		public static Color TransformContraintColor { get { return new Color(170/255f, 226/255f, 35/255f); } }
-		public static Color IkColor { get { return new Color(228/255f,90/255f,43/255f); } }
+		public static Color PathColor { get { return new Color(254 / 255f, 127 / 255f, 0); } }
+		public static Color TransformContraintColor { get { return new Color(170 / 255f, 226 / 255f, 35 / 255f); } }
+		public static Color IkColor { get { return new Color(228 / 255f, 90 / 255f, 43 / 255f); } }
 		public static Color PointColor { get { return new Color(1f, 1f, 0f, 1f); } }
 
 		static Vector3[] _boneMeshVerts = {
@@ -57,13 +59,17 @@ namespace Spine.Unity.Editor {
 			new Vector3(0.1f, -0.1f, 0)
 		};
 		static Mesh _boneMesh;
-		public static Mesh BoneMesh {
-			get {
-				if (_boneMesh == null) {
-					_boneMesh = new Mesh {
+		public static Mesh BoneMesh
+		{
+			get
+			{
+				if (_boneMesh == null)
+				{
+					_boneMesh = new Mesh
+					{
 						vertices = _boneMeshVerts,
 						uv = new Vector2[4],
-						triangles = new [] { 0, 1, 2, 2, 3, 0 }
+						triangles = new[] { 0, 1, 2, 2, 3, 0 }
 					};
 					_boneMesh.RecalculateBounds();
 					_boneMesh.RecalculateNormals();
@@ -73,17 +79,21 @@ namespace Spine.Unity.Editor {
 		}
 
 		static Mesh _arrowheadMesh;
-		public static Mesh ArrowheadMesh {
-			get {
-				if (_arrowheadMesh == null) {
-					_arrowheadMesh = new Mesh {
-						vertices = new [] {
+		public static Mesh ArrowheadMesh
+		{
+			get
+			{
+				if (_arrowheadMesh == null)
+				{
+					_arrowheadMesh = new Mesh
+					{
+						vertices = new[] {
 							new Vector3(0, 0),
 							new Vector3(-0.1f, 0.05f),
 							new Vector3(-0.1f, -0.05f)
 						},
 						uv = new Vector2[3],
-						triangles = new [] { 0, 1, 2 }
+						triangles = new[] { 0, 1, 2 }
 					};
 					_arrowheadMesh.RecalculateBounds();
 					_arrowheadMesh.RecalculateNormals();
@@ -93,9 +103,12 @@ namespace Spine.Unity.Editor {
 		}
 
 		static Material _boneMaterial;
-		static Material BoneMaterial {
-			get {
-				if (_boneMaterial == null) {
+		static Material BoneMaterial
+		{
+			get
+			{
+				if (_boneMaterial == null)
+				{
 					_boneMaterial = new Material(Shader.Find("Hidden/Spine/Bones"));
 					_boneMaterial.SetColor("_Color", SpineHandles.BoneColor);
 				}
@@ -103,20 +116,25 @@ namespace Spine.Unity.Editor {
 				return _boneMaterial;
 			}
 		}
-		public static Material GetBoneMaterial () {
+		public static Material GetBoneMaterial()
+		{
 			BoneMaterial.SetColor("_Color", SpineHandles.BoneColor);
 			return BoneMaterial;
 		}
 
-		public static Material GetBoneMaterial (Color color) {
+		public static Material GetBoneMaterial(Color color)
+		{
 			BoneMaterial.SetColor("_Color", color);
 			return BoneMaterial;
 		}
 
 		static Material _ikMaterial;
-		public static Material IKMaterial {
-			get {
-				if (_ikMaterial == null) {
+		public static Material IKMaterial
+		{
+			get
+			{
+				if (_ikMaterial == null)
+				{
 					_ikMaterial = new Material(Shader.Find("Hidden/Spine/Bones"));
 					_ikMaterial.SetColor("_Color", SpineHandles.IkColor);
 				}
@@ -125,10 +143,14 @@ namespace Spine.Unity.Editor {
 		}
 
 		static GUIStyle _boneNameStyle;
-		public static GUIStyle BoneNameStyle {
-			get {
-				if (_boneNameStyle == null) {
-					_boneNameStyle = new GUIStyle(EditorStyles.whiteMiniLabel) {
+		public static GUIStyle BoneNameStyle
+		{
+			get
+			{
+				if (_boneNameStyle == null)
+				{
+					_boneNameStyle = new GUIStyle(EditorStyles.whiteMiniLabel)
+					{
 						alignment = TextAnchor.MiddleCenter,
 						stretchWidth = true,
 						padding = new RectOffset(0, 0, 0, 0),
@@ -140,9 +162,12 @@ namespace Spine.Unity.Editor {
 		}
 
 		static GUIStyle _pathNameStyle;
-		public static GUIStyle PathNameStyle {
-			get {
-				if (_pathNameStyle == null) {
+		public static GUIStyle PathNameStyle
+		{
+			get
+			{
+				if (_pathNameStyle == null)
+				{
 					_pathNameStyle = new GUIStyle(SpineHandles.BoneNameStyle);
 					_pathNameStyle.normal.textColor = SpineHandles.PathColor;
 				}
@@ -151,9 +176,12 @@ namespace Spine.Unity.Editor {
 		}
 
 		static GUIStyle _pointNameStyle;
-		public static GUIStyle PointNameStyle {
-			get {
-				if (_pointNameStyle == null) {
+		public static GUIStyle PointNameStyle
+		{
+			get
+			{
+				if (_pointNameStyle == null)
+				{
 					_pointNameStyle = new GUIStyle(SpineHandles.BoneNameStyle);
 					_pointNameStyle.normal.textColor = SpineHandles.PointColor;
 				}
@@ -161,9 +189,11 @@ namespace Spine.Unity.Editor {
 			}
 		}
 
-		public static void DrawBoneNames (Transform transform, Skeleton skeleton, float positionScale = 1f) {
+		public static void DrawBoneNames(Transform transform, Skeleton skeleton, float positionScale = 1f)
+		{
 			GUIStyle style = BoneNameStyle;
-			foreach (Bone b in skeleton.Bones) {
+			foreach (Bone b in skeleton.Bones)
+			{
 				if (!b.Active) continue;
 				var pos = new Vector3(b.WorldX * positionScale, b.WorldY * positionScale, 0) + (new Vector3(b.A, b.C) * (b.Data.Length * 0.5f));
 				pos = transform.TransformPoint(pos);
@@ -171,11 +201,13 @@ namespace Spine.Unity.Editor {
 			}
 		}
 
-		public static void DrawBones (Transform transform, Skeleton skeleton, float positionScale = 1f) {
+		public static void DrawBones(Transform transform, Skeleton skeleton, float positionScale = 1f)
+		{
 			float boneScale = 1.8f; // Draw the root bone largest;
 			DrawCrosshairs2D(skeleton.Bones.Items[0].GetWorldPosition(transform), 0.08f, positionScale);
 
-			foreach (Bone b in skeleton.Bones) {
+			foreach (Bone b in skeleton.Bones)
+			{
 				if (!b.Active) continue;
 				DrawBone(transform, b, boneScale, positionScale);
 				boneScale = 1f;
@@ -183,19 +215,22 @@ namespace Spine.Unity.Editor {
 		}
 
 		static Vector3[] _boneWireBuffer = new Vector3[5];
-		static Vector3[] GetBoneWireBuffer (Matrix4x4 m) {
+		static Vector3[] GetBoneWireBuffer(Matrix4x4 m)
+		{
 			for (int i = 0, n = _boneMeshVerts.Length; i < n; i++)
 				_boneWireBuffer[i] = m.MultiplyPoint(_boneMeshVerts[i]);
 
 			_boneWireBuffer[4] = _boneWireBuffer[0]; // closed polygon.
 			return _boneWireBuffer;
 		}
-		public static void DrawBoneWireframe (Transform transform, Bone b, Color color, float skeletonRenderScale = 1f) {
+		public static void DrawBoneWireframe(Transform transform, Bone b, Color color, float skeletonRenderScale = 1f)
+		{
 			Handles.color = color;
 			var pos = new Vector3(b.WorldX * skeletonRenderScale, b.WorldY * skeletonRenderScale, 0);
 			float length = b.Data.Length;
 
-			if (length > 0) {
+			if (length > 0)
+			{
 				Quaternion rot = Quaternion.Euler(0, 0, b.WorldRotationX);
 				Vector3 scale = Vector3.one * length * b.WorldScaleX * skeletonRenderScale;
 				const float my = 1.5f;
@@ -204,16 +239,20 @@ namespace Spine.Unity.Editor {
 				Handles.DrawPolyLine(GetBoneWireBuffer(transform.localToWorldMatrix * Matrix4x4.TRS(pos, rot, scale)));
 				var wp = transform.TransformPoint(pos);
 				DrawBoneCircle(wp, color, transform.forward, skeletonRenderScale);
-			} else {
+			}
+			else
+			{
 				var wp = transform.TransformPoint(pos);
 				DrawBoneCircle(wp, color, transform.forward, skeletonRenderScale);
 			}
 		}
 
-		public static void DrawBone (Transform transform, Bone b, float boneScale, float skeletonRenderScale = 1f) {
+		public static void DrawBone(Transform transform, Bone b, float boneScale, float skeletonRenderScale = 1f)
+		{
 			var pos = new Vector3(b.WorldX * skeletonRenderScale, b.WorldY * skeletonRenderScale, 0);
 			float length = b.Data.Length;
-			if (length > 0) {
+			if (length > 0)
+			{
 				Quaternion rot = Quaternion.Euler(0, 0, b.WorldRotationX);
 				Vector3 scale = Vector3.one * length * b.WorldScaleX * skeletonRenderScale;
 				const float my = 1.5f;
@@ -221,16 +260,20 @@ namespace Spine.Unity.Editor {
 				scale.y = Mathf.Clamp(scale.x, -my * skeletonRenderScale, my * skeletonRenderScale);
 				SpineHandles.GetBoneMaterial().SetPass(0);
 				Graphics.DrawMeshNow(SpineHandles.BoneMesh, transform.localToWorldMatrix * Matrix4x4.TRS(pos, rot, scale));
-			} else {
+			}
+			else
+			{
 				var wp = transform.TransformPoint(pos);
 				DrawBoneCircle(wp, SpineHandles.BoneColor, transform.forward, boneScale * skeletonRenderScale);
 			}
 		}
 
-		public static void DrawBone (Transform transform, Bone b, float boneScale, Color color, float skeletonRenderScale = 1f) {
+		public static void DrawBone(Transform transform, Bone b, float boneScale, Color color, float skeletonRenderScale = 1f)
+		{
 			var pos = new Vector3(b.WorldX * skeletonRenderScale, b.WorldY * skeletonRenderScale, 0);
 			float length = b.Data.Length;
-			if (length > 0) {
+			if (length > 0)
+			{
 				Quaternion rot = Quaternion.Euler(0, 0, b.WorldRotationX);
 				Vector3 scale = Vector3.one * length * b.WorldScaleX;
 				const float my = 1.5f;
@@ -238,21 +281,26 @@ namespace Spine.Unity.Editor {
 				scale.y = Mathf.Clamp(scale.x, -my, my);
 				SpineHandles.GetBoneMaterial(color).SetPass(0);
 				Graphics.DrawMeshNow(SpineHandles.BoneMesh, transform.localToWorldMatrix * Matrix4x4.TRS(pos, rot, scale));
-			} else {
+			}
+			else
+			{
 				var wp = transform.TransformPoint(pos);
 				DrawBoneCircle(wp, color, transform.forward, boneScale * skeletonRenderScale);
 			}
 		}
 
-		public static void DrawPaths (Transform transform, Skeleton skeleton) {
-			foreach (Slot s in skeleton.DrawOrder) {
+		public static void DrawPaths(Transform transform, Skeleton skeleton)
+		{
+			foreach (Slot s in skeleton.DrawOrder)
+			{
 				var p = s.Attachment as PathAttachment;
 				if (p != null) SpineHandles.DrawPath(s, p, transform, true);
 			}
 		}
 
 		static float[] pathVertexBuffer;
-		public static void DrawPath (Slot s, PathAttachment p, Transform t, bool includeName) {
+		public static void DrawPath(Slot s, PathAttachment p, Transform t, bool includeName)
+		{
 			int worldVerticesLength = p.WorldVerticesLength;
 
 			if (pathVertexBuffer == null || pathVertexBuffer.Length < worldVerticesLength)
@@ -268,16 +316,18 @@ namespace Spine.Unity.Editor {
 			const int step = 6;
 			int n = worldVerticesLength - step;
 			Vector3 p0, p1, p2, p3;
-			for (int i = 2; i < n; i += step) {
-				p0 = m.MultiplyPoint(new Vector3(pv[i], pv[i+1]));
-				p1 = m.MultiplyPoint(new Vector3(pv[i+2], pv[i+3]));
-				p2 = m.MultiplyPoint(new Vector3(pv[i+4], pv[i+5]));
-				p3 = m.MultiplyPoint(new Vector3(pv[i+6], pv[i+7]));
+			for (int i = 2; i < n; i += step)
+			{
+				p0 = m.MultiplyPoint(new Vector3(pv[i], pv[i + 1]));
+				p1 = m.MultiplyPoint(new Vector3(pv[i + 2], pv[i + 3]));
+				p2 = m.MultiplyPoint(new Vector3(pv[i + 4], pv[i + 5]));
+				p3 = m.MultiplyPoint(new Vector3(pv[i + 6], pv[i + 7]));
 				DrawCubicBezier(p0, p1, p2, p3);
 			}
 
 			n += step;
-			if (p.Closed) {
+			if (p.Closed)
+			{
 				p0 = m.MultiplyPoint(new Vector3(pv[n - 4], pv[n - 3]));
 				p1 = m.MultiplyPoint(new Vector3(pv[n - 2], pv[n - 1]));
 				p2 = m.MultiplyPoint(new Vector3(pv[0], pv[1]));
@@ -290,23 +340,27 @@ namespace Spine.Unity.Editor {
 			SpineHandles.DrawDot(firstPoint, endCapSize);
 
 			//if (!p.Closed) SpineHandles.DrawDot(m.MultiplyPoint(new Vector3(pv[n - 4], pv[n - 3])), endCapSize);
-			if (includeName) Handles.Label(firstPoint + new Vector3(0,0.1f), p.Name, PathNameStyle);
+			if (includeName) Handles.Label(firstPoint + new Vector3(0, 0.1f), p.Name, PathNameStyle);
 
 			Handles.color = ocolor;
 		}
 
-		public static void DrawDot (Vector3 position, float size) {
+		public static void DrawDot(Vector3 position, float size)
+		{
 			Handles.DotHandleCap(0, position, Quaternion.identity, size * HandleUtility.GetHandleSize(position), EventType.Ignore); //Handles.DotCap(0, position, Quaternion.identity, size * HandleUtility.GetHandleSize(position));
 		}
 
-		public static void DrawBoundingBoxes (Transform transform, Skeleton skeleton) {
-			foreach (var slot in skeleton.Slots) {
+		public static void DrawBoundingBoxes(Transform transform, Skeleton skeleton)
+		{
+			foreach (var slot in skeleton.Slots)
+			{
 				var bba = slot.Attachment as BoundingBoxAttachment;
 				if (bba != null) SpineHandles.DrawBoundingBox(slot, bba, transform);
 			}
 		}
 
-		public static void DrawBoundingBox (Slot slot, BoundingBoxAttachment box, Transform t) {
+		public static void DrawBoundingBox(Slot slot, BoundingBoxAttachment box, Transform t)
+		{
 			if (box.Vertices.Length <= 2) return; // Handle cases where user creates a BoundingBoxAttachment but doesn't actually define it.
 
 			var worldVerts = new float[box.WorldVerticesLength];
@@ -316,7 +370,8 @@ namespace Spine.Unity.Editor {
 			Vector3 lastVert = Vector3.zero;
 			Vector3 vert = Vector3.zero;
 			Vector3 firstVert = t.TransformPoint(new Vector3(worldVerts[0], worldVerts[1], 0));
-			for (int i = 0; i < worldVerts.Length; i += 2) {
+			for (int i = 0; i < worldVerts.Length; i += 2)
+			{
 				vert.x = worldVerts[i];
 				vert.y = worldVerts[i + 1];
 				vert.z = 0;
@@ -332,7 +387,8 @@ namespace Spine.Unity.Editor {
 			Handles.DrawLine(lastVert, firstVert);
 		}
 
-		public static void DrawPointAttachment (Bone bone, PointAttachment pointAttachment, Transform skeletonTransform) {
+		public static void DrawPointAttachment(Bone bone, PointAttachment pointAttachment, Transform skeletonTransform)
+		{
 			if (bone == null) return;
 			if (pointAttachment == null) return;
 
@@ -345,7 +401,8 @@ namespace Spine.Unity.Editor {
 			DrawArrowhead(skeletonTransform.localToWorldMatrix * m);
 		}
 
-		public static void DrawConstraints (Transform transform, Skeleton skeleton, float skeletonRenderScale = 1f) {
+		public static void DrawConstraints(Transform transform, Skeleton skeleton, float skeletonRenderScale = 1f)
+		{
 			Vector3 targetPos;
 			Vector3 pos;
 			bool active;
@@ -355,14 +412,18 @@ namespace Spine.Unity.Editor {
 
 			// Transform Constraints
 			handleColor = SpineHandles.TransformContraintColor;
-			foreach (var tc in skeleton.TransformConstraints) {
+			foreach (var tc in skeleton.TransformConstraints)
+			{
 				var targetBone = tc.Target;
 				targetPos = targetBone.GetWorldPosition(transform, skeletonRenderScale);
 
-				if (tc.TranslateMix > 0) {
-					if (tc.TranslateMix != 1f) {
+				if (tc.TranslateMix > 0)
+				{
+					if (tc.TranslateMix != 1f)
+					{
 						Handles.color = handleColor;
-						foreach (var b in tc.Bones) {
+						foreach (var b in tc.Bones)
+						{
 							pos = b.GetWorldPosition(transform, skeletonRenderScale);
 							Handles.DrawDottedLine(targetPos, pos, Thickness);
 						}
@@ -375,39 +436,44 @@ namespace Spine.Unity.Editor {
 
 			// IK Constraints
 			handleColor = SpineHandles.IkColor;
-			foreach (var ikc in skeleton.IkConstraints) {
+			foreach (var ikc in skeleton.IkConstraints)
+			{
 				Bone targetBone = ikc.Target;
 				targetPos = targetBone.GetWorldPosition(transform, skeletonRenderScale);
 				var bones = ikc.Bones;
 				active = ikc.Mix > 0;
-				if (active) {
+				if (active)
+				{
 					pos = bones.Items[0].GetWorldPosition(transform, skeletonRenderScale);
-					switch (bones.Count) {
-					case 1: {
-							Handles.color = handleColor;
-							Handles.DrawLine(targetPos, pos);
-							SpineHandles.DrawBoneCircle(targetPos, handleColor, normal);
-							var m = bones.Items[0].GetMatrix4x4();
-							m.m03 = targetBone.WorldX * skeletonRenderScale;
-							m.m13 = targetBone.WorldY * skeletonRenderScale;
-							SpineHandles.DrawArrowhead(transform.localToWorldMatrix * m);
-							break;
-						}
-					case 2: {
-							Bone childBone = bones.Items[1];
-							Vector3 child = childBone.GetWorldPosition(transform, skeletonRenderScale);
-							Handles.color = handleColor;
-							Handles.DrawLine(child, pos);
-							Handles.DrawLine(targetPos, child);
-							SpineHandles.DrawBoneCircle(pos, handleColor, normal, 0.5f);
-							SpineHandles.DrawBoneCircle(child, handleColor, normal, 0.5f);
-							SpineHandles.DrawBoneCircle(targetPos, handleColor, normal);
-							var m = childBone.GetMatrix4x4();
-							m.m03 = targetBone.WorldX * skeletonRenderScale;
-							m.m13 = targetBone.WorldY * skeletonRenderScale;
-							SpineHandles.DrawArrowhead(transform.localToWorldMatrix * m);
-							break;
-						}
+					switch (bones.Count)
+					{
+						case 1:
+							{
+								Handles.color = handleColor;
+								Handles.DrawLine(targetPos, pos);
+								SpineHandles.DrawBoneCircle(targetPos, handleColor, normal);
+								var m = bones.Items[0].GetMatrix4x4();
+								m.m03 = targetBone.WorldX * skeletonRenderScale;
+								m.m13 = targetBone.WorldY * skeletonRenderScale;
+								SpineHandles.DrawArrowhead(transform.localToWorldMatrix * m);
+								break;
+							}
+						case 2:
+							{
+								Bone childBone = bones.Items[1];
+								Vector3 child = childBone.GetWorldPosition(transform, skeletonRenderScale);
+								Handles.color = handleColor;
+								Handles.DrawLine(child, pos);
+								Handles.DrawLine(targetPos, child);
+								SpineHandles.DrawBoneCircle(pos, handleColor, normal, 0.5f);
+								SpineHandles.DrawBoneCircle(child, handleColor, normal, 0.5f);
+								SpineHandles.DrawBoneCircle(targetPos, handleColor, normal);
+								var m = childBone.GetMatrix4x4();
+								m.m03 = targetBone.WorldX * skeletonRenderScale;
+								m.m13 = targetBone.WorldY * skeletonRenderScale;
+								SpineHandles.DrawArrowhead(transform.localToWorldMatrix * m);
+								break;
+							}
 					}
 				}
 				//Handles.Label(targetPos, ikc.Data.Name, SpineHandles.BoneNameStyle);
@@ -415,7 +481,8 @@ namespace Spine.Unity.Editor {
 
 			// Path Constraints
 			handleColor = SpineHandles.PathColor;
-			foreach (var pc in skeleton.PathConstraints) {
+			foreach (var pc in skeleton.PathConstraints)
+			{
 				active = pc.TranslateMix > 0;
 				if (active)
 					foreach (var b in pc.Bones)
@@ -423,13 +490,15 @@ namespace Spine.Unity.Editor {
 			}
 		}
 
-		static void DrawCrosshairs2D (Vector3 position, float scale, float skeletonRenderScale = 1f) {
+		static void DrawCrosshairs2D(Vector3 position, float scale, float skeletonRenderScale = 1f)
+		{
 			scale *= SpineEditorUtilities.Preferences.handleScale * skeletonRenderScale;
 			Handles.DrawLine(position + new Vector3(-scale, 0), position + new Vector3(scale, 0));
 			Handles.DrawLine(position + new Vector3(0, -scale), position + new Vector3(0, scale));
 		}
 
-		static void DrawCrosshairs (Vector3 position, float scale, float a, float b, float c, float d, Transform transform, float skeletonRenderScale = 1f) {
+		static void DrawCrosshairs(Vector3 position, float scale, float a, float b, float c, float d, Transform transform, float skeletonRenderScale = 1f)
+		{
 			scale *= SpineEditorUtilities.Preferences.handleScale * skeletonRenderScale;
 
 			var xOffset = (Vector3)(new Vector2(a, c).normalized * scale);
@@ -441,18 +510,21 @@ namespace Spine.Unity.Editor {
 			Handles.DrawLine(position + yOffset, position - yOffset);
 		}
 
-		static void DrawArrowhead2D (Vector3 pos, float localRotation, float scale = 1f) {
+		static void DrawArrowhead2D(Vector3 pos, float localRotation, float scale = 1f)
+		{
 			scale *= SpineEditorUtilities.Preferences.handleScale;
 
 			SpineHandles.IKMaterial.SetPass(0);
 			Graphics.DrawMeshNow(SpineHandles.ArrowheadMesh, Matrix4x4.TRS(pos, Quaternion.Euler(0, 0, localRotation), new Vector3(scale, scale, scale)));
 		}
 
-		static void DrawArrowhead (Vector3 pos, Quaternion worldQuaternion) {
+		static void DrawArrowhead(Vector3 pos, Quaternion worldQuaternion)
+		{
 			Graphics.DrawMeshNow(SpineHandles.ArrowheadMesh, pos, worldQuaternion, 0);
 		}
 
-		static void DrawArrowhead (Matrix4x4 m) {
+		static void DrawArrowhead(Matrix4x4 m)
+		{
 			float s = SpineEditorUtilities.Preferences.handleScale;
 			m.m00 *= s;
 			m.m01 *= s;
@@ -468,7 +540,8 @@ namespace Spine.Unity.Editor {
 			Graphics.DrawMeshNow(SpineHandles.ArrowheadMesh, m);
 		}
 
-		static void DrawBoneCircle (Vector3 pos, Color outlineColor, Vector3 normal, float scale = 1f) {
+		static void DrawBoneCircle(Vector3 pos, Color outlineColor, Vector3 normal, float scale = 1f)
+		{
 			scale *= SpineEditorUtilities.Preferences.handleScale;
 
 			Color o = Handles.color;
@@ -478,7 +551,8 @@ namespace Spine.Unity.Editor {
 			const float Thickness = 0.03f;
 			float secondScale = firstScale - (Thickness * SpineEditorUtilities.Preferences.handleScale * scale);
 
-			if (secondScale > 0f) {
+			if (secondScale > 0f)
+			{
 				Handles.color = new Color(0.3f, 0.3f, 0.3f, 0.5f);
 				Handles.DrawSolidDisc(pos, normal, secondScale);
 			}
@@ -486,7 +560,8 @@ namespace Spine.Unity.Editor {
 			Handles.color = o;
 		}
 
-		internal static void DrawCubicBezier (Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3) {
+		internal static void DrawCubicBezier(Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3)
+		{
 			Handles.DrawBezier(p0, p3, p1, p2, Handles.color, Texture2D.whiteTexture, 2f);
 			//			const float dotSize = 0.01f;
 			//			Quaternion q = Quaternion.identity;

@@ -31,13 +31,15 @@ using UnityEngine;
 using UnityEditor;
 using Spine.Unity;
 
-namespace Spine.Unity.Editor {
+namespace Spine.Unity.Editor
+{
 
 	using Editor = UnityEditor.Editor;
 	using Event = UnityEngine.Event;
 
 	[CustomEditor(typeof(BoneFollowerGraphic)), CanEditMultipleObjects]
-	public class BoneFollowerGraphicInspector : Editor {
+	public class BoneFollowerGraphicInspector : Editor
+	{
 
 		SerializedProperty boneName, skeletonGraphic, followXYPosition, followZPosition, followBoneRotation,
 			followLocalScale, followSkeletonFlip, maintainedAxisOrientation;
@@ -45,8 +47,9 @@ namespace Spine.Unity.Editor {
 		bool needsReset;
 
 		#region Context Menu Item
-		[MenuItem ("CONTEXT/SkeletonGraphic/Add BoneFollower GameObject")]
-		static void AddBoneFollowerGameObject (MenuCommand cmd) {
+		[MenuItem("CONTEXT/SkeletonGraphic/Add BoneFollower GameObject")]
+		static void AddBoneFollowerGameObject(MenuCommand cmd)
+		{
 			var skeletonGraphic = cmd.context as SkeletonGraphic;
 			var go = EditorInstantiation.NewGameObject("BoneFollower", true, typeof(RectTransform));
 			var t = go.transform;
@@ -63,14 +66,16 @@ namespace Spine.Unity.Editor {
 		}
 
 		// Validate
-		[MenuItem ("CONTEXT/SkeletonGraphic/Add BoneFollower GameObject", true)]
-		static bool ValidateAddBoneFollowerGameObject (MenuCommand cmd) {
+		[MenuItem("CONTEXT/SkeletonGraphic/Add BoneFollower GameObject", true)]
+		static bool ValidateAddBoneFollowerGameObject(MenuCommand cmd)
+		{
 			var skeletonGraphic = cmd.context as SkeletonGraphic;
 			return skeletonGraphic.IsValid;
 		}
 		#endregion
 
-		void OnEnable () {
+		void OnEnable()
+		{
 			skeletonGraphic = serializedObject.FindProperty("skeletonGraphic");
 			boneName = serializedObject.FindProperty("boneName");
 			followBoneRotation = serializedObject.FindProperty("followBoneRotation");
@@ -84,7 +89,8 @@ namespace Spine.Unity.Editor {
 			if (targetBoneFollower.SkeletonGraphic != null)
 				targetBoneFollower.SkeletonGraphic.Initialize(false);
 
-			if (!targetBoneFollower.valid || needsReset) {
+			if (!targetBoneFollower.valid || needsReset)
+			{
 				targetBoneFollower.Initialize();
 				targetBoneFollower.LateUpdate();
 				needsReset = false;
@@ -92,7 +98,8 @@ namespace Spine.Unity.Editor {
 			}
 		}
 
-		public void OnSceneGUI () {
+		public void OnSceneGUI()
+		{
 			var tbf = target as BoneFollowerGraphic;
 			var skeletonGraphicComponent = tbf.SkeletonGraphic;
 			if (skeletonGraphicComponent == null) return;
@@ -102,11 +109,14 @@ namespace Spine.Unity.Editor {
 			var canvas = skeletonGraphicComponent.canvas;
 			float positionScale = canvas == null ? 1f : skeletonGraphicComponent.canvas.referencePixelsPerUnit;
 
-			if (string.IsNullOrEmpty(boneName.stringValue)) {
+			if (string.IsNullOrEmpty(boneName.stringValue))
+			{
 				SpineHandles.DrawBones(transform, skeleton, positionScale);
 				SpineHandles.DrawBoneNames(transform, skeleton, positionScale);
 				Handles.Label(tbf.transform.position, "No bone selected", EditorStyles.helpBox);
-			} else {
+			}
+			else
+			{
 				var targetBone = tbf.bone;
 				if (targetBone == null) return;
 
@@ -115,11 +125,15 @@ namespace Spine.Unity.Editor {
 			}
 		}
 
-		override public void OnInspectorGUI () {
-			if (serializedObject.isEditingMultipleObjects) {
-				if (needsReset) {
+		override public void OnInspectorGUI()
+		{
+			if (serializedObject.isEditingMultipleObjects)
+			{
+				if (needsReset)
+				{
 					needsReset = false;
-					foreach (var o in targets) {
+					foreach (var o in targets)
+					{
 						var bf = (BoneFollower)o;
 						bf.Initialize();
 						bf.LateUpdate();
@@ -133,7 +147,8 @@ namespace Spine.Unity.Editor {
 				return;
 			}
 
-			if (needsReset && Event.current.type == EventType.Layout) {
+			if (needsReset && Event.current.type == EventType.Layout)
+			{
 				targetBoneFollower.Initialize();
 				targetBoneFollower.LateUpdate();
 				needsReset = false;
@@ -142,9 +157,11 @@ namespace Spine.Unity.Editor {
 			serializedObject.Update();
 
 			// Find Renderer
-			if (skeletonGraphic.objectReferenceValue == null) {
+			if (skeletonGraphic.objectReferenceValue == null)
+			{
 				SkeletonGraphic parentRenderer = targetBoneFollower.GetComponentInParent<SkeletonGraphic>();
-				if (parentRenderer != null && parentRenderer.gameObject != targetBoneFollower.gameObject) {
+				if (parentRenderer != null && parentRenderer.gameObject != targetBoneFollower.gameObject)
+				{
 					skeletonGraphic.objectReferenceValue = parentRenderer;
 					Debug.Log("Inspector automatically assigned BoneFollowerGraphic.SkeletonGraphic");
 				}
@@ -152,18 +169,22 @@ namespace Spine.Unity.Editor {
 
 			EditorGUILayout.PropertyField(skeletonGraphic);
 			var skeletonGraphicComponent = skeletonGraphic.objectReferenceValue as SkeletonGraphic;
-			if (skeletonGraphicComponent != null) {
-				if (skeletonGraphicComponent.gameObject == targetBoneFollower.gameObject) {
+			if (skeletonGraphicComponent != null)
+			{
+				if (skeletonGraphicComponent.gameObject == targetBoneFollower.gameObject)
+				{
 					skeletonGraphic.objectReferenceValue = null;
 					EditorUtility.DisplayDialog("Invalid assignment.", "BoneFollowerGraphic can only follow a skeleton on a separate GameObject.\n\nCreate a new GameObject for your BoneFollower, or choose a SkeletonGraphic from a different GameObject.", "Ok");
 				}
 			}
 
-			if (!targetBoneFollower.valid) {
+			if (!targetBoneFollower.valid)
+			{
 				needsReset = true;
 			}
 
-			if (targetBoneFollower.valid) {
+			if (targetBoneFollower.valid)
+			{
 				EditorGUI.BeginChangeCheck();
 				EditorGUILayout.PropertyField(boneName);
 				needsReset |= EditorGUI.EndChangeCheck();
@@ -174,17 +195,23 @@ namespace Spine.Unity.Editor {
 				EditorGUILayout.PropertyField(followLocalScale);
 				EditorGUILayout.PropertyField(followSkeletonFlip);
 				if ((followSkeletonFlip.hasMultipleDifferentValues || followSkeletonFlip.boolValue == false) &&
-					(followBoneRotation.hasMultipleDifferentValues || followBoneRotation.boolValue == true)) {
+					(followBoneRotation.hasMultipleDifferentValues || followBoneRotation.boolValue == true))
+				{
 					using (new SpineInspectorUtility.IndentScope())
 						EditorGUILayout.PropertyField(maintainedAxisOrientation);
 				}
 
 				//BoneFollowerInspector.RecommendRigidbodyButton(targetBoneFollower);
-			} else {
+			}
+			else
+			{
 				var boneFollowerSkeletonGraphic = targetBoneFollower.skeletonGraphic;
-				if (boneFollowerSkeletonGraphic == null) {
+				if (boneFollowerSkeletonGraphic == null)
+				{
 					EditorGUILayout.HelpBox("SkeletonGraphic is unassigned. Please assign a SkeletonRenderer (SkeletonAnimation or SkeletonMecanim).", MessageType.Warning);
-				} else {
+				}
+				else
+				{
 					boneFollowerSkeletonGraphic.Initialize(false);
 
 					if (boneFollowerSkeletonGraphic.skeletonDataAsset == null)

@@ -34,22 +34,26 @@
 using UnityEngine;
 
 
-namespace Spine.Unity {
+namespace Spine.Unity
+{
 	using AxisOrientation = BoneFollower.AxisOrientation;
 
-	#if NEW_PREFAB_SYSTEM
+#if NEW_PREFAB_SYSTEM
 	[ExecuteAlways]
-	#else
+#else
 	[ExecuteInEditMode]
-	#endif
+#endif
 	[RequireComponent(typeof(RectTransform)), DisallowMultipleComponent]
 	[AddComponentMenu("Spine/UI/BoneFollowerGraphic")]
 	[HelpURL("http://esotericsoftware.com/spine-unity#BoneFollowerGraphic")]
-	public class BoneFollowerGraphic : MonoBehaviour {
+	public class BoneFollowerGraphic : MonoBehaviour
+	{
 		public SkeletonGraphic skeletonGraphic;
-		public SkeletonGraphic SkeletonGraphic {
+		public SkeletonGraphic SkeletonGraphic
+		{
 			get { return skeletonGraphic; }
-			set {
+			set
+			{
 				skeletonGraphic = value;
 				Initialize();
 			}
@@ -83,9 +87,11 @@ namespace Spine.Unity {
 
 		/// <summary>
 		/// Sets the target bone by its bone name. Returns false if no bone was found.</summary>
-		public bool SetBone (string name) {
+		public bool SetBone(string name)
+		{
 			bone = skeletonGraphic.Skeleton.FindBone(name);
-			if (bone == null) {
+			if (bone == null)
+			{
 				Debug.LogError("Bone not found: " + name, this);
 				return false;
 			}
@@ -93,42 +99,48 @@ namespace Spine.Unity {
 			return true;
 		}
 
-		public void Awake () {
+		public void Awake()
+		{
 			if (initializeOnAwake) Initialize();
 		}
 
-		public void Initialize () {
+		public void Initialize()
+		{
 			bone = null;
 			valid = skeletonGraphic != null && skeletonGraphic.IsValid;
 			if (!valid) return;
 
 			skeletonTransform = skeletonGraphic.transform;
-//			skeletonGraphic.OnRebuild -= HandleRebuildRenderer;
-//			skeletonGraphic.OnRebuild += HandleRebuildRenderer;
+			//			skeletonGraphic.OnRebuild -= HandleRebuildRenderer;
+			//			skeletonGraphic.OnRebuild += HandleRebuildRenderer;
 			skeletonTransformIsParent = Transform.ReferenceEquals(skeletonTransform, transform.parent);
 
 			if (!string.IsNullOrEmpty(boneName))
 				bone = skeletonGraphic.Skeleton.FindBone(boneName);
 
-			#if UNITY_EDITOR
-			if (Application.isEditor) {
+#if UNITY_EDITOR
+			if (Application.isEditor)
+			{
 				LateUpdate();
 			}
-			#endif
+#endif
 		}
 
-		public void LateUpdate () {
-			if (!valid) {
+		public void LateUpdate()
+		{
+			if (!valid)
+			{
 				Initialize();
 				return;
 			}
 
-			#if UNITY_EDITOR
+#if UNITY_EDITOR
 			if (!Application.isPlaying)
 				skeletonTransformIsParent = Transform.ReferenceEquals(skeletonTransform, transform.parent);
-			#endif
+#endif
 
-			if (bone == null) {
+			if (bone == null)
+			{
 				if (string.IsNullOrEmpty(boneName)) return;
 				bone = skeletonGraphic.Skeleton.FindBone(boneName);
 				if (!SetBone(boneName)) return;
@@ -142,17 +154,21 @@ namespace Spine.Unity {
 			float scale = canvas != null ? canvas.referencePixelsPerUnit : 100.0f;
 
 			float additionalFlipScale = 1;
-			if (skeletonTransformIsParent) {
+			if (skeletonTransformIsParent)
+			{
 				// Recommended setup: Use local transform properties if Spine GameObject is the immediate parent
 				thisTransform.localPosition = new Vector3(followXYPosition ? bone.worldX * scale : thisTransform.localPosition.x,
 														followXYPosition ? bone.worldY * scale : thisTransform.localPosition.y,
 														followZPosition ? 0f : thisTransform.localPosition.z);
 				if (followBoneRotation) thisTransform.localRotation = bone.GetQuaternion();
-			} else {
+			}
+			else
+			{
 				// For special cases: Use transform world properties if transform relationship is complicated
 				Vector3 targetWorldPosition = skeletonTransform.TransformPoint(new Vector3(bone.worldX * scale, bone.worldY * scale, 0f));
 				if (!followZPosition) targetWorldPosition.z = thisTransform.position.z;
-				if (!followXYPosition) {
+				if (!followXYPosition)
+				{
 					targetWorldPosition.x = thisTransform.position.x;
 					targetWorldPosition.y = thisTransform.position.y;
 				}
@@ -160,17 +176,20 @@ namespace Spine.Unity {
 				Vector3 skeletonLossyScale = skeletonTransform.lossyScale;
 				Transform transformParent = thisTransform.parent;
 				Vector3 parentLossyScale = transformParent != null ? transformParent.lossyScale : Vector3.one;
-				if (followBoneRotation) {
+				if (followBoneRotation)
+				{
 					float boneWorldRotation = bone.WorldRotationX;
 
 					if ((skeletonLossyScale.x * skeletonLossyScale.y) < 0)
 						boneWorldRotation = -boneWorldRotation;
 
-					if (followSkeletonFlip || maintainedAxisOrientation == AxisOrientation.XAxis) {
+					if (followSkeletonFlip || maintainedAxisOrientation == AxisOrientation.XAxis)
+					{
 						if ((skeletonLossyScale.x * parentLossyScale.x < 0))
 							boneWorldRotation += 180f;
 					}
-					else {
+					else
+					{
 						if ((skeletonLossyScale.y * parentLossyScale.y < 0))
 							boneWorldRotation += 180f;
 					}
@@ -178,7 +197,9 @@ namespace Spine.Unity {
 					Vector3 worldRotation = skeletonTransform.rotation.eulerAngles;
 					if (followLocalScale && bone.scaleX < 0) boneWorldRotation += 180f;
 					thisTransform.SetPositionAndRotation(targetWorldPosition, Quaternion.Euler(worldRotation.x, worldRotation.y, worldRotation.z + boneWorldRotation));
-				} else {
+				}
+				else
+				{
 					thisTransform.position = targetWorldPosition;
 				}
 

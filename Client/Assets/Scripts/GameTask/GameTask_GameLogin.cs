@@ -11,7 +11,7 @@ class GameTask_GameLogin : Task
 
     public override void OnAwake()
     {
-        Action callback = ()=>
+        Action callback = () =>
         {
             AccountDataTable.LoadAccountDataTable();
             ResourceDataTable.LoadResourceDataTable();

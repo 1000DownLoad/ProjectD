@@ -49,7 +49,7 @@ class GUI_Lobby : GUIBase
         m_account_level_text.SetText(AccountManager.Instance.m_user_level.ToString());
 
         var account_data = DataTable.AccountDataTable.GetAccountData(AccountManager.Instance.m_user_level);
-        if(account_data != null)
+        if (account_data != null)
         {
             m_account_exp_text.SetText(string.Format("{0}/{1}", Util.UI.SeparatorConvert(AccountManager.Instance.m_user_exp), Util.UI.SeparatorConvert(account_data.need_exp)));
 
@@ -69,7 +69,7 @@ class GUI_Lobby : GUIBase
             m_resource_gem_text.SetText(string.Format("0"));
 
         var gold_data = ResourceManager.Instance.GetResourceData(ResourceType.GOLD);
-        if(gold_data != null)
+        if (gold_data != null)
             m_resource_gold_text.SetText(Util.UI.SeparatorConvert(gold_data.count));
         else
             m_resource_gold_text.SetText(string.Format("0"));
@@ -92,6 +92,6 @@ class GUI_Lobby : GUIBase
 
     private void OnBattleButtonClick()
     {
-        
+
     }
 }

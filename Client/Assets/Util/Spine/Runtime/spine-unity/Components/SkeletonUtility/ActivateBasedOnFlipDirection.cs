@@ -29,7 +29,8 @@
 
 using UnityEngine;
 
-namespace Spine.Unity {
+namespace Spine.Unity
+{
 
 	/// <summary>
 	/// Utility component to support flipping of 2D hinge chains (chains of HingeJoint2D objects) along
@@ -37,7 +38,8 @@ namespace Spine.Unity {
 	/// Note: This component is automatically attached when calling "Create Hinge Chain 2D" at <see cref="SkeletonUtilityBone"/>,
 	/// do not attempt to use this component for other purposes.
 	/// </summary>
-	public class ActivateBasedOnFlipDirection : MonoBehaviour {
+	public class ActivateBasedOnFlipDirection : MonoBehaviour
+	{
 
 		public SkeletonRenderer skeletonRenderer;
 		public SkeletonGraphic skeletonGraphic;
@@ -49,21 +51,25 @@ namespace Spine.Unity {
 
 		bool wasFlippedXBefore = false;
 
-		private void Start () {
+		private void Start()
+		{
 			jointsNormalX = activeOnNormalX.GetComponentsInChildren<HingeJoint2D>();
 			jointsFlippedX = activeOnFlippedX.GetComponentsInChildren<HingeJoint2D>();
 			skeletonComponent = skeletonRenderer != null ? (ISkeletonComponent)skeletonRenderer : (ISkeletonComponent)skeletonGraphic;
 		}
 
-		private void FixedUpdate () {
+		private void FixedUpdate()
+		{
 			bool isFlippedX = (skeletonComponent.Skeleton.ScaleX < 0);
-			if (isFlippedX != wasFlippedXBefore) {
+			if (isFlippedX != wasFlippedXBefore)
+			{
 				HandleFlip(isFlippedX);
 			}
 			wasFlippedXBefore = isFlippedX;
 		}
 
-		void HandleFlip (bool isFlippedX) {
+		void HandleFlip(bool isFlippedX)
+		{
 			GameObject gameObjectToActivate = isFlippedX ? activeOnFlippedX : activeOnNormalX;
 			GameObject gameObjectToDeactivate = isFlippedX ? activeOnNormalX : activeOnFlippedX;
 
@@ -75,15 +81,18 @@ namespace Spine.Unity {
 			CompensateMovementAfterFlipX(gameObjectToActivate.transform, gameObjectToDeactivate.transform);
 		}
 
-		void ResetJointPositions (HingeJoint2D[] joints) {
-			for (int i = 0; i < joints.Length; ++i) {
+		void ResetJointPositions(HingeJoint2D[] joints)
+		{
+			for (int i = 0; i < joints.Length; ++i)
+			{
 				var joint = joints[i];
 				var parent = joint.connectedBody.transform;
 				joint.transform.position = parent.TransformPoint(joint.connectedAnchor);
 			}
 		}
 
-		void CompensateMovementAfterFlipX (Transform toActivate, Transform toDeactivate) {
+		void CompensateMovementAfterFlipX(Transform toActivate, Transform toDeactivate)
+		{
 			Transform targetLocation = toDeactivate.GetChild(0);
 			Transform currentLocation = toActivate.GetChild(0);
 			toActivate.position += targetLocation.position - currentLocation.position;

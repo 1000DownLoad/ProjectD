@@ -45,7 +45,7 @@ namespace Framework.FunctionFsm
             return _currentState;
         }
 
-    
+
 
         public bool ChangeState(int key)
         {
@@ -58,7 +58,7 @@ namespace Framework.FunctionFsm
 
             _currentState = state;
             _currentState.OnEnter?.Invoke();
-        
+
             return true;
         }
 

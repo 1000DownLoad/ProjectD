@@ -31,17 +31,20 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-namespace Spine.Unity {
+namespace Spine.Unity
+{
 
 	[AttributeUsage(AttributeTargets.Field, Inherited = true, AllowMultiple = false)]
-	public abstract class SpineAttributeBase : PropertyAttribute {
+	public abstract class SpineAttributeBase : PropertyAttribute
+	{
 		public string dataField = "";
 		public string startsWith = "";
 		public bool includeNone = true;
 		public bool fallbackToTextField = false;
 	}
 
-	public class SpineBone : SpineAttributeBase {
+	public class SpineBone : SpineAttributeBase
+	{
 		/// <summary>
 		/// Smart popup menu for Spine Bones
 		/// </summary>
@@ -52,24 +55,28 @@ namespace Spine.Unity {
 		/// Valid types are SkeletonDataAsset and SkeletonRenderer (and derivatives)
 		/// If left empty and the script the attribute is applied to is derived from Component, GetComponent<SkeletonRenderer>() will be called as a fallback.
 		/// </param>
-		public SpineBone (string startsWith = "", string dataField = "", bool includeNone = true, bool fallbackToTextField = false) {
+		public SpineBone(string startsWith = "", string dataField = "", bool includeNone = true, bool fallbackToTextField = false)
+		{
 			this.startsWith = startsWith;
 			this.dataField = dataField;
 			this.includeNone = includeNone;
 			this.fallbackToTextField = fallbackToTextField;
 		}
 
-		public static Spine.Bone GetBone (string boneName, SkeletonRenderer renderer) {
+		public static Spine.Bone GetBone(string boneName, SkeletonRenderer renderer)
+		{
 			return renderer.skeleton == null ? null : renderer.skeleton.FindBone(boneName);
 		}
 
-		public static Spine.BoneData GetBoneData (string boneName, SkeletonDataAsset skeletonDataAsset) {
+		public static Spine.BoneData GetBoneData(string boneName, SkeletonDataAsset skeletonDataAsset)
+		{
 			var data = skeletonDataAsset.GetSkeletonData(true);
 			return data.FindBone(boneName);
 		}
 	}
 
-	public class SpineSlot : SpineAttributeBase {
+	public class SpineSlot : SpineAttributeBase
+	{
 		public bool containsBoundingBoxes = false;
 
 		/// <summary>
@@ -83,7 +90,8 @@ namespace Spine.Unity {
 		/// Valid types are SkeletonDataAsset and SkeletonRenderer (and derivatives).
 		/// If left empty and the script the attribute is applied to is derived from Component, GetComponent<SkeletonRenderer>() will be called as a fallback.
 		/// </param>
-		public SpineSlot (string startsWith = "", string dataField = "", bool containsBoundingBoxes = false, bool includeNone = true, bool fallbackToTextField = false) {
+		public SpineSlot(string startsWith = "", string dataField = "", bool containsBoundingBoxes = false, bool includeNone = true, bool fallbackToTextField = false)
+		{
 			this.startsWith = startsWith;
 			this.dataField = dataField;
 			this.containsBoundingBoxes = containsBoundingBoxes;
@@ -92,7 +100,8 @@ namespace Spine.Unity {
 		}
 	}
 
-	public class SpineAnimation : SpineAttributeBase {
+	public class SpineAnimation : SpineAttributeBase
+	{
 		/// <summary>
 		/// Smart popup menu for Spine Animations
 		/// </summary>
@@ -103,7 +112,8 @@ namespace Spine.Unity {
 		/// Valid types are SkeletonDataAsset and SkeletonRenderer (and derivatives)
 		/// If left empty and the script the attribute is applied to is derived from Component, GetComponent<SkeletonRenderer>() will be called as a fallback.
 		/// </param>
-		public SpineAnimation (string startsWith = "", string dataField = "", bool includeNone = true, bool fallbackToTextField = false) {
+		public SpineAnimation(string startsWith = "", string dataField = "", bool includeNone = true, bool fallbackToTextField = false)
+		{
 			this.startsWith = startsWith;
 			this.dataField = dataField;
 			this.includeNone = includeNone;
@@ -111,7 +121,8 @@ namespace Spine.Unity {
 		}
 	}
 
-	public class SpineEvent : SpineAttributeBase {
+	public class SpineEvent : SpineAttributeBase
+	{
 		/// <summary>
 		/// Smart popup menu for Spine Events (Spine.EventData)
 		/// </summary>
@@ -125,7 +136,8 @@ namespace Spine.Unity {
 
 		public bool audioOnly = false;
 
-		public SpineEvent (string startsWith = "", string dataField = "", bool includeNone = true, bool fallbackToTextField = false, bool audioOnly = false) {
+		public SpineEvent(string startsWith = "", string dataField = "", bool includeNone = true, bool fallbackToTextField = false, bool audioOnly = false)
+		{
 			this.startsWith = startsWith;
 			this.dataField = dataField;
 			this.includeNone = includeNone;
@@ -134,7 +146,8 @@ namespace Spine.Unity {
 		}
 	}
 
-	public class SpineIkConstraint : SpineAttributeBase {
+	public class SpineIkConstraint : SpineAttributeBase
+	{
 		/// <summary>
 		/// Smart popup menu for Spine IK Constraints (Spine.IkConstraint)
 		/// </summary>
@@ -145,7 +158,8 @@ namespace Spine.Unity {
 		/// If left empty and the script the attribute is applied to is derived from Component, GetComponent(SkeletonRenderer)() will be called as a fallback.
 		/// </param>
 		/// <param name = "fallbackToTextField">If true, and an animation list source can't be found, the field will fall back to a normal text field. If false, it will show an error.</param>
-		public SpineIkConstraint (string startsWith = "", string dataField = "", bool includeNone = true, bool fallbackToTextField = false) {
+		public SpineIkConstraint(string startsWith = "", string dataField = "", bool includeNone = true, bool fallbackToTextField = false)
+		{
 			this.startsWith = startsWith;
 			this.dataField = dataField;
 			this.includeNone = includeNone;
@@ -153,7 +167,8 @@ namespace Spine.Unity {
 		}
 	}
 
-	public class SpineTransformConstraint : SpineAttributeBase {
+	public class SpineTransformConstraint : SpineAttributeBase
+	{
 		/// <summary>
 		/// Smart popup menu for Spine Transform Constraints (Spine.TransformConstraint)
 		/// </summary>
@@ -164,7 +179,8 @@ namespace Spine.Unity {
 		/// Valid types are SkeletonDataAsset and SkeletonRenderer (and derivatives).
 		/// If left empty and the script the attribute is applied to is derived from Component, GetComponent<SkeletonRenderer>() will be called as a fallback.
 		/// </param>
-		public SpineTransformConstraint (string startsWith = "", string dataField = "", bool includeNone = true, bool fallbackToTextField = false) {
+		public SpineTransformConstraint(string startsWith = "", string dataField = "", bool includeNone = true, bool fallbackToTextField = false)
+		{
 			this.startsWith = startsWith;
 			this.dataField = dataField;
 			this.includeNone = includeNone;
@@ -172,7 +188,8 @@ namespace Spine.Unity {
 		}
 	}
 
-	public class SpinePathConstraint : SpineAttributeBase {
+	public class SpinePathConstraint : SpineAttributeBase
+	{
 		/// <summary>
 		/// Smart popup menu for Spine Events (Spine.PathConstraint)
 		/// </summary>
@@ -182,7 +199,8 @@ namespace Spine.Unity {
 		/// Valid types are SkeletonDataAsset and SkeletonRenderer (and derivatives).
 		/// If left empty and the script the attribute is applied to is derived from Component, GetComponent(SkeletonRenderer)() will be called as a fallback.
 		/// </param>
-		public SpinePathConstraint (string startsWith = "", string dataField = "", bool includeNone = true, bool fallbackToTextField = false) {
+		public SpinePathConstraint(string startsWith = "", string dataField = "", bool includeNone = true, bool fallbackToTextField = false)
+		{
 			this.startsWith = startsWith;
 			this.dataField = dataField;
 			this.includeNone = includeNone;
@@ -190,7 +208,8 @@ namespace Spine.Unity {
 		}
 	}
 
-	public class SpineSkin : SpineAttributeBase {
+	public class SpineSkin : SpineAttributeBase
+	{
 		/// <summary>
 		/// Smart popup menu for Spine Skins
 		/// </summary>
@@ -205,7 +224,8 @@ namespace Spine.Unity {
 
 		public bool defaultAsEmptyString = false;
 
-		public SpineSkin (string startsWith = "", string dataField = "", bool includeNone = true, bool fallbackToTextField = false, bool defaultAsEmptyString = false) {
+		public SpineSkin(string startsWith = "", string dataField = "", bool includeNone = true, bool fallbackToTextField = false, bool defaultAsEmptyString = false)
+		{
 			this.startsWith = startsWith;
 			this.dataField = dataField;
 			this.includeNone = includeNone;
@@ -214,7 +234,8 @@ namespace Spine.Unity {
 		}
 	}
 
-	public class SpineAttachment : SpineAttributeBase {
+	public class SpineAttachment : SpineAttributeBase
+	{
 		public bool returnAttachmentPath = false;
 		public bool currentSkinOnly = false;
 		public bool placeholdersOnly = false;
@@ -235,7 +256,8 @@ namespace Spine.Unity {
 		/// Valid types are SkeletonDataAsset and SkeletonRenderer (and derivatives)
 		/// If left empty and the script the attribute is applied to is derived from Component, GetComponent<SkeletonRenderer>() will be called as a fallback.
 		/// </param>
-		public SpineAttachment (bool currentSkinOnly = true, bool returnAttachmentPath = false, bool placeholdersOnly = false, string slotField = "", string dataField = "", string skinField = "", bool includeNone = true, bool fallbackToTextField = false) {
+		public SpineAttachment(bool currentSkinOnly = true, bool returnAttachmentPath = false, bool placeholdersOnly = false, string slotField = "", string dataField = "", string skinField = "", bool includeNone = true, bool fallbackToTextField = false)
+		{
 			this.currentSkinOnly = currentSkinOnly;
 			this.returnAttachmentPath = returnAttachmentPath;
 			this.placeholdersOnly = placeholdersOnly;
@@ -246,51 +268,61 @@ namespace Spine.Unity {
 			this.fallbackToTextField = fallbackToTextField;
 		}
 
-		public static SpineAttachment.Hierarchy GetHierarchy (string fullPath) {
+		public static SpineAttachment.Hierarchy GetHierarchy(string fullPath)
+		{
 			return new SpineAttachment.Hierarchy(fullPath);
 		}
 
-		public static Spine.Attachment GetAttachment (string attachmentPath, Spine.SkeletonData skeletonData) {
+		public static Spine.Attachment GetAttachment(string attachmentPath, Spine.SkeletonData skeletonData)
+		{
 			var hierarchy = SpineAttachment.GetHierarchy(attachmentPath);
 			return string.IsNullOrEmpty(hierarchy.name) ? null : skeletonData.FindSkin(hierarchy.skin).GetAttachment(skeletonData.FindSlotIndex(hierarchy.slot), hierarchy.name);
 		}
 
-		public static Spine.Attachment GetAttachment (string attachmentPath, SkeletonDataAsset skeletonDataAsset) {
+		public static Spine.Attachment GetAttachment(string attachmentPath, SkeletonDataAsset skeletonDataAsset)
+		{
 			return GetAttachment(attachmentPath, skeletonDataAsset.GetSkeletonData(true));
 		}
 
 		/// <summary>
 		/// A struct that represents 3 strings that help identify and locate an attachment in a skeleton.</summary>
-		public struct Hierarchy {
+		public struct Hierarchy
+		{
 			public string skin;
 			public string slot;
 			public string name;
 
-			public Hierarchy (string fullPath) {
-				string[] chunks = fullPath.Split(new char[]{'/'}, System.StringSplitOptions.RemoveEmptyEntries);
-				if (chunks.Length == 0) {
+			public Hierarchy(string fullPath)
+			{
+				string[] chunks = fullPath.Split(new char[] { '/' }, System.StringSplitOptions.RemoveEmptyEntries);
+				if (chunks.Length == 0)
+				{
 					skin = "";
 					slot = "";
 					name = "";
 					return;
 				}
-				else if (chunks.Length < 2) {
+				else if (chunks.Length < 2)
+				{
 					throw new System.Exception("Cannot generate Attachment Hierarchy from string! Not enough components! [" + fullPath + "]");
 				}
 				skin = chunks[0];
 				slot = chunks[1];
 				name = "";
-				for (int i = 2; i < chunks.Length; i++) {
+				for (int i = 2; i < chunks.Length; i++)
+				{
 					name += chunks[i];
 				}
 			}
 		}
 	}
 
-	public class SpineAtlasRegion : PropertyAttribute {
+	public class SpineAtlasRegion : PropertyAttribute
+	{
 		public string atlasAssetField;
 
-		public SpineAtlasRegion (string atlasAssetField = "") {
+		public SpineAtlasRegion(string atlasAssetField = "")
+		{
 			this.atlasAssetField = atlasAssetField;
 		}
 	}

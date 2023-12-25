@@ -14,8 +14,8 @@ namespace Framework
 		/// - 인스턴스 호출 과정은 thread-safe 하지만, 리턴 이후는 외부에서 알아서 해야한다.
 		/// </summary>
 		static public TClass Instance => m_lzInstance.Value;
-        
-        static public TClass Ref => m_lzInstance.Value;
+
+		static public TClass Ref => m_lzInstance.Value;
 
 		/// <summary>
 		/// 인스턴스가 유효한가?
@@ -113,8 +113,8 @@ namespace Framework
 				else
 					UnityEngine.Debug.LogError($"!--[{funcName}] FAILED on creatiing. (TID: {System.Threading.Thread.CurrentThread.ManagedThreadId.ToString()}).");
 #endif
-            }
-            return newInst;
+			}
+			return newInst;
 		}
 		static void DestroyInstanceInternal(TClass oldInst)
 		{
