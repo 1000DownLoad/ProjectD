@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEditor.Build.Reporting;
 
 public class BuildScript
 {
@@ -20,14 +21,24 @@ public class BuildScript
         Debug.Log("Included scene : " + scenes);
 
         // 타겟 경로(빌드 결과물이 여기 생성됨)
-        options.locationPathName = "Build/Android";
+        options.locationPathName = "Build/ProjectD.apk";
         
         // 설정이 필요없을수 있다. 테스트 필요.
         // 빌드 타겟
         options.target = BuildTarget.Android;
 
         // 빌드
-        BuildPipeline.BuildPlayer(options);
+        BuildReport report = BuildPipeline.BuildPlayer(options);
+        BuildSummary summary = report.summary;
+
+        if (summary.result == BuildResult.Succeeded)
+        {
+            Debug.Log("Build succeeded : " + summary.totalSize + " bytes");
+        }
+        else if (summary.result == BuildResult.Failed)
+        {
+            Debug.Log("Build failed");
+        }
     }
 
     [MenuItem("Build/Build Aos")]
@@ -45,12 +56,23 @@ public class BuildScript
         Debug.Log("Included scene : " + scenes);
 
         // 타겟 경로(빌드 결과물이 여기 생성됨)
-        options.locationPathName = "Build/iOS";
+        options.locationPathName = "Build/ProjectD.ios";
 
         // 설정이 필요없을수 있다. 테스트 필요.
         // 빌드 타겟
         options.target = BuildTarget.iOS;
+        
         // 빌드
-        BuildPipeline.BuildPlayer(options);
+        BuildReport report = BuildPipeline.BuildPlayer(options);
+        BuildSummary summary = report.summary;
+
+        if (summary.result == BuildResult.Succeeded)
+        {
+            Debug.Log("Build succeeded : " + summary.totalSize + " bytes");
+        }
+        else if (summary.result == BuildResult.Failed)
+        {
+            Debug.Log("Build failed");
+        }
     }
 }
