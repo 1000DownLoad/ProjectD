@@ -2,6 +2,7 @@ name: dotnet format
 
 on:
   push:
+    branches: ["**"]
     paths:
       - "**.cs"
 
