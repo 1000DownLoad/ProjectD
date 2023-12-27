@@ -26,4 +26,8 @@ class GUI_Inventory : GUIBase
 
         }
     }
+
+    //TODO: 스크롤 컨텐츠 오브젝트 풀링.. 
+
+
 }
