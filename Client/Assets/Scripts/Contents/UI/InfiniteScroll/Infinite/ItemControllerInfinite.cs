@@ -11,7 +11,7 @@ public class ItemControllerInfinite : UIBehaviour, IInfiniteScrollSetup
 		GetComponentInParent<ScrollRect>().movementType = ScrollRect.MovementType.Unrestricted;
 	}
 
-	public void OnUpdateItem(int itemCount, GameObject obj)
+	public void OnUpdateItem(int itemCount, GameObject obj)                                                     
 	{
 		var item = obj.GetComponentInChildren<Item>();
 		item.UpdateItem(itemCount);

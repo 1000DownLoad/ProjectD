@@ -33,7 +33,8 @@ public class InfiniteScroll : UIBehaviour
 	// cache component
 
 	private RectTransform _rectTransform;
-	protected RectTransform rectTransform {
+	protected RectTransform rectTransform 
+    {
 		get {
 			if(_rectTransform == null) _rectTransform = GetComponent<RectTransform>();
 			return _rectTransform;
@@ -42,15 +43,19 @@ public class InfiniteScroll : UIBehaviour
 
 	private float anchoredPosition
 	{
-		get {
+		get 
+        {
 			return direction == Direction.Vertical ? -rectTransform.anchoredPosition.y : rectTransform.anchoredPosition.x;
 		}
 	}
 
 	private float _itemScale = -1;
-	public float itemScale {
-		get {
-			if(itemPrototype != null && _itemScale == -1) {
+	public float itemScale 
+    {
+		get 
+        {
+			if(itemPrototype != null && _itemScale == -1)
+            {
 				_itemScale = direction == Direction.Vertical ? itemPrototype.sizeDelta.y : itemPrototype.sizeDelta.x;
 			}
 			return _itemScale;
@@ -73,7 +78,8 @@ public class InfiniteScroll : UIBehaviour
 
 		itemPrototype.gameObject.SetActive(false);
 		
-		for(int i = 0; i < instantateItemCount; i++) {
+		for(int i = 0; i < instantateItemCount; i++) 
+        {
 			var item = GameObject.Instantiate(itemPrototype) as RectTransform;
 			item.SetParent(transform, false);
 			item.name = i.ToString();
@@ -82,23 +88,27 @@ public class InfiniteScroll : UIBehaviour
 
 			item.gameObject.SetActive(true);
 
-			foreach(var controller in controllers) {
+			foreach(var controller in controllers) 
+            {
 				controller.OnUpdateItem(i, item.gameObject);
 			}
 		}
 
-		foreach(var controller in controllers){
+		foreach(var controller in controllers)
+        {
 			controller.OnPostSetupItems();
 		}
 	}
 
 	void Update()
 	{
-		if (itemList.First == null) {
+		if (itemList.First == null) 
+        {
 			return;
 		}
 
-		while(anchoredPosition - diffPreFramePosition  < -itemScale * 2) {
+		while(anchoredPosition - diffPreFramePosition  < -itemScale * 2) 
+        {
 			diffPreFramePosition -= itemScale;
 
 			var item = itemList.First.Value;
@@ -113,7 +123,8 @@ public class InfiniteScroll : UIBehaviour
 			currentItemNo++;
 		}
 
-		while(anchoredPosition - diffPreFramePosition > 0) {
+		while(anchoredPosition - diffPreFramePosition > 0) 
+        {
 			diffPreFramePosition += itemScale;
 
 			var item = itemList.Last.Value;
