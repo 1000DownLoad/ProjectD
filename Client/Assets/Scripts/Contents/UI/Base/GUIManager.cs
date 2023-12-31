@@ -91,7 +91,14 @@ class GUIManager : TMonoSingleton<GUIManager>
         if(go.m_use_stack)
             m_open_gui_stack.Add(go);
 
-        NewOpenGUI(go);
+        if (load_gui.m_gui_type == EGUIType.Popup)
+        {
+            OpenPopupGUI(go);
+        }
+        else
+        {
+            NewOpenGUI(go);
+        }
 
         return go;
     }

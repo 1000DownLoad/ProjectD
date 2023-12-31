@@ -481,6 +481,7 @@ MonoBehaviour:
   m_use_stack: 0
   m_back_button: {fileID: 0}
   m_home_button: {fileID: 0}
+  m_button_ok: {fileID: 4542445113272064848}
 --- !u!1 &4542445112305363910
 GameObject:
   m_ObjectHideFlags: 0

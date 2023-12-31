@@ -1,9 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 class GUI_RewardPopup : GUIBase
 {
+    [SerializeField] private Button m_button_ok;
+
+
+
     public class OpenParam : IGUIOpenParam
     {
         public OpenParam()
@@ -16,7 +21,10 @@ class GUI_RewardPopup : GUIBase
     {
         if (m_back_button != null)
             m_back_button.onClick.AddListener(OnBackButtonClick);
+        m_button_ok.onClick.AddListener(OnClickOkButton);
     }
+
+   
 
     public override void Open(IGUIOpenParam in_param)
     {
@@ -39,5 +47,10 @@ class GUI_RewardPopup : GUIBase
     void Update()
     {
         
+    }
+
+    private void OnClickOkButton()
+    {
+        GUIManager.Instance.CloseGUI<GUI_RewardPopup>();
     }
 }
