@@ -22,6 +22,6 @@ public class Item : UIBehaviour
 	{
 		//uiText.text = (count + 1).ToString("00");
 		uiBackground.color = colors[Mathf.Abs(count) % colors.Length];
-		uiIcon.sprite = Resources.Load<Sprite>((Mathf.Abs(count) % 30 + 1).ToString("icon000"));
+		//uiIcon.sprite = Resources.Load<Sprite>((Mathf.Abs(count) % 30 + 1).ToString("icon000"));
 	}
 }
