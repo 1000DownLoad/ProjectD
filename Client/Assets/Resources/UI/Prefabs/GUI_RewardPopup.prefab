@@ -435,7 +435,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4542445111751496456}
-  - component: {fileID: 1443877504963420922}
+  - component: {fileID: 3074890338299697059}
   m_Layer: 5
   m_Name: GUI_RewardPopup
   m_TagString: Untagged
@@ -465,7 +465,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1443877504963420922
+--- !u!114 &3074890338299697059
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -477,6 +477,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65cdcc4835d7cca4883fdbae93ab7d28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_gui_type: 1
+  m_use_stack: 0
+  m_back_button: {fileID: 0}
+  m_home_button: {fileID: 0}
 --- !u!1 &4542445112305363910
 GameObject:
   m_ObjectHideFlags: 0
