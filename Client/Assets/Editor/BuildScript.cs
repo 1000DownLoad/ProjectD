@@ -27,8 +27,6 @@ public class BuildScript
         // 빌드 타겟
         options.target = BuildTarget.Android;
 
-        aaa
-
         // 빌드
         BuildReport report = BuildPipeline.BuildPlayer(options);
         BuildSummary summary = report.summary;
