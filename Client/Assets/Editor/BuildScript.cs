@@ -75,4 +75,8 @@ public class BuildScript
             Debug.Log("Build failed");
         }
     }
-}
+
+    [MenuItem("Build/Build Test")]
+    public static void Test()
+    {
+    }
