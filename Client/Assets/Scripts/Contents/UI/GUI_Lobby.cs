@@ -92,6 +92,6 @@ class GUI_Lobby : GUIBase
 
     private void OnBattleButtonClick()
     {
-        GUIManager.Instance.OpenGUI<GUI_RewardPopup>(new GUI_RewardPopup.OpenParam());
+        GUIManager.Instance.OpenGUI<GUI_RewardPopup>(new GUI_RewardPopup.OpenParam(300));
     }
 }
