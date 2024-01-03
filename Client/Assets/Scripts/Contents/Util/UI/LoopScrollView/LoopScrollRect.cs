@@ -1,10 +1,8 @@
-﻿using UnityEngine.Events;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Build.Reporting;
-using UnityEngine.Pool;
 #if UNITY_EDITOR
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,7 +25,7 @@ namespace UnityEngine.UI
         /// <summary>
         /// Object Pool
         /// </summary>
-        private Pool.ObjectPool<GameObject> m_objectPool = null;
+        private GameObjectPool m_objectPool = null;
 
         public T[] GetItems<T>() => m_Content.GetComponentsInChildren<T>();
 
@@ -45,22 +43,13 @@ namespace UnityEngine.UI
 
             if (IsInitialized) return;
 
-            Stack<GameObject> pool = new Stack<GameObject>();
-
-            m_objectPool = new ObjectPool<GameObject>(() =>
-            {
-                pool.Push(sampleGameObject);
-                return pool.Peek();
-            } , (obj) =>
-            {
-                obj = pool.Pop();
-            });
+            m_objectPool = new GameObjectPool(sampleGameObject, m_Content.parent);
 
             m_ContentConstraintCount = GetConstraintCount();
         }
         public void SetRefreshItemCallback(Action<Transform, int> refreshItemCallback)
         {
-            RefreshItem = refreshItemCallback;
+            RefreshItem = refreshItemCallback;  
         }
 
 
@@ -324,7 +313,7 @@ namespace UnityEngine.UI
             if (Application.isPlaying)
             {
                 UpdatePollTotalCount(totalCount - 1);
-                m_objectPool?.Release(select);
+                m_objectPool?.Return(select);
 
                 RefreshScrollRect();
             }
@@ -342,7 +331,7 @@ namespace UnityEngine.UI
                 for (var i = 0; i < childCount; ++i)
                 {
                     CloseItem?.Invoke(m_Content.GetChild(0), i);
-                    m_objectPool?.Release(m_Content.GetChild(0).gameObject);
+                    m_objectPool?.Return(m_Content.GetChild(0).gameObject);
                 }
             }
         }
@@ -554,7 +543,7 @@ namespace UnityEngine.UI
                         if (null == selectCell || selectCell == tmpCell)
                         {
                             CloseItem?.Invoke(tmpCell, i);
-                            m_objectPool?.Release(tmpCell.gameObject);//prefabSource.ReturnObject(tmpCell);
+                            m_objectPool?.Return(tmpCell.gameObject);//prefabSource.ReturnObject(tmpCell);
                         }
                         i--;
                     }
@@ -578,7 +567,7 @@ namespace UnityEngine.UI
             for (var i = 0; i < childCount; ++i)
             {
                 CloseItem?.Invoke(m_Content.GetChild(0), i);
-                m_objectPool?.Release(m_Content.GetChild(0).gameObject);
+                m_objectPool?.Return(m_Content.GetChild(0).gameObject);
             }
 
             float sizeToFill = 0, sizeFilled = 0;
@@ -620,7 +609,7 @@ namespace UnityEngine.UI
             for (var i = 0; i < childCount; ++i)
             {
                 CloseItem?.Invoke(m_Content.GetChild(0), i);
-                m_objectPool?.Release(m_Content.GetChild(0).gameObject);
+                m_objectPool?.Return(m_Content.GetChild(0).gameObject);
             }
 
             float sizeToFill = 0, sizeFilled = 0;
@@ -703,7 +692,7 @@ namespace UnityEngine.UI
                 size = Mathf.Max(GetSize(oldItem), size);
                 //prefabSource.ReturnObject(oldItem);
                 CloseItem?.Invoke(oldItem, i);
-                m_objectPool?.Release(oldItem.gameObject);
+                m_objectPool?.Return(oldItem.gameObject);
 
                 itemTypeStart++;
 
@@ -787,7 +776,7 @@ namespace UnityEngine.UI
                 size = Mathf.Max(GetSize(oldItem), size);
                 //prefabSource.ReturnObject(oldItem);
                 CloseItem?.Invoke(oldItem, i);
-                m_objectPool?.Release(oldItem.gameObject);
+                m_objectPool?.Return(oldItem.gameObject);
 
                 itemTypeEnd--;
                 if (itemTypeEnd % m_ContentConstraintCount == 0 || m_Content.childCount == 0)
@@ -811,7 +800,7 @@ namespace UnityEngine.UI
             if (null == m_objectPool)
                 return null;
 
-            RectTransform nextItem = m_objectPool?.Get().GetComponent<RectTransform>();
+            RectTransform nextItem = m_objectPool?.Rent().GetComponent<RectTransform>();
             nextItem.transform.SetParent(m_Content, false);
             nextItem.localPosition = new Vector3(nextItem.localPosition.x, nextItem.localPosition.y, 0.0f);
             nextItem.localScale = Vector3.one;
