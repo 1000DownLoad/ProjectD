@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 961749821646333220}
   - component: {fileID: 961749821646333221}
   - component: {fileID: 1404188249910294707}
-  - component: {fileID: 4427543015518629988}
+  - component: {fileID: 4492378846147432264}
   m_Layer: 5
   m_Name: Slot_Empty
   m_TagString: Untagged
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &4427543015518629988
+--- !u!114 &4492378846147432264
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,7 +107,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 961749821646333223}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -118,6 +118,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &961749821677834005
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,7 +132,7 @@ GameObject:
   - component: {fileID: 961749821677834002}
   - component: {fileID: 961749821677834003}
   - component: {fileID: 403349251811249549}
-  - component: {fileID: 2791018949546333861}
+  - component: {fileID: 8369597670884886449}
   m_Layer: 5
   m_Name: Slot_Empty
   m_TagString: Untagged
@@ -216,7 +218,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &2791018949546333861
+--- !u!114 &8369597670884886449
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -225,7 +227,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 961749821677834005}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -236,6 +238,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &961749821706586346
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,7 +252,7 @@ GameObject:
   - component: {fileID: 961749821706586359}
   - component: {fileID: 961749821706586344}
   - component: {fileID: 4431486228783602806}
-  - component: {fileID: 8153830571533736341}
+  - component: {fileID: 7254294875993792791}
   m_Layer: 5
   m_Name: Slot_Empty
   m_TagString: Untagged
@@ -334,7 +338,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &8153830571533736341
+--- !u!114 &7254294875993792791
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -343,7 +347,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 961749821706586346}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -354,6 +358,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &961749821711455224
 GameObject:
   m_ObjectHideFlags: 0
@@ -577,7 +583,7 @@ GameObject:
   - component: {fileID: 961749821892877338}
   - component: {fileID: 961749821892877339}
   - component: {fileID: 6812645497423568958}
-  - component: {fileID: 4907325250221553255}
+  - component: {fileID: 8764596719046355124}
   m_Layer: 5
   m_Name: Slot_Empty
   m_TagString: Untagged
@@ -663,7 +669,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &4907325250221553255
+--- !u!114 &8764596719046355124
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -672,7 +678,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 961749821892877341}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -683,6 +689,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &961749821951556208
 GameObject:
   m_ObjectHideFlags: 0
@@ -695,7 +703,7 @@ GameObject:
   - component: {fileID: 961749821951556221}
   - component: {fileID: 961749821951556222}
   - component: {fileID: 2497696761948390944}
-  - component: {fileID: 3500299602267200507}
+  - component: {fileID: 5026108355551073712}
   m_Layer: 5
   m_Name: Slot_Empty
   m_TagString: Untagged
@@ -781,7 +789,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &3500299602267200507
+--- !u!114 &5026108355551073712
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -790,7 +798,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 961749821951556208}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -801,6 +809,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &961749822027254113
 GameObject:
   m_ObjectHideFlags: 0
@@ -1024,7 +1034,7 @@ GameObject:
   - component: {fileID: 961749822085642280}
   - component: {fileID: 961749822085642281}
   - component: {fileID: 2460321914756290352}
-  - component: {fileID: 6858860402994015272}
+  - component: {fileID: 855948209118591928}
   m_Layer: 5
   m_Name: Slot_Empty
   m_TagString: Untagged
@@ -1110,7 +1120,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &6858860402994015272
+--- !u!114 &855948209118591928
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1119,7 +1129,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 961749822085642283}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -1130,6 +1140,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &961749822086071013
 GameObject:
   m_ObjectHideFlags: 0
@@ -1220,7 +1232,7 @@ GameObject:
   - component: {fileID: 961749822100496867}
   - component: {fileID: 961749822100496868}
   - component: {fileID: 4062371841326262910}
-  - component: {fileID: 7027974343036334618}
+  - component: {fileID: 5211580757354856240}
   m_Layer: 5
   m_Name: Slot_Empty
   m_TagString: Untagged
@@ -1306,7 +1318,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &7027974343036334618
+--- !u!114 &5211580757354856240
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1315,7 +1327,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 961749822100496870}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -1326,6 +1338,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &961749822142812390
 GameObject:
   m_ObjectHideFlags: 0
@@ -1338,7 +1352,7 @@ GameObject:
   - component: {fileID: 961749822142812387}
   - component: {fileID: 961749822142812388}
   - component: {fileID: 3264663493599135937}
-  - component: {fileID: 337041401996134343}
+  - component: {fileID: 2998252922489015625}
   m_Layer: 5
   m_Name: Slot_Empty
   m_TagString: Untagged
@@ -1424,7 +1438,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &337041401996134343
+--- !u!114 &2998252922489015625
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1433,7 +1447,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 961749822142812390}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -1444,6 +1458,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &961749822159675220
 GameObject:
   m_ObjectHideFlags: 0
@@ -1687,7 +1703,7 @@ GameObject:
   - component: {fileID: 961749822213326544}
   - component: {fileID: 961749822213326545}
   - component: {fileID: 6882812111933517681}
-  - component: {fileID: 6838341244188135292}
+  - component: {fileID: 1289690376482122997}
   m_Layer: 5
   m_Name: Slot_Green
   m_TagString: Untagged
@@ -1775,7 +1791,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &6838341244188135292
+--- !u!114 &1289690376482122997
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1784,7 +1800,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 961749822213326547}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -1795,6 +1811,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &961749822264985268
 GameObject:
   m_ObjectHideFlags: 0
@@ -1942,7 +1960,7 @@ GameObject:
   - component: {fileID: 961749822294556133}
   - component: {fileID: 961749822294556134}
   - component: {fileID: 7120917574005974997}
-  - component: {fileID: 1124678550163778917}
+  - component: {fileID: 660551082406788508}
   m_Layer: 5
   m_Name: Slot_Empty
   m_TagString: Untagged
@@ -2028,7 +2046,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &1124678550163778917
+--- !u!114 &660551082406788508
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2037,7 +2055,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 961749822294556056}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -2048,6 +2066,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &961749822343881400
 GameObject:
   m_ObjectHideFlags: 0
@@ -2060,7 +2080,7 @@ GameObject:
   - component: {fileID: 961749822343881349}
   - component: {fileID: 961749822343881350}
   - component: {fileID: 648174414795032672}
-  - component: {fileID: 636799903969593456}
+  - component: {fileID: 7724957967506719450}
   m_Layer: 5
   m_Name: Slot_Empty
   m_TagString: Untagged
@@ -2146,7 +2166,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &636799903969593456
+--- !u!114 &7724957967506719450
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2155,7 +2175,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 961749822343881400}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -2166,6 +2186,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &961749822463521982
 GameObject:
   m_ObjectHideFlags: 0
@@ -2256,7 +2278,7 @@ GameObject:
   - component: {fileID: 961749822477065403}
   - component: {fileID: 961749822477065404}
   - component: {fileID: 5548272209032948590}
-  - component: {fileID: 2549992167021978404}
+  - component: {fileID: 1882990894880612923}
   m_Layer: 5
   m_Name: Slot_Purple
   m_TagString: Untagged
@@ -2343,7 +2365,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &2549992167021978404
+--- !u!114 &1882990894880612923
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2352,7 +2374,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 961749822477065406}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -2363,6 +2385,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &961749822514260386
 GameObject:
   m_ObjectHideFlags: 0
@@ -2375,7 +2399,7 @@ GameObject:
   - component: {fileID: 961749822514260399}
   - component: {fileID: 961749822514260384}
   - component: {fileID: 5104167413586614740}
-  - component: {fileID: 9051144820136314015}
+  - component: {fileID: 480921536628758961}
   m_Layer: 5
   m_Name: Slot_Green
   m_TagString: Untagged
@@ -2462,7 +2486,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &9051144820136314015
+--- !u!114 &480921536628758961
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2471,7 +2495,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 961749822514260386}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -2482,6 +2506,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &961749822536436486
 GameObject:
   m_ObjectHideFlags: 0
@@ -2572,7 +2598,7 @@ GameObject:
   - component: {fileID: 961749822569952916}
   - component: {fileID: 961749822569952917}
   - component: {fileID: 6647942098841411432}
-  - component: {fileID: 3316281313611206449}
+  - component: {fileID: 7436644525283071311}
   m_Layer: 5
   m_Name: Slot_Empty
   m_TagString: Untagged
@@ -2658,7 +2684,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &3316281313611206449
+--- !u!114 &7436644525283071311
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2667,7 +2693,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 961749822569952919}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -2678,6 +2704,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &961749822591255851
 GameObject:
   m_ObjectHideFlags: 0
@@ -2690,7 +2718,7 @@ GameObject:
   - component: {fileID: 961749822591255848}
   - component: {fileID: 961749822591255849}
   - component: {fileID: 8080571824791650690}
-  - component: {fileID: 6645310382905183986}
+  - component: {fileID: 4948338330894885201}
   m_Layer: 5
   m_Name: Slot_Empty
   m_TagString: Untagged
@@ -2776,7 +2804,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &6645310382905183986
+--- !u!114 &4948338330894885201
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2785,7 +2813,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 961749822591255851}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -2796,6 +2824,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &961749822601633507
 GameObject:
   m_ObjectHideFlags: 0
@@ -2943,7 +2973,7 @@ GameObject:
   - component: {fileID: 961749822636618732}
   - component: {fileID: 961749822636618733}
   - component: {fileID: 4865402509647135912}
-  - component: {fileID: 2002246830579086207}
+  - component: {fileID: 2315105032596710871}
   m_Layer: 5
   m_Name: Slot_Empty
   m_TagString: Untagged
@@ -3029,7 +3059,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &2002246830579086207
+--- !u!114 &2315105032596710871
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3038,7 +3068,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 961749822636618735}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -3049,6 +3079,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &961749822672679379
 GameObject:
   m_ObjectHideFlags: 0
@@ -3061,7 +3093,7 @@ GameObject:
   - component: {fileID: 961749822672679376}
   - component: {fileID: 961749822672679377}
   - component: {fileID: 7276321058322419254}
-  - component: {fileID: 2702767973934091107}
+  - component: {fileID: 4624467186235207286}
   m_Layer: 5
   m_Name: Slot_Empty
   m_TagString: Untagged
@@ -3147,7 +3179,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &2702767973934091107
+--- !u!114 &4624467186235207286
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3156,7 +3188,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 961749822672679379}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -3167,6 +3199,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &961749822706718824
 GameObject:
   m_ObjectHideFlags: 0
@@ -3179,7 +3213,7 @@ GameObject:
   - component: {fileID: 961749822706718837}
   - component: {fileID: 961749822706718838}
   - component: {fileID: 1440586564171718324}
-  - component: {fileID: 1163738959857553987}
+  - component: {fileID: 295204469396227549}
   m_Layer: 5
   m_Name: Slot_Empty
   m_TagString: Untagged
@@ -3265,7 +3299,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &1163738959857553987
+--- !u!114 &295204469396227549
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3274,7 +3308,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 961749822706718824}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -3285,6 +3319,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &961749822749159052
 GameObject:
   m_ObjectHideFlags: 0
@@ -3297,7 +3333,7 @@ GameObject:
   - component: {fileID: 961749822749159049}
   - component: {fileID: 961749822749159050}
   - component: {fileID: 4363882834384906938}
-  - component: {fileID: 1619097020689014977}
+  - component: {fileID: 8920616596806002293}
   m_Layer: 5
   m_Name: Slot_Empty
   m_TagString: Untagged
@@ -3383,7 +3419,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &1619097020689014977
+--- !u!114 &8920616596806002293
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3392,7 +3428,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 961749822749159052}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -3403,6 +3439,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &961749822791531265
 GameObject:
   m_ObjectHideFlags: 0
@@ -3415,7 +3453,7 @@ GameObject:
   - component: {fileID: 961749822791531278}
   - component: {fileID: 961749822791531279}
   - component: {fileID: 9135404029488286338}
-  - component: {fileID: 9188756092181386434}
+  - component: {fileID: 3803549904392032661}
   m_Layer: 5
   m_Name: Slot_Empty
   m_TagString: Untagged
@@ -3501,7 +3539,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &9188756092181386434
+--- !u!114 &3803549904392032661
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3510,7 +3548,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 961749822791531265}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -3521,6 +3559,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &961749822804036387
 GameObject:
   m_ObjectHideFlags: 0
@@ -3746,7 +3786,7 @@ GameObject:
   - component: {fileID: 961749822927888678}
   - component: {fileID: 961749822927888679}
   - component: {fileID: 5807412628894279757}
-  - component: {fileID: 8027690321863743513}
+  - component: {fileID: 4014965232477657378}
   m_Layer: 5
   m_Name: Slot_Empty
   m_TagString: Untagged
@@ -3832,7 +3872,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &8027690321863743513
+--- !u!114 &4014965232477657378
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3841,7 +3881,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 961749822927888857}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -3852,6 +3892,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &961749822932246820
 GameObject:
   m_ObjectHideFlags: 0
@@ -3864,7 +3906,7 @@ GameObject:
   - component: {fileID: 961749822932246817}
   - component: {fileID: 961749822932246818}
   - component: {fileID: 7100681197510911768}
-  - component: {fileID: 1415823862272035201}
+  - component: {fileID: 132427029908277915}
   m_Layer: 5
   m_Name: Slot_Empty
   m_TagString: Untagged
@@ -3950,7 +3992,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &1415823862272035201
+--- !u!114 &132427029908277915
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3959,7 +4001,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 961749822932246820}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -3970,6 +4012,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &961749823076195699
 GameObject:
   m_ObjectHideFlags: 0
@@ -3982,7 +4026,7 @@ GameObject:
   - component: {fileID: 961749823076195696}
   - component: {fileID: 961749823076195697}
   - component: {fileID: 3448350530873289566}
-  - component: {fileID: 844010817197623263}
+  - component: {fileID: 8450599975309268805}
   m_Layer: 5
   m_Name: Slot_Empty
   m_TagString: Untagged
@@ -4068,7 +4112,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &844010817197623263
+--- !u!114 &8450599975309268805
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4077,7 +4121,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 961749823076195699}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -4088,6 +4132,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &961749823084214576
 GameObject:
   m_ObjectHideFlags: 0
@@ -4100,7 +4146,7 @@ GameObject:
   - component: {fileID: 961749823084214589}
   - component: {fileID: 961749823084214590}
   - component: {fileID: 3832712360507361373}
-  - component: {fileID: 7634614591379962706}
+  - component: {fileID: 1915028993087687959}
   m_Layer: 5
   m_Name: Slot_Empty
   m_TagString: Untagged
@@ -4186,7 +4232,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &7634614591379962706
+--- !u!114 &1915028993087687959
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4195,7 +4241,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 961749823084214576}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -4206,6 +4252,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &961749823176325497
 GameObject:
   m_ObjectHideFlags: 0
@@ -4294,7 +4342,7 @@ GameObject:
   - component: {fileID: 961749823192989350}
   - component: {fileID: 961749823192989351}
   - component: {fileID: 2661163480808970509}
-  - component: {fileID: 8935977771617013610}
+  - component: {fileID: 6068093415862793192}
   m_Layer: 5
   m_Name: Slot_Yellow
   m_TagString: Untagged
@@ -4382,7 +4430,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &8935977771617013610
+--- !u!114 &6068093415862793192
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4391,7 +4439,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 961749823192987993}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -4402,6 +4450,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &961749823235726271
 GameObject:
   m_ObjectHideFlags: 0
@@ -4414,7 +4464,7 @@ GameObject:
   - component: {fileID: 961749823235726268}
   - component: {fileID: 961749823235726269}
   - component: {fileID: 7445577819934526974}
-  - component: {fileID: 8641320467638897914}
+  - component: {fileID: 7977884645247860925}
   m_Layer: 5
   m_Name: Slot_Empty
   m_TagString: Untagged
@@ -4500,7 +4550,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &8641320467638897914
+--- !u!114 &7977884645247860925
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4509,7 +4559,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 961749823235726271}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -4520,6 +4570,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &961749823305570791
 GameObject:
   m_ObjectHideFlags: 0
@@ -4532,7 +4584,7 @@ GameObject:
   - component: {fileID: 961749823305570788}
   - component: {fileID: 961749823305570789}
   - component: {fileID: 5187686465756078403}
-  - component: {fileID: 1243997574339353827}
+  - component: {fileID: 7587287356857908778}
   m_Layer: 5
   m_Name: Slot_Empty
   m_TagString: Untagged
@@ -4618,7 +4670,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &1243997574339353827
+--- !u!114 &7587287356857908778
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4627,7 +4679,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 961749823305570791}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -4638,6 +4690,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &961749823342711297
 GameObject:
   m_ObjectHideFlags: 0
@@ -4650,7 +4704,7 @@ GameObject:
   - component: {fileID: 961749823342711310}
   - component: {fileID: 961749823342711311}
   - component: {fileID: 1375389213183744698}
-  - component: {fileID: 1583009371425106618}
+  - component: {fileID: 4252134746043153549}
   m_Layer: 5
   m_Name: Slot_Empty
   m_TagString: Untagged
@@ -4736,7 +4790,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &1583009371425106618
+--- !u!114 &4252134746043153549
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4745,7 +4799,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 961749823342711297}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -4756,6 +4810,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &961749823344602366
 GameObject:
   m_ObjectHideFlags: 0
@@ -4768,7 +4824,7 @@ GameObject:
   - component: {fileID: 961749823344602363}
   - component: {fileID: 961749823344602364}
   - component: {fileID: 1285121980655141400}
-  - component: {fileID: 5392170676739066133}
+  - component: {fileID: 4967124138948098590}
   m_Layer: 5
   m_Name: Slot_Empty
   m_TagString: Untagged
@@ -4854,7 +4910,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &5392170676739066133
+--- !u!114 &4967124138948098590
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4863,7 +4919,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 961749823344602366}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -4874,6 +4930,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &961749823354972360
 GameObject:
   m_ObjectHideFlags: 0
@@ -4886,7 +4944,7 @@ GameObject:
   - component: {fileID: 961749823354972373}
   - component: {fileID: 961749823354972374}
   - component: {fileID: 17178835617188452}
-  - component: {fileID: 1030091292831771423}
+  - component: {fileID: 6926863465755354737}
   m_Layer: 5
   m_Name: Slot_Empty
   m_TagString: Untagged
@@ -4972,7 +5030,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &1030091292831771423
+--- !u!114 &6926863465755354737
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4981,7 +5039,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 961749823354972360}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -4992,6 +5050,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &961749823377963947
 GameObject:
   m_ObjectHideFlags: 0
@@ -5080,7 +5140,7 @@ GameObject:
   - component: {fileID: 961749823381414090}
   - component: {fileID: 961749823381414091}
   - component: {fileID: 2332707340242622197}
-  - component: {fileID: 3517266452531972550}
+  - component: {fileID: 77269163729199722}
   m_Layer: 5
   m_Name: Slot_Empty
   m_TagString: Untagged
@@ -5166,7 +5226,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &3517266452531972550
+--- !u!114 &77269163729199722
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5175,7 +5235,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 961749823381414093}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -5186,6 +5246,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &961749823383065334
 GameObject:
   m_ObjectHideFlags: 0
@@ -5198,7 +5260,7 @@ GameObject:
   - component: {fileID: 961749823383065331}
   - component: {fileID: 961749823383065332}
   - component: {fileID: 3629832572943499229}
-  - component: {fileID: 6914502549283305674}
+  - component: {fileID: 7169189950044007895}
   m_Layer: 5
   m_Name: Slot_Empty
   m_TagString: Untagged
@@ -5284,7 +5346,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &6914502549283305674
+--- !u!114 &7169189950044007895
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5293,7 +5355,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 961749823383065334}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -5304,6 +5366,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &961749823399472466
 GameObject:
   m_ObjectHideFlags: 0
@@ -5316,7 +5380,7 @@ GameObject:
   - component: {fileID: 961749823399472479}
   - component: {fileID: 961749823399472464}
   - component: {fileID: 316735350511465059}
-  - component: {fileID: 8876055709226835398}
+  - component: {fileID: 3235418043351079316}
   m_Layer: 5
   m_Name: Slot_Empty
   m_TagString: Untagged
@@ -5402,7 +5466,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &8876055709226835398
+--- !u!114 &3235418043351079316
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5411,7 +5475,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 961749823399472466}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -5422,6 +5486,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &961749823596668935
 GameObject:
   m_ObjectHideFlags: 0
@@ -5510,7 +5576,7 @@ GameObject:
   - component: {fileID: 961749823666419724}
   - component: {fileID: 961749823666419725}
   - component: {fileID: 1623095185591992290}
-  - component: {fileID: 5552293310929883674}
+  - component: {fileID: 2933349053777271672}
   m_Layer: 5
   m_Name: Slot_Empty
   m_TagString: Untagged
@@ -5596,7 +5662,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &5552293310929883674
+--- !u!114 &2933349053777271672
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5605,7 +5671,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 961749823666419727}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -5616,6 +5682,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &961749823736475772
 GameObject:
   m_ObjectHideFlags: 0
@@ -5628,7 +5696,7 @@ GameObject:
   - component: {fileID: 961749823736475769}
   - component: {fileID: 961749823736475770}
   - component: {fileID: 1448048827035894679}
-  - component: {fileID: 4866905630892504875}
+  - component: {fileID: 1836979428138109929}
   m_Layer: 5
   m_Name: Slot_Empty
   m_TagString: Untagged
@@ -5714,7 +5782,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &4866905630892504875
+--- !u!114 &1836979428138109929
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5723,7 +5791,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 961749823736475772}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -5734,6 +5802,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &994577549538516049
 GameObject:
   m_ObjectHideFlags: 0
@@ -5930,7 +6000,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 488.26, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &994577549647035219
@@ -6416,7 +6486,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 124.880005, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &994577549957915601
@@ -21581,7 +21651,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 860.26, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &994577550794785202
@@ -23554,7 +23624,7 @@ GameObject:
   - component: {fileID: 3948903686397612781}
   - component: {fileID: 3948903686397612770}
   - component: {fileID: 8057056637078688525}
-  - component: {fileID: 6707127574829298613}
+  - component: {fileID: 4564302085146258478}
   m_Layer: 5
   m_Name: Slot_Blue
   m_TagString: Untagged
@@ -23641,7 +23711,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &6707127574829298613
+--- !u!114 &4564302085146258478
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -23650,7 +23720,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3948903686397612768}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -23661,6 +23731,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &3948903686419864123
 GameObject:
   m_ObjectHideFlags: 0
@@ -24038,7 +24110,7 @@ GameObject:
   - component: {fileID: 3948903686507917087}
   - component: {fileID: 3948903686507917084}
   - component: {fileID: 4009597663254338814}
-  - component: {fileID: 2848024055815313928}
+  - component: {fileID: 4818665874766455201}
   m_Layer: 5
   m_Name: Slot_Brown
   m_TagString: Untagged
@@ -24125,7 +24197,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &2848024055815313928
+--- !u!114 &4818665874766455201
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -24134,7 +24206,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3948903686507917074}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -24145,6 +24217,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &3948903686511986809
 GameObject:
   m_ObjectHideFlags: 0
@@ -25522,7 +25596,7 @@ GameObject:
   - component: {fileID: 3948903686923660172}
   - component: {fileID: 3948903686923660173}
   - component: {fileID: 1326645723705208893}
-  - component: {fileID: 8546554680167576693}
+  - component: {fileID: 2206496572297530584}
   m_Layer: 5
   m_Name: Slot_Blue
   m_TagString: Untagged
@@ -25609,7 +25683,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &8546554680167576693
+--- !u!114 &2206496572297530584
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -25618,7 +25692,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3948903686923660163}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -25629,6 +25703,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &3948903686949587077
 GameObject:
   m_ObjectHideFlags: 0
@@ -25911,7 +25987,7 @@ GameObject:
   - component: {fileID: 3948903686956518592}
   - component: {fileID: 3948903686956518593}
   - component: {fileID: 7249111248750211715}
-  - component: {fileID: 7180075916153895917}
+  - component: {fileID: 8761855214305581821}
   m_Layer: 5
   m_Name: Slot_Brown
   m_TagString: Untagged
@@ -25998,7 +26074,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &7180075916153895917
+--- !u!114 &8761855214305581821
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -26007,7 +26083,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3948903686956518599}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -26018,6 +26094,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &3948903686974598017
 GameObject:
   m_ObjectHideFlags: 0
@@ -26030,7 +26108,7 @@ GameObject:
   - component: {fileID: 3948903686974598018}
   - component: {fileID: 3948903686974598019}
   - component: {fileID: 5678393025910899597}
-  - component: {fileID: 2062130750213832637}
+  - component: {fileID: 8142322559241546786}
   m_Layer: 5
   m_Name: Slot_Yellow
   m_TagString: Untagged
@@ -26117,7 +26195,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &2062130750213832637
+--- !u!114 &8142322559241546786
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -26126,7 +26204,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3948903686974598017}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -26137,6 +26215,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &3948903686979197907
 GameObject:
   m_ObjectHideFlags: 0
@@ -26497,7 +26577,7 @@ GameObject:
   - component: {fileID: 3948903687000854731}
   - component: {fileID: 3948903687000854728}
   - component: {fileID: 526456639239684285}
-  - component: {fileID: 6306218299837743875}
+  - component: {fileID: 8372818969468370995}
   m_Layer: 5
   m_Name: Slot_Brown
   m_TagString: Untagged
@@ -26584,7 +26664,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &6306218299837743875
+--- !u!114 &8372818969468370995
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -26593,7 +26673,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3948903687000854734}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -26604,6 +26684,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &3948903687050002937
 GameObject:
   m_ObjectHideFlags: 0
@@ -26772,7 +26854,7 @@ GameObject:
   - component: {fileID: 3948903687102445497}
   - component: {fileID: 3948903687102445502}
   - component: {fileID: 2857604628964306327}
-  - component: {fileID: 5175206923684282034}
+  - component: {fileID: 4397946563391679689}
   m_Layer: 5
   m_Name: Slot_Brown
   m_TagString: Untagged
@@ -26859,7 +26941,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &5175206923684282034
+--- !u!114 &4397946563391679689
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -26868,7 +26950,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3948903687102445500}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -26879,6 +26961,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &3948903687110654241
 GameObject:
   m_ObjectHideFlags: 0
@@ -27353,7 +27437,7 @@ GameObject:
   - component: {fileID: 3948903687265396154}
   - component: {fileID: 3948903687265396155}
   - component: {fileID: 3212217646080865021}
-  - component: {fileID: 8880853625222627001}
+  - component: {fileID: 2789980865938963226}
   m_Layer: 5
   m_Name: Slot_Brown
   m_TagString: Untagged
@@ -27440,7 +27524,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &8880853625222627001
+--- !u!114 &2789980865938963226
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -27449,7 +27533,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3948903687265396153}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -27460,6 +27544,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &3948903687277316160
 GameObject:
   m_ObjectHideFlags: 0
@@ -27550,7 +27636,7 @@ GameObject:
   - component: {fileID: 3948903687301955295}
   - component: {fileID: 3948903687301955292}
   - component: {fileID: 4619060846016526451}
-  - component: {fileID: 8412209640107392365}
+  - component: {fileID: 1884457713193957546}
   m_Layer: 5
   m_Name: Slot_Green
   m_TagString: Untagged
@@ -27637,7 +27723,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &8412209640107392365
+--- !u!114 &1884457713193957546
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -27646,7 +27732,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3948903687301955282}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -27657,6 +27743,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &3948903687341071665
 GameObject:
   m_ObjectHideFlags: 0
@@ -28692,7 +28780,7 @@ GameObject:
   - component: {fileID: 3948903687590924504}
   - component: {fileID: 3948903687590924505}
   - component: {fileID: 8069592343324322353}
-  - component: {fileID: 7527574442512452027}
+  - component: {fileID: 840235117529534615}
   m_Layer: 5
   m_Name: Slot_Purple
   m_TagString: Untagged
@@ -28779,7 +28867,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &7527574442512452027
+--- !u!114 &840235117529534615
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -28788,7 +28876,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3948903687590924511}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -28799,6 +28887,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &3948903687601353275
 GameObject:
   m_ObjectHideFlags: 0
@@ -28811,7 +28901,7 @@ GameObject:
   - component: {fileID: 3948903687601353252}
   - component: {fileID: 3948903687601353253}
   - component: {fileID: 8623326336994779771}
-  - component: {fileID: 7814628668803426152}
+  - component: {fileID: 108489360214554637}
   m_Layer: 5
   m_Name: Slot_Brown
   m_TagString: Untagged
@@ -28898,7 +28988,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &7814628668803426152
+--- !u!114 &108489360214554637
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -28907,7 +28997,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3948903687601353275}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -28918,6 +29008,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &3948903687634659397
 GameObject:
   m_ObjectHideFlags: 0
@@ -29162,7 +29254,7 @@ GameObject:
   - component: {fileID: 3948903687693931948}
   - component: {fileID: 3948903687693931949}
   - component: {fileID: 6931017893012879031}
-  - component: {fileID: 5611039184687159841}
+  - component: {fileID: 6269729129894629324}
   m_Layer: 5
   m_Name: Slot_Blue
   m_TagString: Untagged
@@ -29249,7 +29341,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &5611039184687159841
+--- !u!114 &6269729129894629324
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -29258,7 +29350,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3948903687693931939}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -29269,6 +29361,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &3948903687806716287
 GameObject:
   m_ObjectHideFlags: 0
@@ -29646,7 +29740,7 @@ GameObject:
   - component: {fileID: 3948903687867219277}
   - component: {fileID: 3948903687867219266}
   - component: {fileID: 1352397446406957269}
-  - component: {fileID: 6705699058608483006}
+  - component: {fileID: 6831630004402230911}
   m_Layer: 5
   m_Name: Slot_Brown
   m_TagString: Untagged
@@ -29733,7 +29827,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &6705699058608483006
+--- !u!114 &6831630004402230911
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -29742,7 +29836,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3948903687867219264}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -29753,6 +29847,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &3948903687870741690
 GameObject:
   m_ObjectHideFlags: 0
@@ -29765,7 +29861,7 @@ GameObject:
   - component: {fileID: 3948903687870741671}
   - component: {fileID: 3948903687870741668}
   - component: {fileID: 3004264667561120156}
-  - component: {fileID: 4620385000693932612}
+  - component: {fileID: 9085760334964897278}
   m_Layer: 5
   m_Name: Slot_Yellow
   m_TagString: Untagged
@@ -29852,7 +29948,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &4620385000693932612
+--- !u!114 &9085760334964897278
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -29861,7 +29957,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3948903687870741690}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -29872,6 +29968,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &3948903687888547826
 GameObject:
   m_ObjectHideFlags: 0
@@ -30019,7 +30117,7 @@ GameObject:
   - component: {fileID: 3948903687908404501}
   - component: {fileID: 3948903687908404586}
   - component: {fileID: 3549467632823965050}
-  - component: {fileID: 8606889267223429419}
+  - component: {fileID: 3259467404763981261}
   m_Layer: 5
   m_Name: Slot_Blue
   m_TagString: Untagged
@@ -30106,7 +30204,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &8606889267223429419
+--- !u!114 &3259467404763981261
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -30115,7 +30213,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3948903687908404584}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -30126,6 +30224,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &3948903687983542437
 GameObject:
   m_ObjectHideFlags: 0
@@ -30216,7 +30316,7 @@ GameObject:
   - component: {fileID: 3948903687989119844}
   - component: {fileID: 3948903687989119845}
   - component: {fileID: 8466132105340215896}
-  - component: {fileID: 6496484305404860114}
+  - component: {fileID: 1712931254897128590}
   m_Layer: 5
   m_Name: Slot_Purple
   m_TagString: Untagged
@@ -30303,7 +30403,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &6496484305404860114
+--- !u!114 &1712931254897128590
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -30312,7 +30412,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3948903687989119867}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -30323,6 +30423,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &3948903687996353266
 GameObject:
   m_ObjectHideFlags: 0
@@ -30968,7 +31070,7 @@ GameObject:
   - component: {fileID: 3948903688106709978}
   - component: {fileID: 3948903688106709979}
   - component: {fileID: 4013907959992420669}
-  - component: {fileID: 2856895260583162838}
+  - component: {fileID: 260012174566230938}
   m_Layer: 5
   m_Name: Slot_Red
   m_TagString: Untagged
@@ -31055,7 +31157,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &2856895260583162838
+--- !u!114 &260012174566230938
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -31064,7 +31166,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3948903688106709977}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -31075,6 +31177,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &3948903688121460964
 GameObject:
   m_ObjectHideFlags: 0
@@ -31876,7 +31980,7 @@ GameObject:
   - component: {fileID: 3948903688257859303}
   - component: {fileID: 3948903688257859300}
   - component: {fileID: 3657706570035021771}
-  - component: {fileID: 3875052241600500624}
+  - component: {fileID: 8296966566351471303}
   m_Layer: 5
   m_Name: Slot_Red
   m_TagString: Untagged
@@ -31963,7 +32067,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &3875052241600500624
+--- !u!114 &8296966566351471303
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -31972,7 +32076,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3948903688257859322}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -31983,6 +32087,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &3948903688282431287
 GameObject:
   m_ObjectHideFlags: 0
@@ -32341,7 +32447,7 @@ GameObject:
   - component: {fileID: 3948903688315309451}
   - component: {fileID: 3948903688315309448}
   - component: {fileID: 8219443147646531712}
-  - component: {fileID: 3876787191810816805}
+  - component: {fileID: 3132270447779632596}
   m_Layer: 5
   m_Name: Slot_Yellow
   m_TagString: Untagged
@@ -32428,7 +32534,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &3876787191810816805
+--- !u!114 &3132270447779632596
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -32437,7 +32543,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3948903688315309454}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -32448,6 +32554,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &3948903688355166218
 GameObject:
   m_ObjectHideFlags: 0
@@ -32595,7 +32703,7 @@ GameObject:
   - component: {fileID: 3948903688362073674}
   - component: {fileID: 3948903688362073675}
   - component: {fileID: 8923448162824350212}
-  - component: {fileID: 3675437099893045047}
+  - component: {fileID: 6402989945502623438}
   m_Layer: 5
   m_Name: Slot_Red
   m_TagString: Untagged
@@ -32682,7 +32790,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &3675437099893045047
+--- !u!114 &6402989945502623438
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -32691,7 +32799,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3948903688362073673}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -32702,6 +32810,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &4631834554011819543
 GameObject:
   m_ObjectHideFlags: 0
@@ -34029,6 +34139,7 @@ MonoBehaviour:
   m_use_stack: 1
   m_back_button: {fileID: 4631834554405672138}
   m_home_button: {fileID: 0}
+  loopRect: {fileID: 0}
 --- !u!1 &4631834554595570036
 GameObject:
   m_ObjectHideFlags: 0
@@ -35569,7 +35680,7 @@ GameObject:
   - component: {fileID: 5771962996535477423}
   - component: {fileID: 5771962996535477422}
   - component: {fileID: 2309704064129921740}
-  - component: {fileID: 7341887985990243478}
+  - component: {fileID: 8341800079199854384}
   m_Layer: 5
   m_Name: Slot_Brown
   m_TagString: Untagged
@@ -35656,7 +35767,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &7341887985990243478
+--- !u!114 &8341800079199854384
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -35665,7 +35776,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5771962996535477420}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -35676,6 +35787,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &5771962997708229427
 GameObject:
   m_ObjectHideFlags: 0
@@ -35687,8 +35800,8 @@ GameObject:
   - component: {fileID: 5771962997708229436}
   - component: {fileID: 5771962997708229438}
   - component: {fileID: 5771962997708229437}
-  - component: {fileID: 4910040655601439872}
   - component: {fileID: 1092095910390476489}
+  - component: {fileID: 4795987025850411486}
   m_Layer: 5
   m_Name: Slot_Yellow
   m_TagString: Untagged
@@ -35755,26 +35868,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4910040655601439872
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5771962997708229427}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Element: {fileID: 1092095910390476489}
-  m_Button: {fileID: 0}
-  m_OnClick_InitOnStart:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnClick_Custom:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &1092095910390476489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35795,6 +35888,28 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &4795987025850411486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5771962997708229427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Element: {fileID: 0}
+  m_Button: {fileID: 0}
+  m_OnClick_InitOnStart:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnClick_Custom:
+    m_PersistentCalls:
+      m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 6477886004552763636}
 --- !u!1 &6477886002599532245
 GameObject:
   m_ObjectHideFlags: 0
@@ -35961,7 +36076,7 @@ GameObject:
   - component: {fileID: 6477886002927849233}
   - component: {fileID: 6477886002927849232}
   - component: {fileID: 6392825841549840324}
-  - component: {fileID: 3634072394690096101}
+  - component: {fileID: 1913917446781942041}
   m_Layer: 5
   m_Name: Slot_Empty
   m_TagString: Untagged
@@ -36047,7 +36162,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &3634072394690096101
+--- !u!114 &1913917446781942041
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -36056,7 +36171,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6477886002927849234}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -36067,6 +36182,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &6477886003071783111
 GameObject:
   m_ObjectHideFlags: 0
@@ -36706,7 +36823,7 @@ GameObject:
   - component: {fileID: 6932256566027230270}
   - component: {fileID: 8314906595910160087}
   - component: {fileID: 4390999601771322357}
-  - component: {fileID: 343153403028967901}
+  - component: {fileID: 4875411022730999529}
   m_Layer: 5
   m_Name: Slot_Empty
   m_TagString: Untagged
@@ -36792,7 +36909,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &343153403028967901
+--- !u!114 &4875411022730999529
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -36801,7 +36918,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6855573827736474252}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -36812,6 +36929,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &7750590945886848650
 GameObject:
   m_ObjectHideFlags: 0
@@ -36824,7 +36943,7 @@ GameObject:
   - component: {fileID: 7750590945886848649}
   - component: {fileID: 7750590945886848648}
   - component: {fileID: 6563855773799794903}
-  - component: {fileID: 7953039088669836114}
+  - component: {fileID: 1413324038247135401}
   m_Layer: 5
   m_Name: Slot_Green
   m_TagString: Untagged
@@ -36911,7 +37030,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &7953039088669836114
+--- !u!114 &1413324038247135401
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -36920,7 +37039,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7750590945886848650}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -36931,6 +37050,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &7750590946014061680
 GameObject:
   m_ObjectHideFlags: 0
@@ -36943,7 +37064,7 @@ GameObject:
   - component: {fileID: 7750590946014061695}
   - component: {fileID: 7750590946014061694}
   - component: {fileID: 4635798539706732395}
-  - component: {fileID: 6724171623602353950}
+  - component: {fileID: 2325941936891487019}
   m_Layer: 5
   m_Name: Slot_Purple
   m_TagString: Untagged
@@ -37030,7 +37151,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &6724171623602353950
+--- !u!114 &2325941936891487019
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -37039,7 +37160,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7750590946014061680}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -37050,6 +37171,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &7750590946190829824
 GameObject:
   m_ObjectHideFlags: 0
@@ -37062,7 +37185,7 @@ GameObject:
   - component: {fileID: 7750590946190829839}
   - component: {fileID: 7750590946190829838}
   - component: {fileID: 4128381280743236151}
-  - component: {fileID: 9123383568340711969}
+  - component: {fileID: 3783765222202618973}
   m_Layer: 5
   m_Name: Slot_Red
   m_TagString: Untagged
@@ -37149,7 +37272,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &9123383568340711969
+--- !u!114 &3783765222202618973
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -37158,7 +37281,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7750590946190829824}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -37169,6 +37292,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &7750590946586448669
 GameObject:
   m_ObjectHideFlags: 0
@@ -37181,7 +37306,7 @@ GameObject:
   - component: {fileID: 7750590946586448664}
   - component: {fileID: 7750590946586448667}
   - component: {fileID: 5339450416472880484}
-  - component: {fileID: 126334621106104903}
+  - component: {fileID: 556476346486402804}
   m_Layer: 5
   m_Name: Slot_Blue
   m_TagString: Untagged
@@ -37268,7 +37393,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &126334621106104903
+--- !u!114 &556476346486402804
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -37277,7 +37402,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7750590946586448669}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -37288,6 +37413,8 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
 --- !u!1 &7915396631888808445
 GameObject:
   m_ObjectHideFlags: 0
@@ -37300,7 +37427,7 @@ GameObject:
   - component: {fileID: 6425907735451993259}
   - component: {fileID: 3885587949759958162}
   - component: {fileID: 2397814680094700703}
-  - component: {fileID: 575859919213879748}
+  - component: {fileID: 6062556631409315726}
   m_Layer: 5
   m_Name: Slot_Empty
   m_TagString: Untagged
@@ -37386,7 +37513,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &575859919213879748
+--- !u!114 &6062556631409315726
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -37395,7 +37522,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7915396631888808445}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb3751379a2cba4eb54805d157d0388, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7395977ed555040a786e04c4c4d722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Element: {fileID: 0}
@@ -37406,3 +37533,5 @@ MonoBehaviour:
   m_OnClick_Custom:
     m_PersistentCalls:
       m_Calls: []
+  m_CellText: {fileID: 0}
+  m_ValueText: {fileID: 0}
