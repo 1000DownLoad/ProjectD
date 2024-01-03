@@ -300,7 +300,7 @@ GameObject:
   - component: {fileID: 6544397270746056339}
   - component: {fileID: 6544397270746056337}
   - component: {fileID: 6544397270746056338}
-  - component: {fileID: 6591544135165380393}
+  - component: {fileID: 2858359714736338492}
   m_Layer: 5
   m_Name: Item
   m_TagString: Untagged
@@ -367,7 +367,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6591544135165380393
+--- !u!114 &2858359714736338492
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -376,8 +376,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 6544397270746056348}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c4e7f2281b324cf8a299ca3463d6426, type: 3}
+  m_Script: {fileID: 11500000, guid: 304a0f785f6584643a5c77a46acf4d5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiBackground: {fileID: 5993848656777206644}
-  uiIcon: {fileID: 5993848657002337856}

@@ -6,6 +6,7 @@ class GUI_Inventory : GUIBase
 {
 
     [SerializeField] private LoopVerticalScrollRect loopRect;
+    [SerializeField] private UI_Item baseItem;
 
     public class OpenParam : IGUIOpenParam
     {
@@ -29,7 +30,16 @@ class GUI_Inventory : GUIBase
 
         }
 
-        //loopRect.
+        loopRect.Initialize(baseItem.gameObject, (itemTransform, index) =>
+        {
+            if (false == itemTransform.TryGetComponent<UI_Item>(out var item)) 
+                return;
+
+            item.SetItemInfo();
+        });
+
+        loopRect.UpdatePollTotalCount(64);
+        loopRect.RefreshScrollRect();
     }
 
     //TODO: 스크롤 컨텐츠 오브젝트 풀링.. 
