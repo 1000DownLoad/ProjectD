@@ -57,7 +57,7 @@ class GUIManager : TMonoSingleton<GUIManager>
                 m_open_gui_stack.Add(out_gui);
             }
 
-            NewOpenGUI(out_gui);
+            OpenScreenGUI(out_gui);
 
             return (T)out_gui;
         }
@@ -91,7 +91,14 @@ class GUIManager : TMonoSingleton<GUIManager>
         if(go.m_use_stack)
             m_open_gui_stack.Add(go);
 
-        NewOpenGUI(go);
+        if (load_gui.m_gui_type == EGUIType.Popup)
+        {
+            OpenPopupGUI(go);
+        }
+        else
+        {
+            OpenScreenGUI(go);
+        }
 
         return go;
     }
@@ -135,7 +142,7 @@ class GUIManager : TMonoSingleton<GUIManager>
             if (m_open_gui_stack.Count > 0)
                 previous_gui = m_open_gui_stack[m_open_gui_stack.Count - 1];
 
-            NewOpenGUI(previous_gui);
+            OpenScreenGUI(previous_gui);
         }
     }
 
@@ -154,13 +161,26 @@ class GUIManager : TMonoSingleton<GUIManager>
         m_cur_open_gui = null;
     }
 
-    private void NewOpenGUI(GUIBase in_new_gui)
+    private void OpenScreenGUI(GUIBase in_new_gui)
     {
         if (in_new_gui == null)
             return;
 
         if (m_cur_open_gui != null)
             m_cur_open_gui.gameObject.SetActive(false);
+
+        m_cur_open_gui = in_new_gui;
+        m_cur_open_gui.gameObject.SetActive(true);
+        m_cur_open_gui.transform.SetAsLastSibling();
+    }
+
+    public void OpenPopupGUI(GUIBase in_new_gui)
+    {
+        if (in_new_gui == null)
+            return;
+
+        //if (m_cur_open_gui != null)
+        //    m_cur_open_gui.gameObject.SetActive(false);
 
         m_cur_open_gui = in_new_gui;
         m_cur_open_gui.gameObject.SetActive(true);

@@ -28,6 +28,11 @@ class GUIBase : MonoBehaviour
 
     }
 
+    virtual public void OpenPopup(IGUIOpenParam in_param)
+    {
+        
+    }
+
     virtual public void Close()
     {
         Destroy(this.gameObject);
