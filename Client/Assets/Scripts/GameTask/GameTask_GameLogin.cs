@@ -11,10 +11,10 @@ class GameTask_GameLogin : Task
 
     public override void OnAwake()
     {
-        Action callback = ()=>
+        Action button_action = () =>
         {
-            AccountDataTable.LoadAccountDataTable();
-            ResourceDataTable.LoadResourceDataTable();
+            //FirebaseManager.Instance.LoginAnonymous();
+            //FirebaseManager.Instance.LoginWithGoogle();
 
             GUIManager.Instance.CloseGUI<GUI_Login>();
             GUIManager.Instance.OpenGUI<GUI_Loading>(new GUI_Loading.OpenParam("LobbyScene"));
@@ -22,12 +22,16 @@ class GameTask_GameLogin : Task
             Complete(ETaskState.Success);
         };
 
-        GUIManager.Instance.OpenGUI<GUI_Login>(new GUI_Login.OpenParam(callback));
+        GUIManager.Instance.OpenGUI<GUI_Login>(new GUI_Login.OpenParam(button_action));
     }
 
     public override void OnUpdate()
     {
+        //if (FirebaseManager.Instance.m_firebase_auth == null)
+        //    return;
 
+        //if (FirebaseManager.Instance.m_firebase_auth.CurrentUser == null)
+        //    return;
     }
 
     public override void OnComplete()

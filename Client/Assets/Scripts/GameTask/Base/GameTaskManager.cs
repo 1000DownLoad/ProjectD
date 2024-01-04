@@ -16,6 +16,8 @@ class GameTaskManager : TMonoSingleton<GameTaskManager>
 
     public void StartGameTask()
     {
+        m_sequence_scheduler.AddTask(new GameTask_LoadDataTable());
+        m_sequence_scheduler.AddTask(new GameTask_InitFireBase());
         m_sequence_scheduler.AddTask(new GameTask_GameLogin());
     }
 }

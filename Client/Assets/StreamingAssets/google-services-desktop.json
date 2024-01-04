@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "445256307725",
+    "project_id": "projectd-2c989",
+    "storage_bucket": "projectd-2c989.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:445256307725:android:64befca318ffbdd4adf144",
+        "android_client_info": {
+          "package_name": "com.OTLcompany.projectD"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "445256307725-t5a1urc0feqvo2bqv29gkg79pu5anu5k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6XkfXsaVYX1OkGTKaiauubk0MESb5AUE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "445256307725-ckkt7u4d88ij79541e2421ogl55v4hdn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "445256307725-q0gmq7qfp377k8usm2or7u948js0ruf0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.OSDLCompany.PD"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:445256307725:android:9404fecb951fa441adf144",
+        "android_client_info": {
+          "package_name": "com.OTLgames.projectD"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "445256307725-md6t5jmq6pqcm4bt8tn7kp2vkdm2drhd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.OTLgames.projectD",
+            "certificate_hash": "47a06e7ee0b0ce765ab9257aa323afe97e03053f"
+          }
+        },
+        {
+          "client_id": "445256307725-t5a1urc0feqvo2bqv29gkg79pu5anu5k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6XkfXsaVYX1OkGTKaiauubk0MESb5AUE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "445256307725-ckkt7u4d88ij79541e2421ogl55v4hdn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "445256307725-q0gmq7qfp377k8usm2or7u948js0ruf0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.OSDLCompany.PD"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

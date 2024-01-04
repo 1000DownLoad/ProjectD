@@ -1,0 +1,9 @@
+keystore
+일련번호 : 321de75c
+MD5:  63:BB:D7:9B:11:E9:FC:EA:E3:2A:A8:ED:20:7D:9B:1A
+SHA1: 47:A0:6E:7E:E0:B0:CE:76:5A:B9:25:7A:A3:23:AF:E9:7E:03:05:3F
+SHA256: E0:91:DA:0F:A1:BD:F3:F0:E8:A9:E4:00:59:EA:8C:A4:FF:90:B9:46:C2:F6:46:EE:5F:11:8E:25:A1:D2:42:8D
+서명 알고리즘 이름 : SHA1withRSA
+
+firebase web client
+clientid : 445256307725-t5a1urc0feqvo2bqv29gkg79pu5anu5k.apps.googleusercontent.com
