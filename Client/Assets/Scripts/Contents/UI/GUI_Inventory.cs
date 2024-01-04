@@ -50,25 +50,25 @@ class GUI_Inventory : GUIBase
 
     void BindUI()
     {
-        weaponToggle.OnValueChangedAsObservable().Subscribe(isOn =>
+        weaponToggle.OnValueChangedAsObservable().DistinctUntilChanged().Subscribe(isOn =>
         {
             Debug.Log(isOn ? "무기" : "무기꺼짐");
-        });
+        }).AddTo(gameObject);
 
-        shieldToggle.OnValueChangedAsObservable().Subscribe(isOn =>
+        shieldToggle.OnValueChangedAsObservable().DistinctUntilChanged().Subscribe(isOn =>
         {
             Debug.Log(isOn ? "방패" : "방패꺼짐");
-        });
+        }).AddTo(gameObject);
 
-        shoesToggle.OnValueChangedAsObservable().Subscribe(isOn =>
+        shoesToggle.OnValueChangedAsObservable().DistinctUntilChanged().Subscribe(isOn =>
         {
             Debug.Log(isOn ? "신발" : "신발꺼짐");
-        });
+        }).AddTo(gameObject);
 
-        ringsToggle.OnValueChangedAsObservable().Subscribe(isOn =>
+        ringsToggle.OnValueChangedAsObservable().DistinctUntilChanged().Subscribe(isOn =>
         {
             Debug.Log(isOn ? "반지" : "반지꺼짐");
-        });
+        }).AddTo(gameObject);
     }
 
     //TODO: 스크롤 컨텐츠 오브젝트 풀링.. 
