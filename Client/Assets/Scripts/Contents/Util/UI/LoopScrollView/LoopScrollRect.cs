@@ -1101,11 +1101,11 @@ namespace UnityEngine.UI
 
                 m_HorizontalScrollbar.value = horizontalNormalizedPosition;
 
-                if (isUpdateScroll && m_HorizontalScrollbar is ScrollbarEx)
-                {
-                    var ScrollbarEx = (ScrollbarEx)m_HorizontalScrollbar;
-                    ScrollbarEx.UpdateScrollbars(horizontalNormalizedPosition);
-                }
+                //if (isUpdateScroll && m_HorizontalScrollbar is ScrollbarEx)
+                //{
+                //    var ScrollbarEx = (ScrollbarEx)m_HorizontalScrollbar;
+                //    ScrollbarEx.UpdateScrollbars(horizontalNormalizedPosition);
+                //}
             }
 
             if (m_VerticalScrollbar)
@@ -1121,11 +1121,11 @@ namespace UnityEngine.UI
 
                 m_VerticalScrollbar.value = verticalNormalizedPosition;
 
-                if (isUpdateScroll && m_VerticalScrollbar is ScrollbarEx)
-                {
-                    var ScrollbarEx = (ScrollbarEx)m_VerticalScrollbar;
-                    ScrollbarEx.UpdateScrollbars(verticalNormalizedPosition);
-                }
+                //if (isUpdateScroll && m_VerticalScrollbar is ScrollbarEx)
+                //{
+                //    var ScrollbarEx = (ScrollbarEx)m_VerticalScrollbar;
+                //    ScrollbarEx.UpdateScrollbars(verticalNormalizedPosition);
+                //}
             }
         }
 
