@@ -3,6 +3,7 @@ using UnityEngine.EventSystems;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Framework.Pool;
 #if UNITY_EDITOR
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,7 +26,7 @@ namespace UnityEngine.UI
         /// <summary>
         /// Object Pool
         /// </summary>
-        private GameObjectPool m_objectPool = null;
+        private Container<GameObject> m_objectPool = null;
 
         public T[] GetItems<T>() => m_Content.GetComponentsInChildren<T>();
 
@@ -43,7 +44,7 @@ namespace UnityEngine.UI
 
             if (IsInitialized) return;
 
-            m_objectPool = new GameObjectPool(sampleGameObject, m_Content.parent);
+            m_objectPool = new Container<GameObject>(sampleGameObject, m_Content.parent);
 
             m_ContentConstraintCount = GetConstraintCount();
         }
@@ -303,7 +304,7 @@ namespace UnityEngine.UI
 
                 ReturnAll();
 
-                m_objectPool?.Clear();
+                m_objectPool?.Release();
                 m_objectPool = null;
             }
         }
@@ -313,7 +314,7 @@ namespace UnityEngine.UI
             if (Application.isPlaying)
             {
                 UpdatePollTotalCount(totalCount - 1);
-                m_objectPool?.Return(select);
+                m_objectPool?.Push(select);
 
                 RefreshScrollRect();
             }
@@ -331,7 +332,7 @@ namespace UnityEngine.UI
                 for (var i = 0; i < childCount; ++i)
                 {
                     CloseItem?.Invoke(m_Content.GetChild(0), i);
-                    m_objectPool?.Return(m_Content.GetChild(0).gameObject);
+                    m_objectPool?.Push(m_Content.GetChild(0).gameObject);
                 }
             }
         }
@@ -543,7 +544,7 @@ namespace UnityEngine.UI
                         if (null == selectCell || selectCell == tmpCell)
                         {
                             CloseItem?.Invoke(tmpCell, i);
-                            m_objectPool?.Return(tmpCell.gameObject);//prefabSource.ReturnObject(tmpCell);
+                            m_objectPool?.Push(tmpCell.gameObject);//prefabSource.ReturnObject(tmpCell);
                         }
                         i--;
                     }
@@ -567,7 +568,7 @@ namespace UnityEngine.UI
             for (var i = 0; i < childCount; ++i)
             {
                 CloseItem?.Invoke(m_Content.GetChild(0), i);
-                m_objectPool?.Return(m_Content.GetChild(0).gameObject);
+                m_objectPool?.Push(m_Content.GetChild(0).gameObject);
             }
 
             float sizeToFill = 0, sizeFilled = 0;
@@ -609,7 +610,7 @@ namespace UnityEngine.UI
             for (var i = 0; i < childCount; ++i)
             {
                 CloseItem?.Invoke(m_Content.GetChild(0), i);
-                m_objectPool?.Return(m_Content.GetChild(0).gameObject);
+                m_objectPool?.Push(m_Content.GetChild(0).gameObject);
             }
 
             float sizeToFill = 0, sizeFilled = 0;
@@ -692,7 +693,7 @@ namespace UnityEngine.UI
                 size = Mathf.Max(GetSize(oldItem), size);
                 //prefabSource.ReturnObject(oldItem);
                 CloseItem?.Invoke(oldItem, i);
-                m_objectPool?.Return(oldItem.gameObject);
+                m_objectPool?.Push(oldItem.gameObject);
 
                 itemTypeStart++;
 
@@ -776,7 +777,7 @@ namespace UnityEngine.UI
                 size = Mathf.Max(GetSize(oldItem), size);
                 //prefabSource.ReturnObject(oldItem);
                 CloseItem?.Invoke(oldItem, i);
-                m_objectPool?.Return(oldItem.gameObject);
+                m_objectPool?.Push(oldItem.gameObject);
 
                 itemTypeEnd--;
                 if (itemTypeEnd % m_ContentConstraintCount == 0 || m_Content.childCount == 0)
@@ -800,7 +801,7 @@ namespace UnityEngine.UI
             if (null == m_objectPool)
                 return null;
 
-            RectTransform nextItem = m_objectPool?.Rent().GetComponent<RectTransform>();
+            RectTransform nextItem = m_objectPool?.Pop().GetComponent<RectTransform>();
             nextItem.transform.SetParent(m_Content, false);
             nextItem.localPosition = new Vector3(nextItem.localPosition.x, nextItem.localPosition.y, 0.0f);
             nextItem.localScale = Vector3.one;
@@ -1101,11 +1102,11 @@ namespace UnityEngine.UI
 
                 m_HorizontalScrollbar.value = horizontalNormalizedPosition;
 
-                if (isUpdateScroll && m_HorizontalScrollbar is ScrollbarEx)
-                {
-                    var ScrollbarEx = (ScrollbarEx)m_HorizontalScrollbar;
-                    ScrollbarEx.UpdateScrollbars(horizontalNormalizedPosition);
-                }
+                //if (isUpdateScroll && m_HorizontalScrollbar is ScrollbarEx)
+                //{
+                //    var ScrollbarEx = (ScrollbarEx)m_HorizontalScrollbar;
+                //    ScrollbarEx.UpdateScrollbars(horizontalNormalizedPosition);
+                //}
             }
 
             if (m_VerticalScrollbar)
@@ -1121,11 +1122,11 @@ namespace UnityEngine.UI
 
                 m_VerticalScrollbar.value = verticalNormalizedPosition;
 
-                if (isUpdateScroll && m_VerticalScrollbar is ScrollbarEx)
-                {
-                    var ScrollbarEx = (ScrollbarEx)m_VerticalScrollbar;
-                    ScrollbarEx.UpdateScrollbars(verticalNormalizedPosition);
-                }
+                //if (isUpdateScroll && m_VerticalScrollbar is ScrollbarEx)
+                //{
+                //    var ScrollbarEx = (ScrollbarEx)m_VerticalScrollbar;
+                //    ScrollbarEx.UpdateScrollbars(verticalNormalizedPosition);
+                //}
             }
         }
 
