@@ -21,6 +21,10 @@ namespace UnityEngine.UI
                 {
                     if (0 == item.childCount)
                     {
+                        //var a = LayoutUtility.GetMinWidth(item);
+                        //var b = LayoutUtility.GetPreferredWidth(item);
+                        //var c = LayoutUtility.GetFlexibleWidth(item);
+
                         add = LayoutUtility.GetPreferredWidth(item);
                     }
                     else
