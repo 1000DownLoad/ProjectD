@@ -1,21 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 namespace Framework.Pool
 {
     public class Container<T> where T : class
     {
-        public Container() { }
-
-        public Container(T baseItem, Transform itemParent)
-        {
-
-        }
-
         private readonly Queue<T> _objects = new Queue<T>();
 
-        public bool Push(T obj) // Return
+        public bool Push(T obj)
         {
             if (obj == null)
                 return false;
@@ -25,7 +17,7 @@ namespace Framework.Pool
             return true;
         }
 
-        public T Pop() // Rent 
+        public T Pop()
         {
             if (_objects.Any() == false)
                 return null;
