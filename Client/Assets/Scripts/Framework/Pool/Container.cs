@@ -74,7 +74,6 @@ namespace Framework.Pool
             return pop;
         }
 
-        protected override createInstance
 
         public override bool Push(GameObject obj)
         {
