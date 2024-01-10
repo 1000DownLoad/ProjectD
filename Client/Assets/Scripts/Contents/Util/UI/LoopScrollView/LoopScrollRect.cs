@@ -27,7 +27,7 @@ namespace UnityEngine.UI
         /// <summary>
         /// Object Pool
         /// </summary>
-        private GameObjectContainer m_objectPool = null;
+        private ResourcePool m_objectPool = null;
 
         public T[] GetItems<T>() => m_Content.GetComponentsInChildren<T>();
 
@@ -45,7 +45,7 @@ namespace UnityEngine.UI
 
             if (IsInitialized) return;
 
-            m_objectPool = new GameObjectContainer(sampleGameObject, m_Content.parent);
+            m_objectPool = new ResourcePool();
 
             m_ContentConstraintCount = GetConstraintCount();
         }
@@ -802,7 +802,7 @@ namespace UnityEngine.UI
             if (null == m_objectPool)
                 return null;
 
-            RectTransform nextItem = m_objectPool?.Pop().GetComponent<RectTransform>();
+            RectTransform nextItem = m_objectPool?.Pop("UI_Item").GetComponent<RectTransform>();
             nextItem.transform.SetParent(m_Content, false);
             nextItem.localPosition = new Vector3(nextItem.localPosition.x, nextItem.localPosition.y, 0.0f);
             nextItem.localScale = Vector3.one;
