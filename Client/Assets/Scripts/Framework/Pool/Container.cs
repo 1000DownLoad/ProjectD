@@ -5,22 +5,11 @@ using UnityEngine;
 
 namespace Framework.Pool
 {
-    //public interface IObjectPool
-    //{
-    //    int InitPoolSize { get; }
-    //    int CurrentPoolSize { get; }
-    //    int PopCount { get; }
-    //    int MaxPopCount { get; }
-    //    float UsePoolRatio { get; }
-    //    float InitMaxUsePoolRatio { get; }
-    //}
-
-
     public class Container<T> where T : class
     {
         private readonly Queue<T> _objects = new Queue<T>();
 
-        public virtual bool Push(T obj) // return
+        public bool Push(T obj) // return
         {
             if (obj == null)
                 return false;
@@ -30,7 +19,7 @@ namespace Framework.Pool
             return true;
         }
 
-        public virtual T Pop() // rent
+        public T Pop() // rent
         {
             if (_objects.Any() == false)
                 return null;
@@ -39,7 +28,7 @@ namespace Framework.Pool
         }
 
 
-        public virtual void Release()
+        public void Release()
         {
             _objects.Clear();
         }
@@ -47,46 +36,6 @@ namespace Framework.Pool
         public Queue<T> GetObjects()
         {
             return _objects;
-        }
-    }
-
-    public class GameObjectContainer : Container<GameObject>
-    {
-        readonly GameObject baseItem;
-        readonly Transform itemParent;
-
-        public GameObjectContainer()
-        {
-
-        }
-
-        public GameObjectContainer(GameObject baseItem, Transform itemParent)
-        {
-            this.baseItem = baseItem;
-            this.itemParent = itemParent;
-        }
-
-        public override GameObject Pop()
-        {
-            var pop = base.Pop();
-
-
-            return pop;
-        }
-
-        protected override createInstance
-
-        public override bool Push(GameObject obj)
-        {
-            return base.Push(obj);
-        }
-
-        public override void Release() // Clear
-        {
-            for (int i = 0; i < itemParent.childCount; i++)
-            {
-                Push(itemParent.GetChild(i).gameObject);
-            }
         }
     }
 }
