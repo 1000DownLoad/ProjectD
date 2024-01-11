@@ -1,6 +1,6 @@
 using System;
 using Framework.Scheduler.Base;
-using DataTable;
+using Network;
 
 class GameTask_GameLogin : Task
 {
@@ -18,8 +18,6 @@ class GameTask_GameLogin : Task
 
             GUIManager.Instance.CloseGUI<GUI_Login>();
             GUIManager.Instance.OpenGUI<GUI_Loading>(new GUI_Loading.OpenParam("LobbyScene"));
-
-            Complete(ETaskState.Success);
         };
 
         GUIManager.Instance.OpenGUI<GUI_Login>(new GUI_Login.OpenParam(button_action));
@@ -32,6 +30,19 @@ class GameTask_GameLogin : Task
 
         //if (FirebaseManager.Instance.m_firebase_auth.CurrentUser == null)
         //    return;
+
+        //if(WebSocketClient.Instance.GetSocketState() == System.Net.WebSockets.WebSocketState.None 
+        //    || WebSocketClient.Instance.GetSocketState() == System.Net.WebSockets.WebSocketState.Closed)
+        //{
+        //    WebSocketClient.Instance.Connect();
+        //}
+
+        //if (WebSocketClient.Instance.GetSocketState() != System.Net.WebSockets.WebSocketState.Open)
+        //    return;
+
+        //ProtocolBinder.Instance.InitRegisterHandles();
+
+        Complete(ETaskState.Success);
     }
 
     public override void OnComplete()

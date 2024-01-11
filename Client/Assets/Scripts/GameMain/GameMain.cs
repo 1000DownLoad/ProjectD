@@ -14,7 +14,7 @@ public class GameMain : Framework.TMonoSingleton<GameMain>
 		StaticInitialize();
 
         PostAwake();
-	}
+    }
 
     void OnApplicationFocus(bool focus)
     {

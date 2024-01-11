@@ -4,8 +4,6 @@ using Framework;
 
 class AccountManager : TSingleton<AccountManager>
 {
-    private AccountManager() { }
-
     public int m_user_level = 0;
     public long m_user_exp = 0;
 

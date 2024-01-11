@@ -12,8 +12,6 @@ class UserResourceData
 
 class ResourceManager : TSingleton<ResourceManager>
 {
-    ResourceManager() { }
-
     private Dictionary<ResourceType, UserResourceData> m_resource_dic = new Dictionary<ResourceType, UserResourceData>();
 
     protected override void OnCreateSingleton()

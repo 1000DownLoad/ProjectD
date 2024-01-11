@@ -6,7 +6,6 @@ using Google;
 
 public class FirebaseManager : TSingleton<FirebaseManager>
 {
-    FirebaseManager() { }
 
     public string webClientId = "445256307725-t5a1urc0feqvo2bqv29gkg79pu5anu5k.apps.googleusercontent.com";
 

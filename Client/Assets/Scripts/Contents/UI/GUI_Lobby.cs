@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Network;
 
 class GUI_Lobby : GUIBase
 {
@@ -92,6 +95,11 @@ class GUI_Lobby : GUIBase
 
     private void OnBattleButtonClick()
     {
-        GUIManager.Instance.OpenGUI<GUI_RewardPopup>(new GUI_RewardPopup.OpenParam(300));
+        var req = new GS_ACCOUNT_GET_REQ();
+        req.UserID = "123";
+
+        WebSocketClient.Instance.Send<GS_ACCOUNT_GET_REQ>(PROTOCOL.GS_ACCOUNT_GET_REQ, req);
+
+        //GUIManager.Instance.OpenGUI<GUI_RewardPopup>(new GUI_RewardPopup.OpenParam(300));
     }
 }
