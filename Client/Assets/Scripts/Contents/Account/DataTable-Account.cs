@@ -1,6 +1,8 @@
 ﻿using FlexFramework.Excel;
+using Framework.DataTable;
 using System.Collections.Generic;
 using System.IO;
+
 
 namespace DataTable
 {
@@ -11,17 +13,18 @@ namespace DataTable
         public long max_energy;
     }
 
-    public static class AccountDataTable
+    // 타입과 엑셀 테이블 명칭을 맞춰주세요.
+    public class AccountDataTable : DataTableBase<AccountDataTable>
     {
-        private static Dictionary<int, AccountData> m_account_data = new Dictionary<int, AccountData>();
+        private Dictionary<int, AccountData> m_common_account_data = new Dictionary<int, AccountData>();
 
-        public readonly static string FilePath = "../DataTable/Common/AccountTable.xlsx";
-
-        public static void LoadAccountDataTable()
+        public void LoadCommonAccountDataTable()
         {
-            m_account_data.Clear();
+            m_common_account_data.Clear();
 
-            var fs = new FileStream(FilePath, FileMode.Open);
+            var common_path = GetCommonPath();
+
+            var fs = new FileStream(GetCommonPath(), FileMode.Open);
             byte[] bytes = new byte[fs.Length];
             fs.Read(bytes, 0, (int)fs.Length);
 
@@ -38,15 +41,15 @@ namespace DataTable
                 account_data.need_exp = row_data[1].Integer;
                 account_data.max_energy = row_data[2].Integer;
 
-                m_account_data.Add(account_data.level, account_data);
+                m_common_account_data.Add(account_data.level, account_data);
             }
 
             fs.Close();
         }
 
-        static public AccountData GetAccountData(int in_level)
+        public AccountData GetCommonAccountData(int in_level)
         {
-            m_account_data.TryGetValue(in_level, out var out_data);
+            m_common_account_data.TryGetValue(in_level, out var out_data);
 
             return out_data;
         }

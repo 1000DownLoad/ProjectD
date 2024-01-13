@@ -1,4 +1,5 @@
 ﻿using FlexFramework.Excel;
+using Framework.DataTable;
 using System.Collections.Generic;
 using System.IO;
 
@@ -19,17 +20,17 @@ namespace DataTable
         public string sprite_name;
     }
 
-    public static class ResourceDataTable
+
+    // 타입과 엑셀 테이블 명칭을 맞춰주세요.
+    public class ResourceDataTable : DataTableBase<ResourceDataTable>
     {
-        private static Dictionary<ResourceType, ResourceData> m_resource_data = new Dictionary<ResourceType, ResourceData>();
+        private static Dictionary<ResourceType, ResourceData> m_common_resource_data = new Dictionary<ResourceType, ResourceData>();
 
-        public readonly static string FilePath = "../DataTable/Common/ResourceTable.xlsx";
-
-        public static void LoadResourceDataTable()
+        public void LoadCommonResourceDataTable()
         {
-            m_resource_data.Clear();
+            m_common_resource_data.Clear();
 
-            var fs = new FileStream(FilePath, FileMode.Open);
+            var fs = new FileStream(GetCommonPath(), FileMode.Open);
             byte[] bytes = new byte[fs.Length];
             fs.Read(bytes, 0, (int)fs.Length);
 
@@ -46,15 +47,15 @@ namespace DataTable
                 resource_data.name = row_data[1].String;
                 resource_data.sprite_name = row_data[2].String;
 
-                m_resource_data.Add(resource_data.resource_type, resource_data);
+                m_common_resource_data.Add(resource_data.resource_type, resource_data);
             }
 
             fs.Close();
         }
 
-        static public ResourceData GetResourceData(ResourceType in_resource_type)
+        public ResourceData GetCommonResourceData(ResourceType in_resource_type)
         {
-            m_resource_data.TryGetValue(in_resource_type, out var out_data);
+            m_common_resource_data.TryGetValue(in_resource_type, out var out_data);
 
             return out_data;
         }

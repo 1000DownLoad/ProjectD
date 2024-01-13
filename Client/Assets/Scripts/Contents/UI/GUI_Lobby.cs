@@ -51,7 +51,7 @@ class GUI_Lobby : GUIBase
     {
         m_account_level_text.SetText(AccountManager.Instance.m_user_level.ToString());
 
-        var account_data = DataTable.AccountDataTable.GetAccountData(AccountManager.Instance.m_user_level);
+        var account_data = DataTable.AccountDataTable.Instance.GetCommonAccountData(AccountManager.Instance.m_user_level);
         if(account_data != null)
         {
             m_account_exp_text.SetText(string.Format("{0}/{1}", Util.UI.SeparatorConvert(AccountManager.Instance.m_user_exp), Util.UI.SeparatorConvert(account_data.need_exp)));

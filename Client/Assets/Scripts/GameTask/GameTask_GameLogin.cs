@@ -1,6 +1,8 @@
 using System;
 using Framework.Scheduler.Base;
 using Network;
+using DataTable;
+using UnityEngine;
 
 class GameTask_GameLogin : Task
 {
@@ -21,6 +23,11 @@ class GameTask_GameLogin : Task
         };
 
         GUIManager.Instance.OpenGUI<GUI_Login>(new GUI_Login.OpenParam(button_action));
+
+        // 데이터 로드 완료에 대한 테스트 코드입니다.
+        var aaa = AccountDataTable.Instance.GetCommonAccountData(1);
+        if (aaa == null)
+            Application.Quit();
     }
 
     public override void OnUpdate()
