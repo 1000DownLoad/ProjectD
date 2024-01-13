@@ -98,7 +98,7 @@ public class BuildScript
     {
         Debug.Log("Copy DataTables start");
 
-        string copy_path = Path.Combine("Assets", "Resources", "DataTables");
+        string copy_path = Path.Combine("Assets", "Resources", "DataTable");
         string source_path = Path.Combine("..", "DataTable");
         string target_extension = ".xlsx";
         string chagen_extension = ".text";
@@ -108,12 +108,12 @@ public class BuildScript
         if (Directory.Exists(copy_path))
         {
             Directory.Delete(copy_path, true /* recursive */);
-            Debug.Log("Delet old DataTables directory : " + copy_path);
+            Debug.Log("Delet old DataTable directory : " + copy_path);
         }
 
         CopyDirectory(source_path, copy_path);
 
-        Debug.Log("Copy DataTables finish");
+        Debug.Log("Copy DataTable finish");
 
 
 
