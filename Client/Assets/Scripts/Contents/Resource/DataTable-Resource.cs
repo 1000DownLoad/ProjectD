@@ -30,11 +30,7 @@ namespace DataTable
         {
             m_common_resource_data.Clear();
 
-            var fs = new FileStream(GetCommonPath(), FileMode.Open);
-            byte[] bytes = new byte[fs.Length];
-            fs.Read(bytes, 0, (int)fs.Length);
-
-            WorkBook book = new WorkBook(bytes);
+            WorkBook book = GetCommonRowData();
 
             var doc = book["RESOURCE"];
 
@@ -49,8 +45,6 @@ namespace DataTable
 
                 m_common_resource_data.Add(resource_data.resource_type, resource_data);
             }
-
-            fs.Close();
         }
 
         public ResourceData GetCommonResourceData(ResourceType in_resource_type)

@@ -1,5 +1,6 @@
 using System.IO;
-
+using UnityEngine;
+using FlexFramework.Excel;
 
 namespace Framework.DataTable
 {
@@ -13,27 +14,68 @@ namespace Framework.DataTable
 
         public readonly static string DATA_EXTENSION = ".xlsx";
 #else
-        public readonly static string COMMON_DATA_PATH = Path.Combine("Resource", "DataTable", "Common");
-        public readonly static string CLIENT_DATA_PATH = Path.Combine("Resource", "DataTable", "Client");
+        public readonly static string COMMON_DATA_PATH = Path.Combine("DataTable", "Common");
+        public readonly static string CLIENT_DATA_PATH = Path.Combine("DataTable", "Client");
         // 서버는 클라이언트에서 필요하지 않아 추가 안함.
-
-        public readonly static string DATA_EXTENSION = ".text";
 #endif
     }
 
 
     public class DataTableBase<T> : TSingleton<T> where T : class, new()
     {
-        protected string GetCommonPath()
+        protected WorkBook GetCommonRowData() 
         {
-            return Path.Combine(GlobalDataTablePath.COMMON_DATA_PATH
-                , this.GetType().Name + GlobalDataTablePath.DATA_EXTENSION);
+            WorkBook book = null;
+#if UNITY_EDITOR
+            var fs = new FileStream(GetCommonPath(), FileMode.Open);
+            byte[] bytes = new byte[fs.Length];
+            fs.Read(bytes, 0, (int)fs.Length);
+
+            book = new WorkBook(bytes);
+#else
+            TextAsset text_asset = Resources.Load<TextAsset>(GetCommonPath());
+
+            if (text_asset != null) 
+            {
+                book = new WorkBook(text_asset.bytes);
+            }
+            else 
+            {
+                Debug.LogError(GetCommonPath() + " common data file not found!");
+                Application.Quit(1);
+            }
+
+            // 사용하지 않는 리소스 정리
+            Resources.UnloadUnusedAssets();
+#endif
+
+            return book;
         }
 
-        protected string GetClientPath()
+        private string GetCommonPath()
         {
-            return Path.Combine(GlobalDataTablePath.CLIENT_DATA_PATH
-                , this.GetType().Name + GlobalDataTablePath.DATA_EXTENSION);
+            string path = Path.Combine(GlobalDataTablePath.COMMON_DATA_PATH, this.GetType().Name);
+
+#if UNITY_EDITOR
+            path = path + GlobalDataTablePath.DATA_EXTENSION;
+#else
+            // 빌드 환경에서는 Resoure 를 통해 데이터를 가지고 오기 때문에 확장자를 붙이지 않는다.
+#endif
+
+            return path;
+        }
+
+        private string GetClientPath()
+        {
+            string path = Path.Combine(GlobalDataTablePath.CLIENT_DATA_PATH, this.GetType().Name);
+
+#if UNITY_EDITOR
+            path = path + GlobalDataTablePath.DATA_EXTENSION;
+#else
+            // 빌드 환경에서는 Resoure 를 통해 데이터를 가지고 오기 때문에 확장자를 붙이지 않는다.
+#endif
+
+            return path;
         }
     }
 

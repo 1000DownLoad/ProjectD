@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEditor.Build.Reporting;
@@ -12,6 +11,10 @@ public class BuildScript
     public static void AndroidBuild()
     {
         Debug.Log("Android Build Start");
+
+        // 프로젝트에 필요한 인코딩 Dll 을 복사합니다.
+        // dll 이 없다면 엑셀 파일을 읽다가 949 encoding 에러가 발생한다.
+        CopyEncodingDll(BuildTarget.Android);
 
         // 데이터 폴더를 복사합니다.
         CopyDataTableAndChnageExtension();
@@ -76,11 +79,12 @@ public class BuildScript
         foreach (var scene in EditorBuildSettings.scenes)
         {
             if (!scene.enabled) continue;
+            
             scenes.Add(scene.path);
+            Debug.Log("MakeBuildOption - Included scene : " + scene.path);
         }
         options.scenes = scenes.ToArray();
-        Debug.Log("MakeBuildOption - Included scene : " + scenes);
-
+        
 
         // 빌드 타겟
         options.target = in_build_target;
@@ -98,15 +102,15 @@ public class BuildScript
     // 동작
     //  1. Resource/DataTables 경로에 엑셀을 복사합니다.
     //     ㄴ 만약 Resource/DataTables 폴더가 이미 존재하는 경우 삭제 후 복사를 진행합니다.
-    //  2. 엑셀은 Unity 에서 인식을 하지 못하기 대문에 .text 파일로 변경합니다.
+    //  2. 엑셀은 Unity 에서 인식을 하지 못하기 대문에 .txt 파일로 변경합니다.
     private static void CopyDataTableAndChnageExtension()
     {
         Debug.Log("Copy DataTables start");
 
-        string copy_path = Path.Combine("Assets", "Resources", "DataTable");
         string source_path = Path.Combine("..", "DataTable");
+        string copy_path = Path.Combine("Assets", "Resources", "DataTable");
         string target_extension = ".xlsx";
-        string chagen_extension = ".text";
+        string chagen_extension = ".txt";
 
         // 이전에 복사된 데이터 디렉토리 삭제.
         // 데이터가 꼬이는 문제를 방지하기 위함.
@@ -116,10 +120,10 @@ public class BuildScript
             Debug.Log("Delet old DataTable directory : " + copy_path);
         }
 
+
         CopyDirectory(source_path, copy_path);
 
         Debug.Log("Copy DataTable finish");
-
 
 
         Debug.Log("Change extension start");
@@ -185,4 +189,44 @@ public class BuildScript
             }
         }
     }
+
+    public static void CopyEncodingDll(BuildTarget in_build_target) 
+    {
+        Debug.Log("CopyEncodingDll start");
+
+        string editor_path = EditorApplication.applicationPath;
+        string dll_directory = string.Empty;
+        string mono_root_path = string.Empty;
+        string copy_path = string.Empty;
+
+#if UNITY_EDITOR_WIN
+        mono_root_path = Path.Combine(editor_path, "..", "Data", "MonoBleedingEdge", "lib", "mono");
+#else
+        // 맥환경에서만 구동할 계획.
+        mono_root_path = Path.Combine(editor_path, "Contents", "MonoBleedingEdge", "lib", "mono");
+#endif
+
+        if (in_build_target == BuildTarget.Android) 
+        {
+            // 안드로이드는 리눅스 기반이며 .Net 4.0 을 사용할것이라 예상하고 구현.
+            dll_directory = "unityaot-linux";
+
+            copy_path = Path.Combine("Assets", "Plugins", "Android");
+        }
+        else 
+        {
+            // 대응 필요.
+            return;
+        }
+
+
+        string dll_path = Path.Combine(mono_root_path, dll_directory);
+
+        File.Copy(Path.Combine(dll_path, "I18N.dll"), Path.Combine(copy_path, "I18N.dll"), true); // true는 기존 파일을 덮어쓰도록 합니다.
+        File.Copy(Path.Combine(dll_path, "I18N.CJK.dll"), Path.Combine(copy_path, "I18N.CJK.dll"), true); // true는 기존 파일을 덮어쓰도록 합니다.
+
+        Debug.Log("CopyEncodingDll finish");
+    }
+
+
 }
