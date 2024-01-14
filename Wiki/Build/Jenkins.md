@@ -1,11 +1,16 @@
-# 빌드 및 배포
+# 젠킨스
 
 # 목표
 1. git master 브랜치에 커밋을 감지.
 2. 젠킨스를 통해 빌드 및 배포 진행
 3. 빌드 파일은 깃 릴리즈를 통해 배포.
 
-#### 환경 : 
+# 동작 이미지
+
+![배포 구성도](https://github.com/1000DownLoad/ProjectD/assets/16574400/e7826291-0a98-4712-9e59-6ebab375eaa3)
+
+
+# 빌드 환경
 1. 맥 M1 머신
 2. 젠킨스
 	*  brew 를 통해 설치.
@@ -22,7 +27,7 @@
 		* curl 결과를 json 으로 편하게 가져오기 위해 사용.
 
 
-#### 동작	
+# 상세 동작	
 1. Github push 시 웹콜 전송.
 2. 젠킨스 ProjectD 에서 웹콜의 브랜치를 체크 및 빌드 진행
 	1. Build Step - Invoke Unity Editor
@@ -55,7 +60,4 @@
 		     --data-binary @"/Users/baeseongjin/.jenkins/workspace/ProjectD/Client/Build/ProjectD_APK.zip" \
 		     "https://uploads.github.com/repos/1000DownLoad/ProjectD/releases/${RELEASE_ID}/assets?name=ProjectD_APK.zip"
 		```
-
-
-
-4. 빌드 결과를 Discord Notifier 로 디스코드에 알림
+	4. 빌드 결과를 Discord Notifier 로 디스코드에 알림
