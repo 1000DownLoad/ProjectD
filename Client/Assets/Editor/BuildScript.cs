@@ -16,6 +16,11 @@ public class BuildScript
         // 데이터 폴더를 복사합니다.
         CopyDataTableAndChnageExtension();
 
+        // 애플리 케이션 프로세스와 Android 에서 자료 추출 방지
+        // 우선 Debug key 를 사용하도록 세팅해둔다. 좀더 자세한 확인필요.
+        // https://developer.android.com/training/articles/keystore?hl=ko
+        PlayerSettings.Android.useCustomKeystore = false;
+
         // 빌드 옵션 설정.
         // 디렉토리 및 프로젝트 이름을 외부에서 가져오도록 변경하는것을 고려해야됨.
         var build_option = MakeBuildOption(BuildTarget.Android, "Build", "ProjectD.apk");
