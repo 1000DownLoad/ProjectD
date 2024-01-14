@@ -2,6 +2,7 @@
 using Framework.DataTable;
 using System.Collections.Generic;
 using System.IO;
+using UnityEngine;
 
 
 namespace DataTable
@@ -22,13 +23,7 @@ namespace DataTable
         {
             m_common_account_data.Clear();
 
-            var common_path = GetCommonPath();
-
-            var fs = new FileStream(GetCommonPath(), FileMode.Open);
-            byte[] bytes = new byte[fs.Length];
-            fs.Read(bytes, 0, (int)fs.Length);
-
-            WorkBook book = new WorkBook(bytes);
+            WorkBook book = GetCommonRowData();
 
             var doc = book["ACCOUNT"];
 
@@ -43,8 +38,6 @@ namespace DataTable
 
                 m_common_account_data.Add(account_data.level, account_data);
             }
-
-            fs.Close();
         }
 
         public AccountData GetCommonAccountData(int in_level)
