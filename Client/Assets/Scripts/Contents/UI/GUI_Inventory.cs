@@ -3,10 +3,19 @@ using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
 
+
+public enum ItemType
+{
+    NONE,
+    Weapon,
+    Armor,
+    Shoes,
+    Accessories, 
+}
+
 class GUI_Inventory : GUIBase
 {
 
-    [SerializeField] private LoopVerticalScrollRect loopRect;
     [SerializeField] private UI_Item baseItem;
     [SerializeField] private Toggle weaponToggle;
     [SerializeField] private Toggle shieldToggle;
@@ -36,16 +45,16 @@ class GUI_Inventory : GUIBase
 
         }
 
-        loopRect.Initialize(baseItem.gameObject, (itemTransform, index) =>
-        {
-            if (false == itemTransform.TryGetComponent<UI_Item>(out var item)) 
-                return;
+        Init();
 
-            item.SetItemInfo();
-        });
+    }
 
-        loopRect.UpdatePollTotalCount(64);
-        loopRect.RefreshScrollRect();
+    private void Init()
+    {
+        //foreach (var VARIABLE in null)
+        //{
+            
+        //}
     }
 
     void BindUI()
