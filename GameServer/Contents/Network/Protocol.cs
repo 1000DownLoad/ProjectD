@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Text;
 using Framework;
 
-namespace Network
+namespace Protocol
 {
     public enum PROTOCOL
     {
@@ -18,7 +18,7 @@ namespace Network
     public partial class ProtocolBinder : TSingleton<ProtocolBinder>
     {
         // Protocol-Contents 에 작성한 함수들 호출
-        public void InitRegisterHandles()
+        public void Initialize()
         {
             RegisterAccountHandler();
         }

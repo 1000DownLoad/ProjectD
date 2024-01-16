@@ -8,12 +8,12 @@ using Framework;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.Timers;
+using Protocol;
 
 namespace Network
 {
     public class WebSocketClient : TSingleton<WebSocketClient>
     {
-        private readonly Uri SERVER_URL = new Uri("ws://localhost:8080");
         private ClientWebSocket m_web_socket = new ClientWebSocket();
         private Queue<string> m_packet_queue = new Queue<string>();
         private Dictionary<PROTOCOL, Action<string>> m_protocol_handlers = new Dictionary<PROTOCOL, Action<string>>();
@@ -35,11 +35,13 @@ namespace Network
             RecvProcessPacket(m_packet_queue.Dequeue());
         }
 
-        public async void Connect()
+        public async void Connect(string in_url, string in_account_id)
         {
             try
             {
-                await m_web_socket.ConnectAsync(SERVER_URL, CancellationToken.None);
+                Uri url = new Uri(in_url);
+                m_web_socket.Options.SetRequestHeader("ACCOUNT_ID", in_account_id);
+                await m_web_socket.ConnectAsync(url, CancellationToken.None);
                 Debug.Log("WebSocket connected!");
 
                 await Receive();

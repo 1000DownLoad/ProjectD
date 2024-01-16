@@ -1,20 +1,24 @@
-﻿using Newtonsoft.Json;
+﻿using Network;
+using Newtonsoft.Json;
+using Account;
 
 [System.Serializable]
 public class GS_ACCOUNT_GET_REQ
 {
-    public string UserID;
+    public string AccountID;
 }
 
 [System.Serializable]
 public class GS_ACCOUNT_GET_ACK
 {
-    public int Result;
-    public int Level;
-    public long Exp;
+    public int  Result;
+    public long UserID;
+    public int  Level;
+    public long CurExp;
+    public long CurEnergy;
 }
 
-namespace Network
+namespace Protocol
 {
     public partial class ProtocolBinder
     {
@@ -24,12 +28,18 @@ namespace Network
             if (req == null)
                 return;
 
-            var ack = new GS_ACCOUNT_GET_ACK();
-            ack.Level = 1;
-            ack.Exp = 10;
-            ack.Result = 1;
+            var account = AccountManager.Instance.GetAccountByAccountID(req.AccountID);
+            if (account == null)
+                return;
 
-            WebSocketServer.Instance.Send<GS_ACCOUNT_GET_ACK>(123, PROTOCOL.GS_ACCOUNT_GET_ACK, ack);
+            var ack = new GS_ACCOUNT_GET_ACK();
+            ack.Result = 1;
+            ack.UserID = account.user_id;
+            ack.Level = account.level;
+            ack.CurExp = account.cur_exp;
+            ack.CurEnergy = account.cur_energy;
+
+            WebSocketServer.Instance.Send<GS_ACCOUNT_GET_ACK>(account.user_id, PROTOCOL.GS_ACCOUNT_GET_ACK, ack);
         }
 
         public void RegisterAccountHandler()

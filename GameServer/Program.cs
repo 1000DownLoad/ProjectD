@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Network;
+using DataBase;
+using DataTable;
+using Protocol;
 
 namespace GameServer
 {
@@ -8,11 +11,17 @@ namespace GameServer
     {
         static async Task Main(string[] args)
         {
-            ProtocolBinder.Instance.InitRegisterHandles();
+            // DataTable Load
+            AccountDataTable.LoadCommonAccountDataTable();
 
-            string serverUrl = "http://localhost:8080/";
+            // DataBase Initialize
+            DataBaseManager.Instance.Initialize();
 
-            await WebSocketServer.Instance.StartServer(serverUrl);
+            // ProtocolBinder Initialize
+            ProtocolBinder.Instance.Initialize();
+
+            // Socket
+            WebSocketServer.Instance.Initialize();
 
             Console.WriteLine("Press any key to stop the server...");
             Console.ReadKey();

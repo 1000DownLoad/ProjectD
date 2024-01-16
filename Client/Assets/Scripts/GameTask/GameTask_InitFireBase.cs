@@ -16,7 +16,7 @@ class GameTask_InitFireBase : Task
 
     public override void OnUpdate()
     {
-        if (FirebaseManager.Instance.m_firebase_auth == null)
+        if (FirebaseManager.Instance.IsFireBaseLogin() == false)
             return;
 
         Complete(ETaskState.Success);

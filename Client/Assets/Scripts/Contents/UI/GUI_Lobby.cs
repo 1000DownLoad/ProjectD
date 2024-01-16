@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Network;
+using Protocol;
+using Account;
 
 class GUI_Lobby : GUIBase
 {
@@ -49,12 +51,16 @@ class GUI_Lobby : GUIBase
 
     private void RefreshText()
     {
-        m_account_level_text.SetText(AccountManager.Instance.m_user_level.ToString());
+        var account = AccountManager.Instance.GetAccount();
+        if (account == null)
+            return;
 
-        var account_data = DataTable.AccountDataTable.Instance.GetCommonAccountData(AccountManager.Instance.m_user_level);
+        m_account_level_text.SetText(account.level.ToString());
+
+        var account_data = DataTable.AccountDataTable.Instance.GetAccountTableData(account.level);
         if(account_data != null)
         {
-            m_account_exp_text.SetText(string.Format("{0}/{1}", Util.UI.SeparatorConvert(AccountManager.Instance.m_user_exp), Util.UI.SeparatorConvert(account_data.need_exp)));
+            m_account_exp_text.SetText(string.Format("{0}/{1}", Util.UI.SeparatorConvert(account.cur_exp), Util.UI.SeparatorConvert(account_data.max_exp)));
 
             var energy_data = ResourceManager.Instance.GetResourceData(ResourceType.ENERGY);
             if (energy_data != null)
@@ -62,7 +68,7 @@ class GUI_Lobby : GUIBase
             else
                 m_resource_energy_text.SetText(string.Format("0"));
 
-            RefreshSlider(AccountManager.Instance.m_user_exp / (float)account_data.need_exp);
+            RefreshSlider(account.cur_exp / (float)account_data.max_exp);
         }
 
         var gem_data = ResourceManager.Instance.GetResourceData(ResourceType.GEM);
@@ -96,7 +102,7 @@ class GUI_Lobby : GUIBase
     private void OnBattleButtonClick()
     {
         var req = new GS_ACCOUNT_GET_REQ();
-        req.UserID = "123";
+        req.AccountID = FirebaseManager.Instance.GetAccountID();
 
         WebSocketClient.Instance.Send<GS_ACCOUNT_GET_REQ>(PROTOCOL.GS_ACCOUNT_GET_REQ, req);
 

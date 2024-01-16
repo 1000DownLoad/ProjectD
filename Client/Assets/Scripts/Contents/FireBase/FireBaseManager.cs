@@ -6,17 +6,11 @@ using Google;
 
 public class FirebaseManager : TSingleton<FirebaseManager>
 {
+    private string webClientId = "445256307725-t5a1urc0feqvo2bqv29gkg79pu5anu5k.apps.googleusercontent.com";
 
-    public string webClientId = "445256307725-t5a1urc0feqvo2bqv29gkg79pu5anu5k.apps.googleusercontent.com";
-
-    public FirebaseApp  m_firebase_app;
-    public FirebaseAuth m_firebase_auth;
-    public GoogleSignInConfiguration m_google_configuration;
-
-    protected override void OnCreateSingleton()
-    {
-
-    }
+    private FirebaseAuth m_firebase_auth;
+    private FirebaseApp  m_firebase_app;
+    private GoogleSignInConfiguration m_google_configuration;
 
     public void InitFirebase()
     {
@@ -30,6 +24,33 @@ public class FirebaseManager : TSingleton<FirebaseManager>
                 m_firebase_auth = FirebaseAuth.DefaultInstance;
             }
         });
+    }
+
+    public bool IsFireBaseLogin()
+    {
+        if (m_firebase_auth == null)
+            return false;
+
+        return true;
+    }
+
+    public bool IsUserLogin()
+    {
+        if (m_firebase_auth == null)
+            return false;
+
+        if (m_firebase_auth.CurrentUser == null)
+            return false;
+
+        return true;
+    }
+
+    public string GetAccountID()
+    {
+        if (IsUserLogin())
+            return m_firebase_auth.CurrentUser.UserId;
+
+        return string.Empty;
     }
 
     public void CreateUserWithEmail(string in_email, string in_password)

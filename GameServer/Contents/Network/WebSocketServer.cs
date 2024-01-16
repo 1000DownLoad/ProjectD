@@ -7,6 +7,8 @@ using System.Text;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.Timers;
+using Protocol;
+using Account;
 
 namespace Network
 {
@@ -18,28 +20,16 @@ namespace Network
         private Dictionary<PROTOCOL, Action<string>> m_protocol_handlers = new Dictionary<PROTOCOL, Action<string>>();
         private System.Timers.Timer m_packet_process_timer;
 
-        protected override void OnCreateSingleton() 
+        public async Task Initialize()
         {
-            m_packet_process_timer = new System.Timers.Timer(100);
-            m_packet_process_timer.Elapsed += OnPacketRecvProcessUpdate;
-            m_packet_process_timer.AutoReset = true;
-            m_packet_process_timer.Start();
-        }
+            string serverUrl = "http://localhost:8080/";
 
-        private void OnPacketRecvProcessUpdate(object sender, ElapsedEventArgs e)
-        {
-            if (m_packet_queue.Count < 1)
-                return;
-
-            RecvProcessPacket(m_packet_queue.Dequeue());
-        }
-
-        public async Task StartServer(string in_url)
-        {
             m_http_listener = new HttpListener();
-            m_http_listener.Prefixes.Add(in_url);
+            m_http_listener.Prefixes.Add(serverUrl);
 
             m_http_listener.Start();
+            StartTimer();
+
             Console.WriteLine("Server started. Waiting for connections...");
 
             while (true)
@@ -57,17 +47,59 @@ namespace Network
             }
         }
 
-        private async void HandleWebSocketRequest(HttpListenerContext context)
+        private void OnPacketRecvProcessUpdate(object in_sender, ElapsedEventArgs in_event_args)
+        {
+            if (m_packet_queue.Count < 1)
+                return;
+
+            RecvProcessPacket(m_packet_queue.Dequeue());
+        }
+
+        private void StartTimer()
+        {
+            m_packet_process_timer = new System.Timers.Timer(100);
+            m_packet_process_timer.Elapsed += OnPacketRecvProcessUpdate;
+            m_packet_process_timer.AutoReset = true;
+            m_packet_process_timer.Start();
+        }
+
+        private async void HandleWebSocketRequest(HttpListenerContext in_context)
         {
             HttpListenerWebSocketContext webSocketContext = null;
 
             try
             {
-                webSocketContext = await context.AcceptWebSocketAsync(subProtocol: null);
-                var userId = 123;
-                m_user_sockets[userId] = webSocketContext.WebSocket;
+                webSocketContext = await in_context.AcceptWebSocketAsync(subProtocol: null);
 
-                await Receive(webSocketContext.WebSocket, userId);
+                string account_id = webSocketContext.Headers.Get("ACCOUNT_ID");
+                long user_id = 0;
+
+                var account = AccountManager.Instance.GetAccountByAccountID(account_id);
+                if (account == null)
+                {
+                    var new_account = AccountManager.Instance.CreateAccount(account_id);
+                    if (new_account == null)
+                    {
+                        webSocketContext?.WebSocket.CloseAsync(WebSocketCloseStatus.InternalServerError, "Internal Server Error", CancellationToken.None);
+                        return;
+                    }
+
+                    user_id = new_account.user_id;
+                }
+                else
+                {
+                    user_id = account.user_id;
+                }
+
+                if (user_id == 0)
+                {
+                    webSocketContext?.WebSocket.CloseAsync(WebSocketCloseStatus.InternalServerError, "Internal Server Error", CancellationToken.None);
+                    return;
+                }
+
+                m_user_sockets[user_id] = webSocketContext.WebSocket;
+
+                await Receive(user_id, webSocketContext.WebSocket);
             }
             catch (Exception ex)
             {
@@ -76,12 +108,12 @@ namespace Network
             }
         }
 
-        private async Task Receive(WebSocket webSocket, long userId)
+        private async Task Receive(long in_user_id, WebSocket in_web_socket)
         {
             var buffer = new byte[4096];
-            while (webSocket.State == WebSocketState.Open)
+            while (in_web_socket.State == WebSocketState.Open)
             {
-                WebSocketReceiveResult result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+                WebSocketReceiveResult result = await in_web_socket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
 
                 if (result.MessageType == WebSocketMessageType.Text && result.EndOfMessage)
                 {
@@ -90,8 +122,8 @@ namespace Network
                 }
                 else if (result.MessageType == WebSocketMessageType.Close)
                 {
-                    m_user_sockets.Remove(userId);
-                    await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "", CancellationToken.None);
+                    m_user_sockets.Remove(in_user_id);
+                    await in_web_socket.CloseAsync(WebSocketCloseStatus.NormalClosure, "", CancellationToken.None);
                 }
             }
         }

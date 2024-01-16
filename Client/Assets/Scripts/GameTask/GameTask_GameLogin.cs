@@ -1,8 +1,7 @@
 using System;
 using Framework.Scheduler.Base;
 using Network;
-using DataTable;
-using UnityEngine;
+using Protocol;
 
 class GameTask_GameLogin : Task
 {
@@ -27,22 +26,22 @@ class GameTask_GameLogin : Task
 
     public override void OnUpdate()
     {
-        //if (FirebaseManager.Instance.m_firebase_auth == null)
+        //if (FirebaseManager.Instance.IsUserLogin() == false)
         //    return;
 
-        //if (FirebaseManager.Instance.m_firebase_auth.CurrentUser == null)
+        //string account_id = FirebaseManager.Instance.GetAccountID();
+        //if (account_id == string.Empty)
         //    return;
 
-        //if(WebSocketClient.Instance.GetSocketState() == System.Net.WebSockets.WebSocketState.None 
-        //    || WebSocketClient.Instance.GetSocketState() == System.Net.WebSockets.WebSocketState.Closed)
+        //if (WebSocketClient.Instance.GetSocketState() == System.Net.WebSockets.WebSocketState.None || WebSocketClient.Instance.GetSocketState() == System.Net.WebSockets.WebSocketState.Closed)
         //{
-        //    WebSocketClient.Instance.Connect();
+        //    WebSocketClient.Instance.Connect("ws://localhost:8080", account_id);
         //}
 
         //if (WebSocketClient.Instance.GetSocketState() != System.Net.WebSockets.WebSocketState.Open)
         //    return;
 
-        //ProtocolBinder.Instance.InitRegisterHandles();
+        //ProtocolBinder.Instance.Initialize();
 
         Complete(ETaskState.Success);
     }
