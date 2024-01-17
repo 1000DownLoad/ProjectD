@@ -18,6 +18,7 @@ class GameTask_LoadDataTable : Task
     {
         AccountDataTable.Instance.LoadCommonAccountDataTable();
         ResourceDataTable.Instance.LoadCommonResourceDataTable();
+        ItemDataTable.Instance.LoadCommonItemDataTable();
 
         Complete(ETaskState.Success);
     }

@@ -1977,7 +1977,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 488.26, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &994577549647035219
@@ -2463,7 +2463,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 124.880005, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &994577549957915601
@@ -17628,7 +17628,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 860.26, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &994577550794785202
@@ -21005,7 +21005,6 @@ MonoBehaviour:
   m_use_stack: 1
   m_back_button: {fileID: 4631834554405672138}
   m_home_button: {fileID: 0}
-  loopRect: {fileID: 1061543094717091730}
   baseItem: {fileID: 2858359714736338492, guid: afe87d0877207d843886ee55d3b5454a, type: 3}
   weaponToggle: {fileID: 6452761451344509966}
   shieldToggle: {fileID: 6416017117811692641}
@@ -22794,7 +22793,7 @@ GameObject:
   - component: {fileID: 6477886004495800581}
   - component: {fileID: 5841100969534344888}
   - component: {fileID: 2120320001452335129}
-  - component: {fileID: 1061543094717091730}
+  - component: {fileID: 3325392244836697584}
   m_Layer: 5
   m_Name: ScrollView
   m_TagString: Untagged
@@ -22876,7 +22875,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1061543094717091730
+--- !u!114 &3325392244836697584
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -22885,21 +22884,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 6477886004495800583}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14c28d32c4217324ab07fbc6a67ccabe, type: 3}
+  m_Script: {fileID: 11500000, guid: 1aa08ab6e0800fa44ae55d278d1423e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalCount: 0
-  itemTypeStart: 0
-  itemTypeEnd: 0
-  m_Content: {fileID: 6477886004250923132}
-  m_Horizontal: 0
+  m_Content: {fileID: 7077963413924279539}
+  m_Horizontal: 1
   m_Vertical: 1
   m_MovementType: 1
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
   m_ScrollSensitivity: 1
-  m_Viewport: {fileID: 7077963413924279539}
+  m_Viewport: {fileID: 0}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 0}
   m_HorizontalScrollbarVisibility: 0

@@ -26,13 +26,14 @@ class GUI_Inventory : GUIBase
     {
         public OpenParam()
         {
+
+
         }
     }
 
     private void Awake()
     {
         m_back_button.onClick.AddListener(OnBackButtonClick);
-        BindUI();
     }
 
     override public void Open(IGUIOpenParam in_param)
@@ -51,36 +52,34 @@ class GUI_Inventory : GUIBase
 
     private void Init()
     {
-        //foreach (var VARIABLE in null)
-        //{
-            
-        //}
+        weaponToggle.onValueChanged.AddListener(OnClickWeaponTab);
+        shieldToggle.onValueChanged.AddListener(OnClickShieldTab);
+        shoesToggle.onValueChanged.AddListener(OnClickShoesTab);
+        ringsToggle.onValueChanged.AddListener(OnClickRingsTab);
+
     }
 
-    void BindUI()
+    private void OnClickRingsTab(bool isOn)
     {
-        weaponToggle.OnValueChangedAsObservable().DistinctUntilChanged().Subscribe(isOn =>
-        {
-            Debug.Log(isOn ? "무기" : "무기꺼짐");
-        }).AddTo(gameObject);
-
-        shieldToggle.OnValueChangedAsObservable().DistinctUntilChanged().Subscribe(isOn =>
-        {
-            Debug.Log(isOn ? "방패" : "방패꺼짐");
-        }).AddTo(gameObject);
-
-        shoesToggle.OnValueChangedAsObservable().DistinctUntilChanged().Subscribe(isOn =>
-        {
-            Debug.Log(isOn ? "신발" : "신발꺼짐");
-        }).AddTo(gameObject);
-
-        ringsToggle.OnValueChangedAsObservable().DistinctUntilChanged().Subscribe(isOn =>
-        {
-            Debug.Log(isOn ? "반지" : "반지꺼짐");
-        }).AddTo(gameObject);
+        if(isOn)
+            Debug.Log("반지 클릭");
     }
 
-    //TODO: 스크롤 컨텐츠 오브젝트 풀링.. 
+    private void OnClickShieldTab(bool isOn)
+    {
+        if(isOn)
+            Debug.Log("방패 클릭");
+    }
 
+    private void OnClickShoesTab(bool isOn)
+    {
+        if(isOn)
+            Debug.Log("신발 클릭");
+    }
 
+    private void OnClickWeaponTab(bool isOn)
+    {
+        if(isOn)
+            Debug.Log("무기 클릭");
+    }
 }
