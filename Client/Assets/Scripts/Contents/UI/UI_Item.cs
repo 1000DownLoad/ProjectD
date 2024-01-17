@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using DataTable;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -30,14 +32,38 @@ public class UI_Item : MonoBehaviour
         isSelected = !isSelected;
     }
 
-    // Update is called once per frame
-    void Update()
+    // 일단 switch문으로 해놓고 추후 수정
+    public void SetItemInfo(ItemType itemType)
     {
-        
-    }
-
-    public void SetItemInfo()
-    {
-
+        switch (itemType)
+        {
+            case ItemType.Weapon:
+            {
+                var item = ItemDataTable.Instance.GetCommonItemData(ItemType.Weapon);
+                itemIcon.sprite = Resources.Load<Sprite>($"UI/Sprites/{item.sprite_name}");
+            }
+            break;
+            
+            case ItemType.Armor:
+            {
+                var item = ItemDataTable.Instance.GetCommonItemData(ItemType.Armor);
+                itemIcon.sprite = Resources.Load<Sprite>($"UI/Sprites/{item.sprite_name}");
+            }
+            break;
+            
+            case ItemType.Shoes:
+            {
+                var item = ItemDataTable.Instance.GetCommonItemData(ItemType.Shoes);
+                itemIcon.sprite = Resources.Load<Sprite>($"UI/Sprites/{item.sprite_name}");
+            }
+            break;
+            
+            case ItemType.Accessories:
+            {
+                var item = ItemDataTable.Instance.GetCommonItemData(ItemType.Accessories);
+                itemIcon.sprite = Resources.Load<Sprite>($"UI/Sprites/{item.sprite_name}");
+            }
+            break;
+        }
     }
 }

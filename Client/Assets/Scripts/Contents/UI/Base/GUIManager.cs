@@ -179,9 +179,6 @@ class GUIManager : TMonoSingleton<GUIManager>
         if (in_new_gui == null)
             return;
 
-        //if (m_cur_open_gui != null)
-        //    m_cur_open_gui.gameObject.SetActive(false);
-
         m_cur_open_gui = in_new_gui;
         m_cur_open_gui.gameObject.SetActive(true);
         m_cur_open_gui.transform.SetAsLastSibling();
