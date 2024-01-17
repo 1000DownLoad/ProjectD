@@ -64,6 +64,14 @@ class GUI_Inventory : GUIBase
     {
         if (isOn)
         {
+            if (itemParent.childCount > 0)
+            {
+                for (int i = 0; i < itemParent.childCount; i++)
+                {
+                    Destroy(itemParent.GetChild(i).gameObject);
+                }
+            }
+
             Debug.Log("반지 클릭");
             var ringItem = Instantiate(baseItem, itemParent);
             ringItem.GetComponent<UI_Item>().SetItemInfo(ItemType.Accessories);
@@ -74,6 +82,15 @@ class GUI_Inventory : GUIBase
     {
         if(isOn)
         {
+            if(itemParent.childCount > 0)
+            {
+                for(int i = 0; i < itemParent.childCount; i++)
+                {
+                    Destroy(itemParent.GetChild(i).gameObject);
+                }
+            }
+
+
             Debug.Log("방패 클릭");
             var shieldItem = Instantiate(baseItem, itemParent);
             shieldItem.GetComponent<UI_Item>().SetItemInfo(ItemType.Armor);
@@ -84,6 +101,14 @@ class GUI_Inventory : GUIBase
     {
         if(isOn)
         {
+            if(itemParent.childCount > 0)
+            {
+                for(int i = 0; i < itemParent.childCount; i++)
+                {
+                    Destroy(itemParent.GetChild(i).gameObject);
+                }
+            }
+
             Debug.Log("신발 클릭");
             var shoesItem = Instantiate(baseItem, itemParent);
             shoesItem.GetComponent<UI_Item>().SetItemInfo(ItemType.Shoes);
@@ -94,6 +119,14 @@ class GUI_Inventory : GUIBase
     {
         if(isOn)
         {
+            if(itemParent.childCount > 0)
+            {
+                for(int i = 0; i < itemParent.childCount; i++)
+                {
+                    Destroy(itemParent.GetChild(i).gameObject);
+                }
+            }
+
             Debug.Log("무기 클릭");
             var weaponItem = Instantiate(baseItem, itemParent);
             weaponItem.GetComponent<UI_Item>().SetItemInfo(ItemType.Weapon);
