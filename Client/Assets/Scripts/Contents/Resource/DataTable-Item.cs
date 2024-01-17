@@ -27,7 +27,7 @@ namespace DataTable
 
             var doc = book["ITEM"];
 
-            for (int row = 0; row < doc.Rows.Count; row++)
+            for (int row = 1; row < doc.Rows.Count; row++)
             {
                 var row_data = doc.Rows[row];
 
