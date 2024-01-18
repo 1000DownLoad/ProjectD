@@ -15,13 +15,20 @@ namespace DataTable
     }
 
     // 타입과 엑셀 테이블 명칭을 맞춰주세요.
-    public class ItemDataTable : DataTableBase<ItemDataTable>
+    public class ItemDataTable : DataTableBase<ItemDataTable>, IDataTable
     {
         // 한번 데이터가 쓰이면 변경할수 없다.
         // Clear 금지.
+
+        // item 시트 데이터.
         private Dictionary<ItemType, ItemData> m_common_item_data;
 
-        public void LoadCommonItemDataTable()
+        public void LoadDataTable()
+        {
+            LoadCommonDataTable();
+        }
+
+        public void LoadCommonDataTable()
         {
             WorkBook book = GetCommonRowData();
             if (book.Contains("ITEM") == false)
@@ -36,6 +43,8 @@ namespace DataTable
 
             // 디버깅이 쉽도록 람다말고 함수를 넣어주세요.
             book.Foreach("ITEM", PraseCommonItemRowData);
+
+            // 필요에 따라 추가해주세요.
         }
 
         public ItemData GetCommonItemData(ItemType in_item_type)

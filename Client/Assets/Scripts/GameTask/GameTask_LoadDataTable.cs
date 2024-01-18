@@ -16,9 +16,9 @@ class GameTask_LoadDataTable : Task
 
     public override void OnUpdate()
     {
-        AccountDataTable.Instance.LoadCommonAccountDataTable();
-        ResourceDataTable.Instance.LoadCommonResourceDataTable();
-        ItemDataTable.Instance.LoadCommonItemDataTable();
+        AccountDataTable.Instance.LoadDataTable();
+        ResourceDataTable.Instance.LoadDataTable();
+        ItemDataTable.Instance.LoadDataTable();
 
         Complete(ETaskState.Success);
     }

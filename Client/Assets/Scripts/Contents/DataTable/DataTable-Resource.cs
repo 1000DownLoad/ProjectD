@@ -23,13 +23,20 @@ namespace DataTable
 
 
     // 타입과 엑셀 테이블 명칭을 맞춰주세요.
-    public class ResourceDataTable : DataTableBase<ResourceDataTable>
+    public class ResourceDataTable : DataTableBase<ResourceDataTable>, IDataTable
     {
         // 한번 데이터가 쓰이면 변경할수 없다.
         // Clear 금지.
+
+        // resource 시트 데이터.
         private Dictionary<ResourceType, ResourceData> m_common_resource_data;
 
-        public void LoadCommonResourceDataTable()
+        public void LoadDataTable() 
+        {
+            LoadCommonDataTable();
+        }
+
+        public void LoadCommonDataTable()
         {
             WorkBook book = GetCommonRowData();
             if (book.Contains("RESOURCE") == false) 
@@ -43,6 +50,8 @@ namespace DataTable
 
             // 디버깅이 쉽도록 람다말고 함수를 넣어주세요.
             book.Foreach("RESOURCE", PraseCommonResourceRowData);
+
+            // 필요에 따라 추가해주세요.
         }
 
         public ResourceData GetCommonResourceData(ResourceType in_resource_type)

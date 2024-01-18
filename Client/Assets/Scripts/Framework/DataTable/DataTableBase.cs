@@ -20,6 +20,11 @@ namespace Framework.DataTable
 #endif
     }
 
+    public interface IDataTable
+    {
+        public void LoadDataTable();
+    }
+
 
     public class DataTableBase<T> : TSingleton<T> where T : class, new()
     {

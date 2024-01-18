@@ -15,13 +15,20 @@ namespace DataTable
     }
 
     // 타입과 엑셀 테이블 명칭을 맞춰주세요.
-    public class AccountDataTable : DataTableBase<AccountDataTable>
+    public class AccountDataTable : DataTableBase<AccountDataTable>, IDataTable
     {
         // 한번 데이터가 쓰이면 변경할수 없다.
         // Clear 금지.
+
+        // account 시트 데이터.
         private Dictionary<int, AccountTableData> m_common_account_data;
 
-        public void LoadCommonAccountDataTable()
+        public void LoadDataTable()
+        {
+            LoadCommonDataTable();
+        }
+
+        public void LoadCommonDataTable()
         {
             WorkBook book = GetCommonRowData();
             if (book.Contains("ACCOUNT") == false)
@@ -35,6 +42,8 @@ namespace DataTable
 
             // 디버깅이 쉽도록 람다말고 함수를 넣어주세요.
             book.Foreach("ACCOUNT", PraseCommonAccountRowData);
+
+            // 필요에 따라 추가해주세요
         }
 
         public AccountTableData GetAccountTableData(int in_level)
