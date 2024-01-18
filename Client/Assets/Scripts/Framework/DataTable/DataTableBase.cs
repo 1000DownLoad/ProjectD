@@ -36,18 +36,20 @@ namespace Framework.DataTable
             TextAsset text_asset = Resources.Load<TextAsset>(GetCommonPath());
 
             if (text_asset != null) 
-            {
                 book = new WorkBook(text_asset.bytes);
-            }
-            else 
-            {
-                Debug.LogError(GetCommonPath() + " common data file not found!");
-                Application.Quit(1);
-            }
+            
 
             // 사용하지 않는 리소스 정리
             Resources.UnloadUnusedAssets();
 #endif
+
+            // 개발 단계에서 확실하게 체크하기위해
+            // 데이터를 로드하지 못하면 종료처리.
+            if (book == null) 
+            {
+                Debug.LogError(GetCommonPath() + " common data file not found!");
+                Application.Quit(1);
+            }
 
             return book;
         }
