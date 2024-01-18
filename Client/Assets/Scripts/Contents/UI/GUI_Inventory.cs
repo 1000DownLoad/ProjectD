@@ -64,13 +64,7 @@ class GUI_Inventory : GUIBase
     {
         if (isOn)
         {
-            if (itemParent.childCount > 0)
-            {
-                for (int i = 0; i < itemParent.childCount; i++)
-                {
-                    Destroy(itemParent.GetChild(i).gameObject);
-                }
-            }
+            ClearItems();
 
             Debug.Log("반지 클릭");
             var ringItem = Instantiate(baseItem, itemParent);
@@ -82,13 +76,7 @@ class GUI_Inventory : GUIBase
     {
         if(isOn)
         {
-            if(itemParent.childCount > 0)
-            {
-                for(int i = 0; i < itemParent.childCount; i++)
-                {
-                    Destroy(itemParent.GetChild(i).gameObject);
-                }
-            }
+            ClearItems();
 
 
             Debug.Log("방패 클릭");
@@ -101,13 +89,7 @@ class GUI_Inventory : GUIBase
     {
         if(isOn)
         {
-            if(itemParent.childCount > 0)
-            {
-                for(int i = 0; i < itemParent.childCount; i++)
-                {
-                    Destroy(itemParent.GetChild(i).gameObject);
-                }
-            }
+            ClearItems();
 
             Debug.Log("신발 클릭");
             var shoesItem = Instantiate(baseItem, itemParent);
@@ -119,17 +101,22 @@ class GUI_Inventory : GUIBase
     {
         if(isOn)
         {
-            if(itemParent.childCount > 0)
-            {
-                for(int i = 0; i < itemParent.childCount; i++)
-                {
-                    Destroy(itemParent.GetChild(i).gameObject);
-                }
-            }
+            ClearItems();
 
             Debug.Log("무기 클릭");
             var weaponItem = Instantiate(baseItem, itemParent);
             weaponItem.GetComponent<UI_Item>().SetItemInfo(ItemType.Weapon);
+        }
+    }
+
+    void ClearItems()
+    {
+        if (itemParent.childCount > 0)
+        {
+            for (int i = 0; i < itemParent.childCount; i++)
+            {
+                Destroy(itemParent.GetChild(i).gameObject);
+            }
         }
     }
 }
