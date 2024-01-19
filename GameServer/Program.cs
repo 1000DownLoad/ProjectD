@@ -4,6 +4,7 @@ using Network;
 using DataBase;
 using DataTable;
 using Protocol;
+using Account;
 
 namespace GameServer
 {
@@ -20,8 +21,11 @@ namespace GameServer
             // ProtocolBinder Initialize
             ProtocolBinder.Instance.Initialize();
 
+			// SetDataBase
+            AccountManager.Instance.SetDataBaseData();
+
             // Socket
-            WebSocketServer.Instance.Initialize();
+            await WebSocketServer.Instance.Initialize();
 
             Console.WriteLine("Press any key to stop the server...");
             Console.ReadKey();

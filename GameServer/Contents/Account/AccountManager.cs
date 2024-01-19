@@ -39,7 +39,7 @@ namespace Account
                 { "UserID", new_account.user_id },
                 { "Level", new_account.level },
                 { "CurExp", 0 },
-                { "CurEnerge", new_account.cur_energy },
+                { "CurEnergy", new_account.cur_energy },
             };
 
             DataBaseManager.Instance.UpdateDataBase("T_Account_Info", in_account_id, data);
@@ -72,6 +72,28 @@ namespace Account
             long new_user_id = (long)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalMilliseconds;
 
             return new_user_id;
+        }
+
+        public void SetDataBaseData()
+        {
+            var collection_data = DataBaseManager.Instance.GetCollectionData("T_Account_Info");
+
+            foreach (var document in collection_data)
+            {
+                if(document.Exists)
+                {
+                    var account = document.ToDictionary();
+
+                    var new_account = new AccountInfo();
+                    new_account.account_id = document.Id;
+                    new_account.user_id = long.Parse(account["UserID"].ToString());
+                    new_account.level = int.Parse(account["Level"].ToString());
+                    new_account.cur_exp = long.Parse(account["CurExp"].ToString());
+                    new_account.cur_energy = long.Parse(account["CurEnergy"].ToString());
+
+                    m_account_dic.Add(new_account.account_id, new_account);
+                }
+            }
         }
     }
 }
