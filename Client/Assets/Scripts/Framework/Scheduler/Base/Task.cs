@@ -1,6 +1,4 @@
-﻿
-
-namespace Framework.Scheduler.Base
+﻿namespace Framework.Scheduler.Base
 {
     public enum ETaskState
     {
@@ -44,7 +42,6 @@ namespace Framework.Scheduler.Base
         {
 
         }
-
 
         public virtual void OnComplete()
         {

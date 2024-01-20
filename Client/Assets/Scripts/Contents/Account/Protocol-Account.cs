@@ -2,22 +2,6 @@
 using Network;
 using Newtonsoft.Json;
 
-[System.Serializable]
-public class GS_ACCOUNT_GET_REQ
-{
-    public string AccountID;
-}
-
-[System.Serializable]
-public class GS_ACCOUNT_GET_ACK
-{
-    public int  Result;
-    public long UserID;
-    public int  Level;
-    public long CurExp;
-    public long CurEnergy;
-}
-
 namespace Protocol
 {
     public partial class ProtocolBinder
@@ -31,7 +15,8 @@ namespace Protocol
             if (ack.Result != 1)
                 return;
 
-            AccountManager.Instance.UpdateAccount(FirebaseManager.Instance.GetAccountID(), ack.UserID, ack.Level, ack.CurExp, ack.CurEnergy);
+            // 계정 정보 업데이트
+            AccountManager.Instance.UpdateAccount(FirebaseManager.Instance.GetUID(), ack.UserID, ack.Level, ack.CurExp, ack.CurEnergy);
         }
 
         public void RegisterAccountHandler()

@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Network;
 
 public class GameMain : Framework.TMonoSingleton<GameMain>
 {
@@ -14,6 +15,11 @@ public class GameMain : Framework.TMonoSingleton<GameMain>
 		StaticInitialize();
 
         PostAwake();
+    }
+
+    private void OnApplicationQuit()
+    {
+        WebSocketClient.Instance.Close();
     }
 
     void OnApplicationFocus(bool focus)

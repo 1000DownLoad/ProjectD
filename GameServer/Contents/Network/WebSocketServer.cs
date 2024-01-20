@@ -19,6 +19,7 @@ namespace Network
         private Queue<string> m_packet_queue = new Queue<string>();
         private Dictionary<PROTOCOL, Action<string>> m_protocol_handlers = new Dictionary<PROTOCOL, Action<string>>();
         private System.Timers.Timer m_packet_process_timer;
+        private readonly object m_lock_object = new object();
 
         public async Task Initialize()
         {
@@ -52,7 +53,11 @@ namespace Network
             if (m_packet_queue.Count < 1)
                 return;
 
-            RecvProcessPacket(m_packet_queue.Dequeue());
+            string packet = PopPacket();
+            if (packet == null)
+                return;
+
+            RecvProcessPacket(packet);
         }
 
         private void StartTimer()
@@ -74,17 +79,19 @@ namespace Network
                 string account_id = webSocketContext.Headers.Get("ACCOUNT_ID");
                 long user_id = 0;
 
-                var account = AccountManager.Instance.GetAccountByAccountID(account_id);
+                var account = AccountManager.Instance.GetAccount(account_id);
                 if (account == null)
                 {
-                    var new_account = AccountManager.Instance.CreateAccount(account_id);
-                    if (new_account == null)
+                    account = AccountManager.Instance.InsertAccount(account_id);
+
+                    // DB 계정 정보를 읽습니다
+                    if (AccountManager.Instance.LoadDataBase(account_id) == false)
                     {
-                        webSocketContext?.WebSocket.CloseAsync(WebSocketCloseStatus.InternalServerError, "Internal Server Error", CancellationToken.None);
-                        return;
+                        // DB에 데이터가 없다면 추가된 데이터로 DB 갱신
+                        AccountManager.Instance.UpdateDataBase(account_id);
                     }
 
-                    user_id = new_account.user_id;
+                    user_id = account.user_id;
                 }
                 else
                 {
@@ -97,7 +104,7 @@ namespace Network
                     return;
                 }
 
-                m_user_sockets[user_id] = webSocketContext.WebSocket;
+                InsertSocket(user_id, webSocketContext.WebSocket);
 
                 await Receive(user_id, webSocketContext.WebSocket);
             }
@@ -118,11 +125,11 @@ namespace Network
                 if (result.MessageType == WebSocketMessageType.Text && result.EndOfMessage)
                 {
                     string packet = Encoding.UTF8.GetString(buffer, 0, result.Count);
-                    m_packet_queue.Enqueue(packet);
+                    PushPacket(packet);
                 }
                 else if (result.MessageType == WebSocketMessageType.Close)
                 {
-                    m_user_sockets.Remove(in_user_id);
+                    DeleteSocket(in_user_id);
                     await in_web_socket.CloseAsync(WebSocketCloseStatus.NormalClosure, "", CancellationToken.None);
                 }
             }
@@ -141,7 +148,7 @@ namespace Network
             }
         }
 
-        public async Task Send<T>(long in_user_id, PROTOCOL in_protocol, T in_packet)
+        public void Send<T>(long in_user_id, PROTOCOL in_protocol, T in_packet)
         {
             if (m_user_sockets.TryGetValue(in_user_id, out WebSocket out_web_socket))
             {
@@ -157,7 +164,10 @@ namespace Network
                 string packet = JsonConvert.SerializeObject(packet_data);
                 byte[] buffer = Encoding.UTF8.GetBytes(packet);
 
-                await out_web_socket.SendAsync(new ArraySegment<byte>(buffer), WebSocketMessageType.Text, true, CancellationToken.None);
+                lock (m_lock_object)
+                {
+                    out_web_socket.SendAsync(new ArraySegment<byte>(buffer), WebSocketMessageType.Text, true, CancellationToken.None);
+                }
             }
             else
             {
@@ -170,14 +180,47 @@ namespace Network
             m_protocol_handlers[in_protocol_id] = in_handler;
         }
 
+        public void InsertSocket(long in_user_id, WebSocket in_socket)
+        {
+            lock (m_lock_object)
+            {
+                m_user_sockets.Add(in_user_id, in_socket);
+            }
+        }
+
+        public void DeleteSocket(long in_user_id)
+        {
+            lock(m_lock_object)
+            {
+                m_user_sockets.Remove(in_user_id);
+            }
+        }
+
+        public void PushPacket(string in_packet)
+        {
+            lock (m_lock_object)
+            {
+                m_packet_queue.Enqueue(in_packet);
+            }
+        }
+
+        public string PopPacket()
+        {
+            lock (m_lock_object)
+            {
+                return m_packet_queue.Dequeue();
+            }
+        }
+
         public void StopServer()
         {
             m_http_listener.Stop();
             m_http_listener.Close();
 
-            foreach(var data in m_user_sockets)
+            foreach (var socket in m_user_sockets)
             {
-                data.Value.CloseAsync(WebSocketCloseStatus.NormalClosure, "", CancellationToken.None);
+                socket.Value.CloseAsync(WebSocketCloseStatus.NormalClosure, "", CancellationToken.None);
+                socket.Value.Dispose();
             }
         }
     }

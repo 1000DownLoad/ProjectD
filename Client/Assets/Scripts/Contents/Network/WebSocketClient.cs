@@ -35,12 +35,12 @@ namespace Network
             RecvProcessPacket(m_packet_queue.Dequeue());
         }
 
-        public async void Connect(string in_url, string in_account_id)
+        public async void Connect(string in_url, string in_uid)
         {
             try
             {
                 Uri url = new Uri(in_url);
-                m_web_socket.Options.SetRequestHeader("ACCOUNT_ID", in_account_id);
+                m_web_socket.Options.SetRequestHeader("ACCOUNT_ID", in_uid);
                 await m_web_socket.ConnectAsync(url, CancellationToken.None);
                 Debug.Log("WebSocket connected!");
 
@@ -94,7 +94,7 @@ namespace Network
             m_protocol_handlers[in_protocol] = in_event_handle;
         }
 
-        public async Task Send<T>(PROTOCOL in_protocol, T in_packet)
+        public void Send<T>(PROTOCOL in_protocol, T in_packet)
         {
             if (m_web_socket.State == WebSocketState.Open)
             {
@@ -110,7 +110,7 @@ namespace Network
                 string packet = JsonConvert.SerializeObject(packet_data);
                 byte[] buffer = Encoding.UTF8.GetBytes(packet);
 
-                await m_web_socket.SendAsync(new ArraySegment<byte>(buffer), WebSocketMessageType.Text, true, CancellationToken.None);
+                m_web_socket.SendAsync(new ArraySegment<byte>(buffer), WebSocketMessageType.Text, true, CancellationToken.None);
             }
             else
             {
@@ -118,7 +118,7 @@ namespace Network
             }
         }
 
-        private async void Close()
+        public async void Close()
         {
             if (m_web_socket.State == WebSocketState.Open)
             {

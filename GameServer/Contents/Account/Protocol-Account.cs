@@ -2,22 +2,6 @@
 using Newtonsoft.Json;
 using Account;
 
-[System.Serializable]
-public class GS_ACCOUNT_GET_REQ
-{
-    public string AccountID;
-}
-
-[System.Serializable]
-public class GS_ACCOUNT_GET_ACK
-{
-    public int  Result;
-    public long UserID;
-    public int  Level;
-    public long CurExp;
-    public long CurEnergy;
-}
-
 namespace Protocol
 {
     public partial class ProtocolBinder
@@ -28,7 +12,7 @@ namespace Protocol
             if (req == null)
                 return;
 
-            var account = AccountManager.Instance.GetAccountByAccountID(req.AccountID);
+            var account = AccountManager.Instance.GetAccount(req.AccountID);
             if (account == null)
                 return;
 

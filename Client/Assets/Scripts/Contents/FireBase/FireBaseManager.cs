@@ -45,7 +45,7 @@ public class FirebaseManager : TSingleton<FirebaseManager>
         return true;
     }
 
-    public string GetAccountID()
+    public string GetUID()
     {
         if (IsUserLogin())
             return m_firebase_auth.CurrentUser.UserId;

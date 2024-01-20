@@ -21,9 +21,6 @@ namespace GameServer
             // ProtocolBinder Initialize
             ProtocolBinder.Instance.Initialize();
 
-			// SetDataBase
-            AccountManager.Instance.SetDataBaseData();
-
             // Socket
             await WebSocketServer.Instance.Initialize();
 

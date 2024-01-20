@@ -51,16 +51,16 @@ class GUI_Lobby : GUIBase
 
     private void RefreshText()
     {
-        var account = AccountManager.Instance.GetAccount();
-        if (account == null)
+        var account_info = AccountManager.Instance.GetAccountInfo();
+        if (account_info == null)
             return;
 
-        m_account_level_text.SetText(account.level.ToString());
+        m_account_level_text.SetText(account_info.level.ToString());
 
-        var account_data = DataTable.AccountDataTable.Instance.GetAccountTableData(account.level);
+        var account_data = DataTable.AccountDataTable.Instance.GetAccountTableData(account_info.level);
         if(account_data != null)
         {
-            m_account_exp_text.SetText(string.Format("{0}/{1}", Util.UI.SeparatorConvert(account.cur_exp), Util.UI.SeparatorConvert(account_data.max_exp)));
+            m_account_exp_text.SetText(string.Format("{0}/{1}", Util.UI.SeparatorConvert(account_info.cur_exp), Util.UI.SeparatorConvert(account_data.max_exp)));
 
             var energy_data = ResourceManager.Instance.GetResourceData(ResourceType.ENERGY);
             if (energy_data != null)
@@ -68,7 +68,7 @@ class GUI_Lobby : GUIBase
             else
                 m_resource_energy_text.SetText(string.Format("0"));
 
-            RefreshSlider(account.cur_exp / (float)account_data.max_exp);
+            RefreshSlider(account_info.cur_exp / (float)account_data.max_exp);
         }
 
         var gem_data = ResourceManager.Instance.GetResourceData(ResourceType.GEM);
@@ -101,11 +101,6 @@ class GUI_Lobby : GUIBase
 
     private void OnBattleButtonClick()
     {
-        var req = new GS_ACCOUNT_GET_REQ();
-        req.AccountID = FirebaseManager.Instance.GetAccountID();
 
-        WebSocketClient.Instance.Send<GS_ACCOUNT_GET_REQ>(PROTOCOL.GS_ACCOUNT_GET_REQ, req);
-
-        //GUIManager.Instance.OpenGUI<GUI_RewardPopup>(new GUI_RewardPopup.OpenParam(300));
     }
 }

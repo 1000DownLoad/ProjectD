@@ -31,7 +31,7 @@ namespace Account
             m_account.cur_energy = in_cur_energy;
         }
 
-        public AccountInfo GetAccount()
+        public AccountInfo GetAccountInfo()
         {
             return m_account;
         }

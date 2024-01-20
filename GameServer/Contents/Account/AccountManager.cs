@@ -16,15 +16,14 @@ namespace Account
 
     public class AccountManager : TSingleton<AccountManager>
     {
-        Dictionary<string, AccountInfo> m_account_dic = new Dictionary<string, AccountInfo>();
+        private Dictionary<string, AccountInfo> m_account_dic = new Dictionary<string, AccountInfo>();
 
-        public AccountInfo CreateAccount(string in_account_id)
+        public AccountInfo InsertAccount(string in_account_id)
         {
             var account_data = AccountDataTable.GetAccountTableData(1);
             if (account_data == null)
                 return null;
 
-            // 서버 저장
             var new_account = new AccountInfo();
             new_account.account_id = in_account_id;
             new_account.user_id = GenerateUniqueUserID();
@@ -33,21 +32,10 @@ namespace Account
             new_account.cur_energy = account_data.max_energy;
             m_account_dic.Add(in_account_id, new_account);
 
-            // DB 저장
-            Dictionary<string, object> data = new Dictionary<string, object>
-            {
-                { "UserID", new_account.user_id },
-                { "Level", new_account.level },
-                { "CurExp", 0 },
-                { "CurEnergy", new_account.cur_energy },
-            };
-
-            DataBaseManager.Instance.UpdateDataBase("T_Account_Info", in_account_id, data);
-
             return new_account;
         }
 
-        public AccountInfo GetAccountByAccountID(string in_account_id)
+        public AccountInfo GetAccount(string in_account_id)
         {
             if (m_account_dic.TryGetValue(in_account_id, out var out_account))
                 return out_account;
@@ -74,26 +62,44 @@ namespace Account
             return new_user_id;
         }
 
-        public void SetDataBaseData()
+        public void UpdateDataBase(string in_account_id)
         {
-            var collection_data = DataBaseManager.Instance.GetCollectionData("T_Account_Info");
+            var account = GetAccount(in_account_id);
+            if (account == null)
+                return;
 
-            foreach (var document in collection_data)
+            // DB 저장
+            Dictionary<string, object> data = new Dictionary<string, object>
             {
-                if(document.Exists)
-                {
-                    var account = document.ToDictionary();
+                { "AccountID", account.account_id },
+                { "UserID", account.user_id },
+                { "Level", account.level },
+                { "CurExp", account.cur_exp },
+                { "CurEnergy", account.cur_energy },
+            };
 
-                    var new_account = new AccountInfo();
-                    new_account.account_id = document.Id;
-                    new_account.user_id = long.Parse(account["UserID"].ToString());
-                    new_account.level = int.Parse(account["Level"].ToString());
-                    new_account.cur_exp = long.Parse(account["CurExp"].ToString());
-                    new_account.cur_energy = long.Parse(account["CurEnergy"].ToString());
+            DataBaseManager.Instance.UpdateDataBase("T_Account_Info", in_account_id, data);
+        }
 
-                    m_account_dic.Add(new_account.account_id, new_account);
-                }
+        public bool LoadDataBase(string in_account_id)
+        {
+            var account = GetAccount(in_account_id);
+            if (account == null)
+                return false;
+
+            var account_data = DataBaseManager.Instance.GetDocumentData("T_Account_Info", in_account_id);
+            if (account_data != null)
+            {
+                account.account_id = account_data["AccountID"].ToString();
+                account.user_id = long.Parse(account_data["UserID"].ToString());
+                account.level = int.Parse(account_data["Level"].ToString());
+                account.cur_exp = long.Parse(account_data["CurExp"].ToString());
+                account.cur_energy = long.Parse(account_data["CurEnergy"].ToString());
+
+                return true;
             }
+
+            return false;
         }
     }
 }

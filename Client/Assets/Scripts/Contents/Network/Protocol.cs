@@ -13,6 +13,11 @@ namespace Protocol
 
         GS_ACCOUNT_GET_REQ,
         GS_ACCOUNT_GET_ACK,
+
+        GS_USER_LOGIN_REQ,
+        GS_USER_LOGIN_ACK,
+        GS_USER_BASE_INFO_GET_REQ,
+        GS_USER_BASE_INFO_GET_ACK,
     }
 
     public partial class ProtocolBinder : TSingleton<ProtocolBinder>
@@ -21,6 +26,7 @@ namespace Protocol
         public void Initialize()
         {
             RegisterAccountHandler();
+            RegisterUserHandler();
         }
     }
 }
