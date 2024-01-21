@@ -49,7 +49,7 @@ namespace DataTable
             m_common_resource_data = new Dictionary<ResourceType, ResourceData>(book.GetRowCount("RESOURCE"));
 
             // 디버깅이 쉽도록 람다말고 함수를 넣어주세요.
-            book.Foreach("RESOURCE", PraseCommonResourceRowData);
+            book.Foreach("RESOURCE", ParseCommonResourceRowData);
 
             // 필요에 따라 추가해주세요.
         }
@@ -61,7 +61,7 @@ namespace DataTable
             return out_data;
         }
 
-        public void PraseCommonResourceRowData(Row in_row) 
+        public void ParseCommonResourceRowData(Row in_row) 
         {
             // 여기서 에러가 발생한다면 엑셀 쓰레기값을 확인해보자.
             var resource_data = new ResourceData();

@@ -41,7 +41,7 @@ namespace DataTable
             m_common_account_data = new Dictionary<int, AccountTableData>(book.GetRowCount("ACCOUNT"));
 
             // 디버깅이 쉽도록 람다말고 함수를 넣어주세요.
-            book.Foreach("ACCOUNT", PraseCommonAccountRowData);
+            book.Foreach("ACCOUNT", ParseCommonAccountRowData);
 
             // 필요에 따라 추가해주세요
         }
@@ -54,7 +54,7 @@ namespace DataTable
         }
 
 
-        public void PraseCommonAccountRowData(Row in_row) 
+        public void ParseCommonAccountRowData(Row in_row) 
         {
             // 여기서 에러가 발생한다면 엑셀에 쓰레기값을 확인해보자.
             var account_data = new AccountTableData();

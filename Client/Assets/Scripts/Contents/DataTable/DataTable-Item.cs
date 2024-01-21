@@ -47,7 +47,7 @@ namespace DataTable
                 Application.Quit();
             }
 
-            book.Foreach("CONST", PraseConstRowData);
+            book.Foreach("CONST", ParseConstRowData);
 
 
             if (book.Contains("ITEM") == false)
@@ -60,7 +60,7 @@ namespace DataTable
             m_common_item_data = new Dictionary<ItemType, ItemData>(book.GetRowCount("ITEM"));
 
             // 디버깅이 쉽도록 람다말고 함수를 넣어주세요.
-            book.Foreach("ITEM", PraseCommonItemRowData);
+            book.Foreach("ITEM", ParseCommonItemRowData);
 
             // 필요에 따라 추가해주세요.
         }
@@ -72,7 +72,7 @@ namespace DataTable
             return out_data;
         }
 
-        public void PraseConstRowData(Row in_row) 
+        public void ParseConstRowData(Row in_row) 
         {
             // 여기서 에러가 발생한다면 엑셀 쓰레기값을 확인해보자.
             var name = in_row[0].String;
@@ -90,7 +90,7 @@ namespace DataTable
             }
         }
 
-        public void PraseCommonItemRowData(Row in_row) 
+        public void ParseCommonItemRowData(Row in_row) 
         {
             // 여기서 에러가 발생한다면 엑셀 쓰레기값을 확인해보자.
             var item_data = new ItemData();
