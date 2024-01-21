@@ -250,5 +250,49 @@ namespace FlexFramework.Excel
                 sheet.Merge();
             }
         }
+
+        public int GetRowCount(string in_sheet_name)
+        {
+            var sheet = this[in_sheet_name];
+            if (sheet == null)
+                // 데이터가 없다면 죽이는게 좋지만 Unity 와 커플링이 강해저 상위에서 검사.
+                return 0;
+
+            return sheet.Rows.Count;
+        }
+
+        // 실수를 방지하기 위해 제작된 데이터 루프함수.
+        // action 을 통해 데이터 로우를 받는다.
+        public void Foreach(string in_sheet_name, Action<Row> in_action)
+        {
+            var sheet = this[in_sheet_name];
+            if (sheet == null)
+                // 데이터가 없다면 죽이는게 좋지만 Unity 와 커플링이 강해저 상위에서 검사.
+                return;
+
+            foreach (var row in sheet.Rows)
+            {
+                if (in_sheet_name.Equals("CONST"))
+                {
+                    // CONST 인 경우 컨텐츠에서 주도적으로 처리 하기위해
+                    // 데이터를 그대로 상위로 던져준다.
+                    in_action(row);
+                }
+                else
+                {
+                    // sting 자료형인 경우 주석 또는 컬럼명이다.
+                    // 위와 같은 데이터는 데이터를 꺼내오지 않는다.
+                    if (row[0].IsString)
+                    {
+                        // ; 가 들어간 부분은 주석, 테이블 컬럼명으로 데이터를 상위로 넘겨주지 않는다.
+                        string check_string = row[0].String;
+                        if (check_string[0] == ';')
+                            continue;
+                    }
+
+                    in_action(row);
+                }
+            }
+        }
     }
 }

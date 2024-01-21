@@ -20,7 +20,7 @@ namespace Account
 
         public AccountInfo InsertAccount(string in_account_id)
         {
-            var account_data = AccountDataTable.GetAccountTableData(1);
+            var account_data = AccountDataTable.Instance.GetAccountTableData(1);
             if (account_data == null)
                 return null;
 
