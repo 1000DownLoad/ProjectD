@@ -10,6 +10,7 @@ namespace DataTable
     public class ItemData
     {
         public ItemType item_type;
+        public int item_index;
         public string name;
         public string sprite_name;
     }
@@ -94,8 +95,9 @@ namespace DataTable
             // 여기서 에러가 발생한다면 엑셀 쓰레기값을 확인해보자.
             var item_data = new ItemData();
             item_data.item_type = (ItemType)in_row[0].Integer;
-            item_data.name = in_row[1].String;
-            item_data.sprite_name = in_row[2].String;
+            item_data.item_index = in_row[1].Integer;
+            item_data.name = in_row[2].String;
+            item_data.sprite_name = in_row[3].String;
 
             m_common_item_data.Add(item_data.item_type, item_data);
         }
