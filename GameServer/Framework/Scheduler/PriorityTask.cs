@@ -3,7 +3,10 @@ using Framework.Scheduler.Base;
 
 namespace Framework.Scheduler
 {
-    public abstract class PriorityTask : Task
+    // [TODO]
+    // 'System.Threading.Tasks.Task' 얘랑 이름이 겹쳐서 DTask로 이름 수정
+    using DTask = Framework.Scheduler.Base.Task;
+    public abstract class PriorityTask : DTask
     {
         protected PriorityTask()
         {

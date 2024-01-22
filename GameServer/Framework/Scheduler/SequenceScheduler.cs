@@ -3,9 +3,12 @@ using Framework.Scheduler.Base;
 
 namespace Framework.Scheduler
 {
+    // [TODO]
+    // 'System.Threading.Tasks.Task' 얘랑 이름이 겹쳐서 DTask로 이름 수정
+    using DTask = Framework.Scheduler.Base.Task;
     public class SequenceScheduler : Base.Scheduler
     {
-        protected Task m_current_task = null;
+        protected DTask m_current_task = null;
 
         public override void Update()
         {

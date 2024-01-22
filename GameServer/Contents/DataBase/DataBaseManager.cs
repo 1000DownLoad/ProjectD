@@ -11,7 +11,7 @@ namespace DataBase
 
         public void Initialize()
         {
-            string path = AppDomain.CurrentDomain.BaseDirectory + @"projectd-2c989-firebase-adminsdk-wki0o-2cd2e9d8ca.json";
+            string path = "/home/vscode/workspace/GameServer/projectd-2c989-firebase-adminsdk-wki0o-2cd2e9d8ca.json";
             Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", path);
 
             m_firestore_DB = FirestoreDb.Create("projectd-2c989");
@@ -72,11 +72,11 @@ namespace DataBase
 
             switch (in_op)
             {
-                case "=" : query = collection_ref.WhereEqualTo(in_field, in_value);                 break;
-                case "<" : query = collection_ref.WhereGreaterThan(in_field, in_value);             break;
-                case "<=": query = collection_ref.WhereGreaterThanOrEqualTo(in_field, in_value);    break;
-                case ">" : query = collection_ref.WhereLessThan(in_field, in_value);                break;
-                case ">=": query = collection_ref.WhereLessThanOrEqualTo(in_field, in_value);       break;
+                case "=": query = collection_ref.WhereEqualTo(in_field, in_value); break;
+                case "<": query = collection_ref.WhereGreaterThan(in_field, in_value); break;
+                case "<=": query = collection_ref.WhereGreaterThanOrEqualTo(in_field, in_value); break;
+                case ">": query = collection_ref.WhereLessThan(in_field, in_value); break;
+                case ">=": query = collection_ref.WhereLessThanOrEqualTo(in_field, in_value); break;
             }
 
             if (query == null)
@@ -92,7 +92,7 @@ namespace DataBase
                     {
                         var field = document.ToDictionary();
 
-                        if(in_action != null)
+                        if (in_action != null)
                             in_action(field);
                     }
                 }
