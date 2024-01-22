@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   project-d-dev-container:
-    image: mcr.microsoft.com/dotnet/sdk:8.0.101-jammy
+    image: mcr.microsoft.com/dotnet/core/aspnet:3.1-bionic
     init: true
     privileged: true
     command: sleep infinity
