@@ -1,0 +1,28 @@
+{
+    "name": "project-d-dev-container",
+    "dockerComposeFile": [
+        "docker-compose.yml"
+    ],
+    "service": "project-d-dev-container",
+    "workspaceFolder": "/home/vscode/workspace",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-dotnettools.vscode-dotnet-runtime",
+                "oderwat.indent-rainbow",
+                "ms-dotnettools.csharp",
+                "mhutchie.git-graph"
+            ]
+        }
+    },
+    "features": {
+        "ghcr.io/devcontainers/features/dotnet:2": {
+            "version": "latest"
+        },
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {
+            "version": "latest"
+        }
+    },
+    "remoteUser": "root",
+    "shutdownAction": "stopCompose"
+}
