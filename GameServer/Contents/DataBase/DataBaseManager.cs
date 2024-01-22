@@ -11,7 +11,10 @@ namespace DataBase
 
         public void Initialize()
         {
-            string path = "/home/vscode/workspace/GameServer/projectd-2c989-firebase-adminsdk-wki0o-2cd2e9d8ca.json";
+            // 현재 어셈블리의 디렉토리를 가져온 후, json 파일의 상대 경로를 조합합니다.
+            string baseDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..");
+            string relativePath = "projectd-2c989-firebase-adminsdk-wki0o-2cd2e9d8ca.json";
+            string path = System.IO.Path.Combine(baseDirectory, relativePath);
             Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", path);
 
             m_firestore_DB = FirestoreDb.Create("projectd-2c989");
