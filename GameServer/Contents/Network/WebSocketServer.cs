@@ -9,17 +9,17 @@ using Newtonsoft.Json;
 using System.Timers;
 using Protocol;
 using Account;
+using System.Collections.Concurrent;
 
 namespace Network
 {
     public class WebSocketServer : TSingleton<WebSocketServer>
     {
         private HttpListener m_http_listener;
-        private Dictionary<long, WebSocket> m_user_sockets = new Dictionary<long, WebSocket>();
-        private Queue<string> m_packet_queue = new Queue<string>();
+        private ConcurrentDictionary<long, WebSocket> m_user_sockets = new ConcurrentDictionary<long, WebSocket>();
+        private ConcurrentQueue<string> m_packet_queue = new ConcurrentQueue<string>();
         private Dictionary<PROTOCOL, Action<string>> m_protocol_handlers = new Dictionary<PROTOCOL, Action<string>>();
         private System.Timers.Timer m_packet_process_timer;
-        private readonly object m_lock_object = new object();
 
         public async Task Initialize()
         {
@@ -53,8 +53,7 @@ namespace Network
             if (m_packet_queue.Count < 1)
                 return;
 
-            string packet = PopPacket();
-            if (packet == null)
+            if (m_packet_queue.TryDequeue(out string packet) == false)
                 return;
 
             RecvProcessPacket(packet);
@@ -104,7 +103,7 @@ namespace Network
                     return;
                 }
 
-                InsertSocket(user_id, webSocketContext.WebSocket);
+                m_user_sockets.TryAdd(user_id, webSocketContext.WebSocket);
 
                 await Receive(user_id, webSocketContext.WebSocket);
             }
@@ -125,11 +124,11 @@ namespace Network
                 if (result.MessageType == WebSocketMessageType.Text && result.EndOfMessage)
                 {
                     string packet = Encoding.UTF8.GetString(buffer, 0, result.Count);
-                    PushPacket(packet);
+                    m_packet_queue.Enqueue(packet);
                 }
                 else if (result.MessageType == WebSocketMessageType.Close)
                 {
-                    DeleteSocket(in_user_id);
+                    m_user_sockets.TryRemove(in_user_id, out var out_value);
                     await in_web_socket.CloseAsync(WebSocketCloseStatus.NormalClosure, "", CancellationToken.None);
                 }
             }
@@ -164,10 +163,7 @@ namespace Network
                 string packet = JsonConvert.SerializeObject(packet_data);
                 byte[] buffer = Encoding.UTF8.GetBytes(packet);
 
-                lock (m_lock_object)
-                {
-                    out_web_socket.SendAsync(new ArraySegment<byte>(buffer), WebSocketMessageType.Text, true, CancellationToken.None);
-                }
+                out_web_socket.SendAsync(new ArraySegment<byte>(buffer), WebSocketMessageType.Text, true, CancellationToken.None);
             }
             else
             {
@@ -178,38 +174,6 @@ namespace Network
         public void RegisterProtocolHandler(PROTOCOL in_protocol_id, Action<string> in_handler)
         {
             m_protocol_handlers[in_protocol_id] = in_handler;
-        }
-
-        public void InsertSocket(long in_user_id, WebSocket in_socket)
-        {
-            lock (m_lock_object)
-            {
-                m_user_sockets.Add(in_user_id, in_socket);
-            }
-        }
-
-        public void DeleteSocket(long in_user_id)
-        {
-            lock(m_lock_object)
-            {
-                m_user_sockets.Remove(in_user_id);
-            }
-        }
-
-        public void PushPacket(string in_packet)
-        {
-            lock (m_lock_object)
-            {
-                m_packet_queue.Enqueue(in_packet);
-            }
-        }
-
-        public string PopPacket()
-        {
-            lock (m_lock_object)
-            {
-                return m_packet_queue.Dequeue();
-            }
         }
 
         public void StopServer()
