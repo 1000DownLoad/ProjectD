@@ -15,6 +15,8 @@ namespace Protocol
 
             // 유저 ID 세팅
             UserManager.Instance.SetUserID(ack.UserID);
+
+            GUIManager.Instance.PublishEvnet(new EVENT_USER_DATA_UPDATE(ack.UserID));
         }
 
         public static void GS_USER_BASE_INFO_GET_ACK(string in_message)

@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Account;
+using Framework.Event;
 using Network;
 using Protocol;
-using Account;
+using User;
 
 class GUI_Lobby : GUIBase
 {
@@ -29,14 +31,25 @@ class GUI_Lobby : GUIBase
         }
     }
 
+    public override void OnEventHandle(EventData in_data)
+    {
+        var user_data = in_data as EVENT_USER_DATA_UPDATE;
+        if (user_data != null)
+        {
+            RefreshText();
+        }
+    }
+
     private void Awake()
     {
+        GUIManager.Instance.SubscribeEvnet(typeof(EVENT_USER_DATA_UPDATE));
+
         m_inventory_button.onClick.AddListener(OnInventoryButtonClick);
         m_stage_button.onClick.AddListener(OnStageButtonClick);
         m_battle_button.onClick.AddListener(OnBattleButtonClick);
     }
 
-    override public void Open(IGUIOpenParam in_param)
+    public override void Open(IGUIOpenParam in_param)
     {
         base.Open(in_param);
 
@@ -101,6 +114,8 @@ class GUI_Lobby : GUIBase
 
     private void OnBattleButtonClick()
     {
-
+        var user_login_req = new GS_USER_LOGIN_REQ();
+        user_login_req.UserID = UserManager.Instance.GetUser().user_id;
+        WebSocketClient.Instance.Send<GS_USER_LOGIN_REQ>(PROTOCOL.GS_USER_LOGIN_REQ, user_login_req);
     }
 }

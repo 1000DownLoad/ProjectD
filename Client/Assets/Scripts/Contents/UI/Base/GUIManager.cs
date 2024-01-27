@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Framework;
+using Framework.Event;
 
 class GUIManager : TMonoSingleton<GUIManager>
 {
-    private GameObject                  m_gui_root;
-    private Transform                   m_root_transform;
-    private GUIBase                     m_cur_open_gui;
-    private Dictionary<string, GUIBase> m_gui_resource = new Dictionary<string, GUIBase>();
-    private List<GUIBase>               m_open_gui_stack = new List<GUIBase>();
+    private GameObject                   m_gui_root;
+    private Transform                    m_root_transform;
+    private GUIBase                      m_cur_open_gui;
+    private Dictionary<string, GUIBase>  m_gui_resource = new Dictionary<string, GUIBase>();
+    private List<GUIBase>                m_open_gui_stack = new List<GUIBase>();
+    private GameEventHandler<EventData>  m_event_hanlder = new GameEventHandler<EventData>();
 
     protected override void Awake()
     {
@@ -32,6 +34,8 @@ class GUIManager : TMonoSingleton<GUIManager>
         m_gui_root = root;
         m_gui_root.transform.parent = this.transform;
         m_root_transform = rect_transform.transform;
+
+        m_event_hanlder.GameEventDataHandler += OnEventHandle;
     }
 
     public T OpenGUI<T>(IGUIOpenParam in_param) 
@@ -182,5 +186,28 @@ class GUIManager : TMonoSingleton<GUIManager>
         m_cur_open_gui = in_new_gui;
         m_cur_open_gui.gameObject.SetActive(true);
         m_cur_open_gui.transform.SetAsLastSibling();
+    }
+
+    protected virtual void OnEventHandle(object in_object, EventData in_data)
+    {
+        foreach (var gui in m_open_gui_stack)
+        {
+            gui.OnEventHandle(in_data);
+        }
+    }
+
+    public void SubscribeEvnet(System.Type in_type)
+    {
+        m_event_hanlder.Subscribe(in_type);
+    }
+
+    public void UnsubScribeEvnet(System.Type in_type)
+    {
+        m_event_hanlder.Unsubscribe(in_type);
+    }
+
+    public void PublishEvnet(EventData in_data)
+    {
+        m_event_hanlder.Publish(in_data);
     }
 }
