@@ -69,7 +69,7 @@ class GUI_Lobby : GUIBase
 
         m_account_level_text.SetText(user.level.ToString());
 
-        var account_data = DataTable.AccountDataTable.Instance.GetAccountTableData(user.level);
+        var account_data = DataTable.UserDataTable.Instance.GetAccountTableData(user.level);
         if(account_data != null)
         {
             m_account_exp_text.SetText(string.Format("{0}/{1}", Util.UI.SeparatorConvert(user.cur_exp), Util.UI.SeparatorConvert(account_data.max_exp)));
