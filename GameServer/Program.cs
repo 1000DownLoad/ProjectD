@@ -12,7 +12,7 @@ namespace GameServer
         static async Task Main(string[] args)
         {
             // DataTable Load
-            AccountDataTable.Instance.LoadDataTable();
+            UserDataTable.Instance.LoadDataTable();
 
             // DataBase Initialize
             DataBaseManager.Instance.Initialize();

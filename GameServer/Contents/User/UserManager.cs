@@ -24,7 +24,7 @@ namespace User
             if (user != null)
                 return user;
 
-            var account_data = AccountDataTable.Instance.GetAccountTableData(1);
+            var account_data = UserDataTable.Instance.GetAccountTableData(1);
             if (account_data == null)
                 return null;
 

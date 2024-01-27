@@ -253,8 +253,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contents\DataTable\DataTable-User.cs" />
     <Compile Include="Framework\DataTable\DataTableBase.cs" />
-    <Compile Include="Contents\DataTable\DataTable-Account.cs" />
     <Compile Include="Contents\DataBase\DataBaseManager.cs" />
     <Compile Include="Contents\Network\Protocol-Struct.cs" />
     <Compile Include="Contents\Network\Protocol.cs" />
