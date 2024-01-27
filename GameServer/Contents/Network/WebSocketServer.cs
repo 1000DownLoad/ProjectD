@@ -8,8 +8,8 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.Timers;
 using Protocol;
-using Account;
 using System.Collections.Concurrent;
+using User;
 
 namespace Network
 {
@@ -78,23 +78,23 @@ namespace Network
                 string account_id = webSocketContext.Headers.Get("ACCOUNT_ID");
                 long user_id = 0;
 
-                var account = AccountManager.Instance.GetAccount(account_id);
-                if (account == null)
+                var user = UserManager.Instance.GetUserByAccountID(account_id);
+                if (user == null)
                 {
-                    account = AccountManager.Instance.InsertAccount(account_id);
+                    user = UserManager.Instance.InsertUser(account_id);
 
                     // DB 계정 정보를 읽습니다
-                    if (AccountManager.Instance.LoadDataBase(account_id) == false)
+                    if (UserManager.Instance.LoadDataBaseData(user.user_id) == false)
                     {
                         // DB에 데이터가 없다면 추가된 데이터로 DB 갱신
-                        AccountManager.Instance.UpdateDataBase(account_id);
+                        UserManager.Instance.UpdateDataBase(user.user_id);
                     }
 
-                    user_id = account.user_id;
+                    user_id = user.user_id;
                 }
                 else
                 {
-                    user_id = account.user_id;
+                    user_id = user.user_id;
                 }
 
                 if (user_id == 0)

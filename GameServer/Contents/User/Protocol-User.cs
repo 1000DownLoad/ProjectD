@@ -1,5 +1,4 @@
-﻿using Account;
-using User;
+﻿using User;
 using Network;
 using Newtonsoft.Json;
 
@@ -13,25 +12,17 @@ namespace Protocol
             if (req == null)
                 return;
 
-            // 계정 정보 확인
-            var account = AccountManager.Instance.GetAccountByUserID(req.UserID);
-            if (account == null)
-                return;
-
             // 유저 정보 확인
-            var user = UserManager.Instance.GetUser(account.user_id);
-            if(user == null)
-                user = UserManager.Instance.InsertUser(account.user_id);
-
-            // 로그인 시 DB 에서 유저 정보를 가져와서 세팅합니다.
-            if(UserManager.Instance.LoadDataBaseData(user.user_id) == false)
-            {
-                // DB에 유저 데이터가 없다면 추가한 유저 데이터를 DB에 저장
-                UserManager.Instance.UpdateDataBase(user.user_id);
-            }
+            var user = UserManager.Instance.GetUserByAccountID(req.AccountID);
+            if (user == null)
+                return;
                 
             var ack = new GS_USER_LOGIN_ACK();
-            ack.UserID = account.user_id;
+            ack.AccountID = user.account_id;
+            ack.UserID = user.user_id;
+            ack.Level = user.level;
+            ack.CurExp = user.cur_exp;
+            ack.CurEnergy = user.cur_energy;
             ack.Result = 1;
 
             WebSocketServer.Instance.Send<GS_USER_LOGIN_ACK>(ack.UserID, PROTOCOL.GS_USER_LOGIN_ACK, ack);

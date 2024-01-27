@@ -253,24 +253,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contents\Account\AccountManager.cs" />
     <Compile Include="Framework\DataTable\DataTableBase.cs" />
     <Compile Include="Contents\DataTable\DataTable-Account.cs" />
-    <Compile Include="Contents\Account\Protocol-Account.cs" />
     <Compile Include="Contents\DataBase\DataBaseManager.cs" />
     <Compile Include="Contents\Network\Protocol-Struct.cs" />
     <Compile Include="Contents\Network\Protocol.cs" />
     <Compile Include="Contents\User\Protocol-User.cs" />
     <Compile Include="Contents\User\UserManager.cs" />
-    <Compile Include="Framework\Event\EventAggregator.cs" />
-    <Compile Include="Framework\Event\EventBase.cs" />
-    <Compile Include="Framework\Event\GameEventAggregator.cs" />
-    <Compile Include="Framework\FunctionFsm\FunctionFsm.cs" />
-    <Compile Include="Framework\FunctionFsm\FunctionState.cs" />
-    <Compile Include="Framework\FunctionFsm\FunctionTFsm.cs" />
-    <Compile Include="Framework\FunctionFsm\FunctionTState.cs" />
-    <Compile Include="Framework\Pool\Container.cs" />
-    <Compile Include="Framework\Pool\Pool.cs" />
     <Compile Include="Framework\Scheduler\Base\Scheduler.cs" />
     <Compile Include="Framework\Scheduler\Base\Task.cs" />
     <Compile Include="Framework\Scheduler\PriorityScheduler.cs" />
