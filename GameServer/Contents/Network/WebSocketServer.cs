@@ -79,13 +79,20 @@ namespace Network
                 var user = UserManager.Instance.GetUserByAccountID(account_id);
                 if (user == null)
                 {
-                    user = UserManager.Instance.InsertUser(account_id);
-
-                    // DB 계정 정보를 읽습니다
-                    if (UserManager.Instance.LoadDataBaseData(user.user_id) == false)
+                    // DB에서 유저 정보를 가져옵니다.
+                    user = UserManager.Instance.GetDB(account_id);
+                    if (user == null)
                     {
-                        // DB에 데이터가 없다면 추가된 데이터로 DB 갱신
-                        UserManager.Instance.UpdateDataBase(user.user_id);
+                        // 유저 생성
+                        user = UserManager.Instance.CreateUser(account_id);
+
+                        // 생성된 유저 데이터로 DB 갱신
+                        UserManager.Instance.UpdateDB(account_id);
+                    }
+                    else
+                    {
+                        // DB에서 가져온 정보를 매니저에 넣어줍니다.
+                        UserManager.Instance.InsertUser(user);
                     }
                 }
 

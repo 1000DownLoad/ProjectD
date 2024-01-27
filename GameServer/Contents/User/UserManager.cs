@@ -18,7 +18,7 @@ namespace User
     {
         private Dictionary<long, UserInfo> m_user_dic = new Dictionary<long, UserInfo>();
 
-        public UserInfo InsertUser(string in_account_id)
+        public UserInfo CreateUser(string in_account_id)
         {
             var user = GetUserByAccountID(in_account_id);
             if (user != null)
@@ -35,9 +35,19 @@ namespace User
             new_user.level = 1;
             new_user.cur_exp = 0;
             new_user.cur_energy = account_data.max_energy;
-            m_user_dic.Add(new_user.user_id, new_user);
+            InsertUser(new_user);
 
             return new_user;
+        }
+
+        public bool InsertUser(UserInfo in_user)
+        {
+            if (GetUser(in_user.user_id) != null)
+                return false;
+
+            m_user_dic.Add(in_user.user_id, in_user);
+
+            return true;
         }
 
         public UserInfo GetUser(long in_user_id)
@@ -62,9 +72,9 @@ namespace User
             return null;
         }
 
-        public void UpdateDataBase(long in_user_id)
+        public void UpdateDB(string in_account_id)
         {
-            var user = GetUser(in_user_id);
+            var user = GetUserByAccountID(in_account_id);
             if (user == null)
                 return;
 
@@ -78,27 +88,24 @@ namespace User
                 { "CurEnergy", user.cur_energy },
             };
 
-            DataBaseManager.Instance.UpdateDataBase("T_User_Info", in_user_id.ToString(), data);
+            DataBaseManager.Instance.UpdateDataBase("T_User_Info", user.account_id, data);
         }
 
-        public bool LoadDataBaseData(long in_user_id)
+        public UserInfo GetDB(string in_account_id)
         {
-            var user = GetUser(in_user_id);
-            if (user == null)
-                return false;
-
-            var user_data = DataBaseManager.Instance.GetDocumentData("T_User_Info", in_user_id.ToString());
+            var user_data = DataBaseManager.Instance.GetDocumentData("T_User_Info", in_account_id);
             if(user_data != null)
             {
-                user.account_id = user_data["AccountID"].ToString();
-                user.user_id = long.Parse(user_data["UserID"].ToString());
-                user.level = int.Parse(user_data["Level"].ToString());
-                user.cur_exp = long.Parse(user_data["CurExp"].ToString());
-                user.cur_energy = long.Parse(user_data["CurEnergy"].ToString());
-                return true;
+                var db_user_info = new UserInfo();
+                db_user_info.account_id = user_data["AccountID"].ToString();
+                db_user_info.user_id = long.Parse(user_data["UserID"].ToString());
+                db_user_info.level = int.Parse(user_data["Level"].ToString());
+                db_user_info.cur_exp = long.Parse(user_data["CurExp"].ToString());
+                db_user_info.cur_energy = long.Parse(user_data["CurEnergy"].ToString());
+                return db_user_info;
             }
 
-            return false;
+            return null;
         }
 
         public long GenerateUniqueUserID()
