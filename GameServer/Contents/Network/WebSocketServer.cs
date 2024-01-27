@@ -76,8 +76,6 @@ namespace Network
                 webSocketContext = await in_context.AcceptWebSocketAsync(subProtocol: null);
 
                 string account_id = webSocketContext.Headers.Get("ACCOUNT_ID");
-                long user_id = 0;
-
                 var user = UserManager.Instance.GetUserByAccountID(account_id);
                 if (user == null)
                 {
@@ -89,23 +87,17 @@ namespace Network
                         // DB에 데이터가 없다면 추가된 데이터로 DB 갱신
                         UserManager.Instance.UpdateDataBase(user.user_id);
                     }
-
-                    user_id = user.user_id;
-                }
-                else
-                {
-                    user_id = user.user_id;
                 }
 
-                if (user_id == 0)
+                if (user.user_id == 0)
                 {
                     webSocketContext?.WebSocket.CloseAsync(WebSocketCloseStatus.InternalServerError, "Internal Server Error", CancellationToken.None);
                     return;
                 }
 
-                m_user_sockets.TryAdd(user_id, webSocketContext.WebSocket);
+                m_user_sockets.TryAdd(user.user_id, webSocketContext.WebSocket);
 
-                await Receive(user_id, webSocketContext.WebSocket);
+                await Receive(user.user_id, webSocketContext.WebSocket);
             }
             catch (Exception ex)
             {
