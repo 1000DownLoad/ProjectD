@@ -35,6 +35,8 @@ class GUIManager : TMonoSingleton<GUIManager>
         m_gui_root.transform.parent = this.transform;
         m_root_transform = rect_transform.transform;
 
+        InitCanvase();
+
         m_event_hanlder.GameEventDataHandler += OnEventHandle;
     }
 
@@ -209,5 +211,24 @@ class GUIManager : TMonoSingleton<GUIManager>
     public void PublishEvnet(EventData in_data)
     {
         m_event_hanlder.Publish(in_data);
+    }
+
+    private void InitCanvase()
+    {
+        var canvas = m_gui_root.GetComponentInChildren<Canvas>();
+        if (canvas == null) {
+            Debug.LogError($@"GUIManager - Not exist {CameraType.UICamera.ToString()} cameras.
+                           Please check the initialization order.");
+            return;
+        }
+
+        var camera = CameraManager.Instance.GetCamera(CameraType.UICamera);
+        if (camera == null)
+        {
+            Debug.LogError($@"GUIManager - Not exist {CameraType.UICamera.ToString()} cameras.
+                           Please check the initialization order.");
+        }
+
+        canvas.worldCamera = camera;
     }
 }
