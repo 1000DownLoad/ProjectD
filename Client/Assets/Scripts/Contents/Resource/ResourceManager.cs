@@ -1,47 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
 using Framework;
+using UnityEngine;
 
-class UserResourceData
+namespace Resource
 {
-    public UserResourceData(ResourceType in_resource_type, long in_count) { resource_type = in_resource_type; count = in_count; }
+    using ResourceDatas = Dictionary<ResourceType, long>;
 
-    public ResourceType resource_type;
-    public long count;
-}
-
-class ResourceManager : TSingleton<ResourceManager>
-{
-    private Dictionary<ResourceType, UserResourceData> m_resource_dic = new Dictionary<ResourceType, UserResourceData>();
-
-    protected override void OnCreateSingleton()
+    class ResourceManager : TSingleton<ResourceManager>
     {
-        InsertResource(ResourceType.GEM, 123456780);
-        InsertResource(ResourceType.GOLD, 123456000);
-        InsertResource(ResourceType.ENERGY, 150);
-    }
+        private ResourceDatas m_resource_datas = new ResourceDatas();
 
-    public void InsertResource(ResourceType in_resource_type, long in_count)
-    {
-        if(m_resource_dic.ContainsKey(in_resource_type))
+        public void InsertResource(ResourceType in_resource_type, long in_count) 
         {
-            m_resource_dic[in_resource_type].count += in_count;
+            if (m_resource_datas.TryGetValue(in_resource_type, out var old_count) == false)
+                m_resource_datas.Add(in_resource_type, in_count);
+            else
+            {
+                m_resource_datas[in_resource_type] += in_count;
+            }
         }
-        else
+
+        public long GetResourceCount(ResourceType in_resource_type) 
         {
-            m_resource_dic.Add(in_resource_type, new UserResourceData(in_resource_type, in_count));
+            m_resource_datas.TryGetValue(in_resource_type, out var ret);
+            return ret;
         }
-    }
 
-    public UserResourceData GetResourceData(ResourceType in_resource_type)
-    {
-        m_resource_dic.TryGetValue(in_resource_type, out var out_data);
-
-        return out_data;
-    }
-
-    public void Clear()
-    {
-        m_resource_dic.Clear();
+        public void Clear() 
+        {
+            m_resource_datas.Clear();
+        }
     }
 }

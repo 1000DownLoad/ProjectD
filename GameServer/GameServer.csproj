@@ -254,6 +254,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contents\DataTable\DataTable-User.cs" />
+    <Compile Include="Contents\DataTable\DataTable_Resource.cs" />
+    <Compile Include="Contents\Resource\ResourceManager.cs" />
     <Compile Include="Framework\DataTable\DataTableBase.cs" />
     <Compile Include="Contents\DataBase\DataBaseManager.cs" />
     <Compile Include="Contents\Network\Protocol-Struct\GS_USER.cs" />

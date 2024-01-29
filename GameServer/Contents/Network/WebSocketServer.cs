@@ -10,6 +10,7 @@ using System.Timers;
 using Protocol;
 using System.Collections.Concurrent;
 using User;
+using Resource;
 
 namespace Network
 {
@@ -86,13 +87,19 @@ namespace Network
                         // 유저 생성
                         user = UserManager.Instance.CreateUser(account_id);
 
+                        ResourceManager.Instance.InsertResource(user.user_id, ResourceType.ENERGY, 100);
+                        ResourceManager.Instance.InsertResource(user.user_id, ResourceType.GOLD, 1000);
+
                         // 생성된 유저 데이터로 DB 갱신
                         UserManager.Instance.UpdateDB(account_id);
+                        ResourceManager.Instance.UpdateDB(user.user_id);
                     }
                     else
                     {
                         // DB에서 가져온 정보를 매니저에 넣어줍니다.
                         UserManager.Instance.InsertUser(user);
+                        ResourceManager.Instance.FetchDB(user.user_id);
+                        
                     }
                 }
 
