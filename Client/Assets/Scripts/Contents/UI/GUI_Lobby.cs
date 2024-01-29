@@ -69,18 +69,18 @@ class GUI_Lobby : GUIBase
 
         m_account_level_text.SetText(user.level.ToString());
 
-        var account_data = DataTable.UserDataTable.Instance.GetAccountTableData(user.level);
-        if(account_data != null)
+        var user_level_data = DataTable.UserDataTable.Instance.GetLevelTableData(user.level);
+        if(user_level_data != null)
         {
-            m_account_exp_text.SetText(string.Format("{0}/{1}", Util.UI.SeparatorConvert(user.cur_exp), Util.UI.SeparatorConvert(account_data.max_exp)));
+            m_account_exp_text.SetText(string.Format("{0}/{1}", Util.UI.SeparatorConvert(user.exp), Util.UI.SeparatorConvert(user_level_data.exp)));
 
             var energy_data = ResourceManager.Instance.GetResourceData(ResourceType.ENERGY);
             if (energy_data != null)
-                m_resource_energy_text.SetText(string.Format("{0}/{1}", Util.UI.SeparatorConvert(energy_data.count), Util.UI.SeparatorConvert(account_data.max_energy)));
+                m_resource_energy_text.SetText(string.Format("{0}/{1}", Util.UI.SeparatorConvert(energy_data.count), Util.UI.SeparatorConvert(user_level_data.fatigue_point)));
             else
                 m_resource_energy_text.SetText(string.Format("0"));
 
-            RefreshSlider(user.cur_exp / (float)account_data.max_exp);
+            RefreshSlider(user.exp / (float)user_level_data.exp);
         }
 
         var gem_data = ResourceManager.Instance.GetResourceData(ResourceType.GEM);

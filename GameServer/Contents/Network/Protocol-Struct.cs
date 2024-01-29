@@ -5,12 +5,12 @@
 
 public class GS_USER_LOGIN_ACK
 {
-    public int Result;
-    public string AccountID;
-    public long UserID;
-    public int Level;
-    public long CurExp;
-    public long CurEnergy;
+    public int      Result;
+    public string   AccountID;
+    public long     UserID;
+    public int      Level;
+    public long     Exp;
+    public long     FatiguePoint;
 }
 
 public class GS_USER_BASE_INFO_GET_REQ

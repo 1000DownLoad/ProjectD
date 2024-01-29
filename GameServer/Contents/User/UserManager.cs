@@ -10,8 +10,8 @@ namespace User
         public string   account_id;
         public long     user_id;
         public int      level;
-        public long     cur_exp;
-        public long     cur_energy;
+        public long     exp;
+        public long     fatigue_point;
     }
 
     public class UserManager : TSingleton<UserManager>
@@ -24,8 +24,8 @@ namespace User
             if (user != null)
                 return user;
 
-            var account_data = UserDataTable.Instance.GetAccountTableData(1);
-            if (account_data == null)
+            var user_level_data = UserDataTable.Instance.GetLevelTableData(1);
+            if (user_level_data == null)
                 return null;
 
             // 서버 저장
@@ -33,8 +33,8 @@ namespace User
             new_user.account_id = in_account_id;
             new_user.user_id = GenerateUniqueUserID();
             new_user.level = 1;
-            new_user.cur_exp = 0;
-            new_user.cur_energy = account_data.max_energy;
+            new_user.exp = 0;
+            new_user.fatigue_point = user_level_data.fatigue_point;
             InsertUser(new_user);
 
             return new_user;
@@ -84,8 +84,8 @@ namespace User
                 { "AccountID", user.account_id },
                 { "UserID", user.user_id },
                 { "Level", user.level },
-                { "CurExp", user.cur_exp },
-                { "CurEnergy", user.cur_energy },
+                { "Exp", user.exp },
+                { "FatiguePoint", user.fatigue_point },
             };
 
             DataBaseManager.Instance.UpdateDataBase("T_User_Info", user.account_id, data);
@@ -100,8 +100,8 @@ namespace User
                 db_user_info.account_id = user_data["AccountID"].ToString();
                 db_user_info.user_id = long.Parse(user_data["UserID"].ToString());
                 db_user_info.level = int.Parse(user_data["Level"].ToString());
-                db_user_info.cur_exp = long.Parse(user_data["CurExp"].ToString());
-                db_user_info.cur_energy = long.Parse(user_data["CurEnergy"].ToString());
+                db_user_info.exp = long.Parse(user_data["Exp"].ToString());
+                db_user_info.fatigue_point = long.Parse(user_data["FatiguePoint"].ToString());
                 return db_user_info;
             }
 

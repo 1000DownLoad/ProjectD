@@ -9,8 +9,8 @@ namespace User
         public string   account_id;
         public long     user_id;
         public int      level;
-        public long     cur_exp;
-        public long     cur_energy;
+        public long     exp;
+        public long     fatigue_point;
     }
 
     public class UserManager : TSingleton<UserManager>
@@ -28,13 +28,13 @@ namespace User
             m_is_init_data = in_init_data;
         }
 
-        public void UpdateUser(string in_account_id, long in_user_id, int in_level, long in_cur_exp, long in_cur_energy)
+        public void UpdateUser(string in_account_id, long in_user_id, int in_level, long in_exp, long in_fatigue_point)
         {
-            m_user.account_id   = in_account_id;
-            m_user.user_id      = in_user_id;
-            m_user.level        = in_level;
-            m_user.cur_exp      = in_cur_exp;
-            m_user.cur_energy   = in_cur_energy;
+            m_user.account_id       = in_account_id;
+            m_user.user_id          = in_user_id;
+            m_user.level            = in_level;
+            m_user.exp              = in_exp;
+            m_user.fatigue_point    = in_fatigue_point;
         }
 
         public UserInfo GetUser()
