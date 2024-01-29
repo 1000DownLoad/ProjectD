@@ -7,7 +7,6 @@ using TMPro;
 using Framework.Event;
 using Network;
 using Protocol;
-using User;
 
 class GUI_Lobby : GUIBase
 {
@@ -39,8 +38,10 @@ class GUI_Lobby : GUIBase
         }
     }
 
-    private void Awake()
+    public override void Init()
     {
+        base.Init();
+
         GUIManager.Instance.SubscribeEvnet(typeof(EVENT_USER_DATA_UPDATE));
 
         m_inventory_button.onClick.AddListener(OnInventoryButtonClick);

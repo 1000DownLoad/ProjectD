@@ -24,12 +24,12 @@ public class GameMain : Framework.TMonoSingleton<GameMain>
 
     void OnApplicationFocus(bool focus)
     {
-        //Debug.LogFormat("[GameMain] OnApplicationFocus = {0}", focus.ToString());
+        Debug.LogFormat("[GameMain] OnApplicationFocus = {0}", focus.ToString());
     }
 
     void OnApplicationPause(bool pause)
     {
-        //Debug.LogFormat("[GameMain] OnApplicationPause = {0}", pause.ToString());
+        Debug.LogFormat("[GameMain] OnApplicationPause = {0}", pause.ToString());
     }
 
     void Update()

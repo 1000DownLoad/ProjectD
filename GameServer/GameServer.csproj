@@ -256,7 +256,7 @@
     <Compile Include="Contents\DataTable\DataTable-User.cs" />
     <Compile Include="Framework\DataTable\DataTableBase.cs" />
     <Compile Include="Contents\DataBase\DataBaseManager.cs" />
-    <Compile Include="Contents\Network\Protocol-Struct.cs" />
+    <Compile Include="Contents\Network\Protocol-Struct\GS_USER.cs" />
     <Compile Include="Contents\Network\Protocol.cs" />
     <Compile Include="Contents\User\Protocol-User.cs" />
     <Compile Include="Contents\User\UserManager.cs" />

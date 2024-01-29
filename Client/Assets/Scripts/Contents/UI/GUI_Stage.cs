@@ -11,13 +11,13 @@ class GUI_Stage : GUIBase
 
         }
     }
-    private void Awake()
+
+    public override void Init()
     {
-        if (m_back_button != null)
-            m_back_button.onClick.AddListener(OnBackButtonClick);
+        base.Init();
     }
 
-    override public void Open(IGUIOpenParam in_param)
+    public override void Open(IGUIOpenParam in_param)
     {
         base.Open(in_param);
 
@@ -28,12 +28,12 @@ class GUI_Stage : GUIBase
         }
     }
 
-    override public void Close()
+    public override void Close()
     {
         base.Close();
     }
 
-    override public void OnBackButtonClick()
+    public override void OnBackButtonClick()
     {
         GUIManager.Instance.OpenGUI<GUI_Loading>(new GUI_Loading.OpenParam("LobbyScene"));
     }

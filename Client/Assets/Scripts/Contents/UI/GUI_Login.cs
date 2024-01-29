@@ -21,14 +21,17 @@ class GUI_Login : GUIBase
             m_login_button_callback = in_login_button_callback;
         }
     }
-    private void Awake()
+
+    public override void Init()
     {
+        base.Init();
+
         m_id_input.onValueChanged.AddListener(OnIDInputChange);
         m_password_input.onValueChanged.AddListener(OnPasswordInputChange);
         m_login_button.onClick.AddListener(OnLoginButtonClick);
     }
 
-    override public void Open(IGUIOpenParam in_param)
+    public override void Open(IGUIOpenParam in_param)
     {
         base.Open(in_param);
 
@@ -39,7 +42,7 @@ class GUI_Login : GUIBase
         }
     }
 
-    override public void Close()
+    public override void Close()
     {
         base.Close();
     }

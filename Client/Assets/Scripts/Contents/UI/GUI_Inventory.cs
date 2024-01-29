@@ -32,12 +32,17 @@ class GUI_Inventory : GUIBase
         }
     }
 
-    private void Awake()
+    public override void Init()
     {
-        m_back_button.onClick.AddListener(OnBackButtonClick);
+        base.Init();
+
+        weaponToggle.onValueChanged.AddListener(OnClickWeaponTab);
+        shieldToggle.onValueChanged.AddListener(OnClickShieldTab);
+        shoesToggle.onValueChanged.AddListener(OnClickShoesTab);
+        ringsToggle.onValueChanged.AddListener(OnClickRingsTab);
     }
 
-    override public void Open(IGUIOpenParam in_param)
+    public override void Open(IGUIOpenParam in_param)
     {
         base.Open(in_param);
 
@@ -46,18 +51,6 @@ class GUI_Inventory : GUIBase
         {
 
         }
-
-        Init();
-
-    }
-
-    private void Init()
-    {
-        weaponToggle.onValueChanged.AddListener(OnClickWeaponTab);
-        shieldToggle.onValueChanged.AddListener(OnClickShieldTab);
-        shoesToggle.onValueChanged.AddListener(OnClickShoesTab);
-        ringsToggle.onValueChanged.AddListener(OnClickRingsTab);
-
     }
 
     private void OnClickRingsTab(bool isOn)

@@ -40,10 +40,23 @@ namespace Protocol
             WebSocketServer.Instance.Send<GS_USER_BASE_INFO_GET_ACK>(req.UserID, PROTOCOL.GS_USER_BASE_INFO_GET_ACK, ack);
         }
 
+        public static void GS_USER_COMMAND_REQ(string in_message)
+        {
+            var req = JsonConvert.DeserializeObject<GS_USER_COMMAND_REQ>(in_message);
+            if (req == null)
+                return;
+
+            var ack = new GS_USER_COMMAND_ACK();
+            ack.Result = 1;
+
+            WebSocketServer.Instance.Send<GS_USER_COMMAND_ACK>(req.UserID, PROTOCOL.GS_USER_COMMAND_ACK, ack);
+        }
+
         public void RegisterUserHandler()
         {
             WebSocketServer.Instance.RegisterProtocolHandler(PROTOCOL.GS_USER_LOGIN_REQ, GS_USER_LOGIN_REQ);
             WebSocketServer.Instance.RegisterProtocolHandler(PROTOCOL.GS_USER_BASE_INFO_GET_REQ, GS_USER_BASE_INFO_GET_REQ);
+            WebSocketServer.Instance.RegisterProtocolHandler(PROTOCOL.GS_USER_COMMAND_REQ, GS_USER_COMMAND_REQ);
         }
     }
 }

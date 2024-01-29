@@ -15,6 +15,9 @@ namespace Protocol
         GS_USER_LOGIN_ACK,
         GS_USER_BASE_INFO_GET_REQ,
         GS_USER_BASE_INFO_GET_ACK,
+        GS_USER_COMMAND_REQ,
+        GS_USER_COMMAND_ACK,
+
     }
 
     public partial class ProtocolBinder : TSingleton<ProtocolBinder>

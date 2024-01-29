@@ -2,12 +2,10 @@ using System;
 using Framework.Scheduler.Base;
 using Network;
 using Protocol;
-using User;
 
 class GameTask_GameLogin : Task
 {
     private bool is_check_network = false;
-    private bool is_send_account = false;
     private bool is_send_user_login = false;
     private bool is_send_user_base_info = false;
 

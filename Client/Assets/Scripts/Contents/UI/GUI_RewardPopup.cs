@@ -20,14 +20,12 @@ class GUI_RewardPopup : GUIBase
         }
     }
 
-    void Awake()
+    public override void Init()
     {
-        if (m_back_button != null)
-            m_back_button.onClick.AddListener(OnBackButtonClick);
+        base.Init();
+
         m_button_ok.onClick.AddListener(OnClickOkButton);
     }
-
-   
 
     public override void Open(IGUIOpenParam in_param)
     {

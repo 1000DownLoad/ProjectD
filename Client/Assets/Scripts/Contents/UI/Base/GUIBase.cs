@@ -24,6 +24,20 @@ class GUIBase : MonoBehaviour
     [SerializeField] public Button   m_back_button;
     [SerializeField] public Button   m_home_button;
 
+    protected void Awake()
+    {
+        Init();
+    }
+
+    public virtual void Init()
+    {
+        if(m_back_button != null)
+            m_back_button.onClick.AddListener(OnBackButtonClick);
+
+        if (m_home_button != null)
+            m_home_button.onClick.AddListener(OnHomeButtonClick);
+    }
+
     public virtual void Open(IGUIOpenParam in_param)
     {
 

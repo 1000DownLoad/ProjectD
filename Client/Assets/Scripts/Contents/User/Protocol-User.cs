@@ -1,6 +1,6 @@
 ﻿using Network;
 using Newtonsoft.Json;
-using User;
+using UnityEngine;
 
 namespace Protocol
 {
@@ -43,10 +43,23 @@ namespace Protocol
             UserManager.Instance.SetInitData(ack.Result == 1);
         }
 
+        public static void GS_USER_COMMAND_ACK(string in_message)
+        {
+            var ack = JsonConvert.DeserializeObject<GS_USER_COMMAND_ACK>(in_message);
+            if (ack == null)
+                return;
+
+            if(ack.Result != 0)
+                Debug.Log("치트 성공");
+            else
+                Debug.Log("치트 실패");
+        }
+
         public void RegisterUserHandler()
         {
             WebSocketClient.Instance.RegisterProtocolHandler(PROTOCOL.GS_USER_LOGIN_ACK, GS_USER_LOGIN_ACK);
             WebSocketClient.Instance.RegisterProtocolHandler(PROTOCOL.GS_USER_BASE_INFO_GET_ACK, GS_USER_BASE_INFO_GET_ACK);
+            WebSocketClient.Instance.RegisterProtocolHandler(PROTOCOL.GS_USER_COMMAND_ACK, GS_USER_COMMAND_ACK);
         }
     }
 }
