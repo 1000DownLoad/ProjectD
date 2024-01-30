@@ -39,14 +39,17 @@ public class CommandManager : TSingleton<CommandManager>
         if (split_str.Length != 3)
             return;
 
-        var kind = long.Parse(split_str[1]);
+        var resource_type = (ResourceType)(long.Parse(split_str[1]));
         var count = long.Parse(split_str[2]);
 
+        Dictionary<string, object> data = new Dictionary<string, object>();
+        data.Add(resource_type.ToString(), count);
+
         // 자원 추가
-        UserResourceManager.Instance.InsertResource(in_user_id, (ResourceType)kind, count);
+        UserResourceManager.Instance.InsertResource(in_user_id, resource_type, count);
 
         // DB 갱신
-        UserResourceManager.Instance.UpdateDB(in_user_id);
+        UserResourceManager.Instance.UpdateDB(in_user_id, resource_type);
 
         // TODO : 클라이언트 갱신
     }

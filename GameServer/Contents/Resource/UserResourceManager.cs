@@ -18,9 +18,15 @@ class UserResourceManager : TSingleton<UserResourceManager>
         if (resoure_datas.ContainsKey(in_resource_type))
         {
             resoure_datas[in_resource_type] += in_count;
+
+            if (resoure_datas[in_resource_type] < 0)
+                resoure_datas[in_resource_type] = 0;
         }
         else
         {
+            if (in_count < 0)
+                in_count = 0;
+
             // 없는 경우 새로추가.
             resoure_datas.Add(in_resource_type, in_count);
         }
@@ -84,6 +90,11 @@ class UserResourceManager : TSingleton<UserResourceManager>
 
         // 현재 DB.Collection.Document 의 값이 string 이라 user id 를 문자열로 넘겨준다.
         DataBaseManager.Instance.UpdateField("T_Resource_Info", in_user_id.ToString(), data);
+    }
+
+    public void UpdateDB(long in_user_id, ResourceType in_type)
+    {
+        DataBaseManager.Instance.UpdateField("T_Resource_Info", in_user_id.ToString(), in_type.ToString(), GetResourceCount(in_user_id, in_type));
     }
 
     public void FetchDB(long in_user_id)
