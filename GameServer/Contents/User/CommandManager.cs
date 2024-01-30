@@ -43,10 +43,10 @@ public class CommandManager : TSingleton<CommandManager>
         var count = long.Parse(split_str[2]);
 
         // 자원 추가
-        ResourceManager.Instance.InsertResource(in_user_id, (ResourceType)kind, count);
+        UserResourceManager.Instance.InsertResource(in_user_id, (ResourceType)kind, count);
 
         // DB 갱신
-        ResourceManager.Instance.UpdateDB(in_user_id);
+        UserResourceManager.Instance.UpdateDB(in_user_id);
 
         // TODO : 클라이언트 갱신
     }

@@ -255,7 +255,7 @@
   <ItemGroup>
     <Compile Include="Contents\DataTable\DataTable-User.cs" />
     <Compile Include="Contents\DataTable\DataTable_Resource.cs" />
-    <Compile Include="Contents\Resource\ResourceManager.cs" />
+    <Compile Include="Contents\Resource\UserResourceManager.cs" />
     <Compile Include="Contents\User\CommandManager.cs" />
     <Compile Include="Framework\DataTable\DataTableBase.cs" />
     <Compile Include="Contents\DataBase\DataBaseManager.cs" />

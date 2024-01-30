@@ -9,8 +9,6 @@ using Newtonsoft.Json;
 using System.Timers;
 using Protocol;
 using System.Collections.Concurrent;
-using User;
-using Resource;
 
 namespace Network
 {
@@ -81,25 +79,19 @@ namespace Network
                 if (user == null)
                 {
                     // DB에서 유저 정보를 가져옵니다.
-                    user = UserManager.Instance.GetDB(account_id);
+                    user = UserManager.Instance.FetchDB(account_id);
                     if (user == null)
                     {
                         // 유저 생성
                         user = UserManager.Instance.CreateUser(account_id);
 
-                        ResourceManager.Instance.InsertResource(user.user_id, ResourceType.ENERGY, 100);
-                        ResourceManager.Instance.InsertResource(user.user_id, ResourceType.GOLD, 1000);
-
                         // 생성된 유저 데이터로 DB 갱신
                         UserManager.Instance.UpdateDB(account_id);
-                        ResourceManager.Instance.UpdateDB(user.user_id);
                     }
                     else
                     {
                         // DB에서 가져온 정보를 매니저에 넣어줍니다.
                         UserManager.Instance.InsertUser(user);
-                        ResourceManager.Instance.FetchDB(user.user_id);
-                        
                     }
                 }
 
@@ -108,6 +100,9 @@ namespace Network
                     webSocketContext?.WebSocket.CloseAsync(WebSocketCloseStatus.InternalServerError, "Internal Server Error", CancellationToken.None);
                     return;
                 }
+
+                // 유저의 모든 데이터 DB로 부터 가져오기
+                UserManager.Instance.UserDataFetchDB(user.user_id);
 
                 m_user_sockets.TryAdd(user.user_id, webSocketContext.WebSocket);
 

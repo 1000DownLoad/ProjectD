@@ -20,17 +20,16 @@ namespace Protocol
                 new_user.user_id = ack.UserID;
                 new_user.level = ack.Level;
                 new_user.exp = ack.Exp;
-                new_user.fatigue_point = ack.FatiguePoint;
 
                 UserManager.Instance.SetUser(new_user);
             }
             else
             {
-                UserManager.Instance.UpdateUser(ack.AccountID, ack.UserID, ack.Level, ack.Exp, ack.FatiguePoint);
+                UserManager.Instance.UpdateUser(ack.AccountID, ack.UserID, ack.Level, ack.Exp);
             }
 
             // UI OnEventHandle 실행
-            GUIManager.Instance.PublishEvnet(new EVENT_USER_DATA_UPDATE(ack.Level, ack.Exp, ack.FatiguePoint));
+            GUIManager.Instance.PublishEvnet(new EVENT_USER_DATA_UPDATE(ack.Level, ack.Exp));
         }
 
         public static void GS_USER_BASE_INFO_GET_ACK(string in_message)

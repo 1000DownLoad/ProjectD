@@ -4,7 +4,7 @@ using System;
 using DataBase;
 using ResourceDatas = System.Collections.Generic.Dictionary<ResourceType, long>;
 
-class ResourceManager : TSingleton<ResourceManager>
+class UserResourceManager : TSingleton<UserResourceManager>
 {
     private ConcurrentDictionary<long, ResourceDatas> m_user_resource_datas = new ConcurrentDictionary<long, ResourceDatas>();
 
@@ -24,6 +24,14 @@ class ResourceManager : TSingleton<ResourceManager>
             // 없는 경우 새로추가.
             resoure_datas.Add(in_resource_type, in_count);
         }
+    }
+
+    // 유저 생성시 초기 데이터
+    public void CreateUserInitData(long in_user_id)
+    {
+        InsertResource(in_user_id, ResourceType.FATIGUE, 100);
+        InsertResource(in_user_id, ResourceType.GOLD, 1000);
+        UpdateDB(in_user_id);
     }
 
     private ResourceDatas GetOrCreateUserResourceDatas(long in_user_id)
@@ -75,7 +83,7 @@ class ResourceManager : TSingleton<ResourceManager>
         }
 
         // 현재 DB.Collection.Document 의 값이 string 이라 user id 를 문자열로 넘겨준다.
-        DataBaseManager.Instance.UpdateDataBase("T_Resource_Info", in_user_id.ToString(), data);
+        DataBaseManager.Instance.UpdateField("T_Resource_Info", in_user_id.ToString(), data);
     }
 
     public void FetchDB(long in_user_id)

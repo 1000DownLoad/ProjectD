@@ -21,7 +21,6 @@ namespace Protocol
             ack.UserID = user.user_id;
             ack.Level = user.level;
             ack.Exp = user.exp;
-            ack.FatiguePoint = user.fatigue_point;
             ack.Result = 1;
 
             WebSocketServer.Instance.Send<GS_USER_LOGIN_ACK>(ack.UserID, PROTOCOL.GS_USER_LOGIN_ACK, ack);

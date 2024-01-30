@@ -70,31 +70,31 @@ class GUI_Lobby : GUIBase
 
         m_account_level_text.SetText(user.level.ToString());
 
-        var user_level_data = DataTable.UserDataTable.Instance.GetLevelTableData(user.level);
-        if(user_level_data != null)
-        {
-            m_account_exp_text.SetText(string.Format("{0}/{1}", Util.UI.SeparatorConvert(user.exp), Util.UI.SeparatorConvert(user_level_data.exp)));
+        //var user_level_data = DataTable.UserDataTable.Instance.GetLevelTableData(user.level);
+        //if(user_level_data != null)
+        //{
+        //    m_account_exp_text.SetText(string.Format("{0}/{1}", Util.UI.SeparatorConvert(user.exp), Util.UI.SeparatorConvert(user_level_data.exp)));
 
-            var energy_data = ResourceManager.Instance.GetResourceData(ResourceType.ENERGY);
-            if (energy_data != null)
-                m_resource_energy_text.SetText(string.Format("{0}/{1}", Util.UI.SeparatorConvert(energy_data.count), Util.UI.SeparatorConvert(user_level_data.fatigue_point)));
-            else
-                m_resource_energy_text.SetText(string.Format("0"));
+        //    var energy_data = UserResourceManager.Instance.GetResourceData(ResourceType.FATIGUE);
+        //    if (energy_data != null)
+        //        m_resource_energy_text.SetText(string.Format("{0}/{1}", Util.UI.SeparatorConvert(energy_data.count), Util.UI.SeparatorConvert(user_level_data.fatigue_point)));
+        //    else
+        //        m_resource_energy_text.SetText(string.Format("0"));
 
-            RefreshSlider(user.exp / (float)user_level_data.exp);
-        }
+        //    RefreshSlider(user.exp / (float)user_level_data.exp);
+        //}
 
-        var gem_data = ResourceManager.Instance.GetResourceData(ResourceType.GEM);
-        if (gem_data != null)
-            m_resource_gem_text.SetText(Util.UI.SeparatorConvert(gem_data.count));
-        else
-            m_resource_gem_text.SetText(string.Format("0"));
+        //var gem_data = UserResourceManager.Instance.g .GetResourceData(ResourceType.GEM);
+        //if (gem_data != null)
+        //    m_resource_gem_text.SetText(Util.UI.SeparatorConvert(gem_data.count));
+        //else
+        //    m_resource_gem_text.SetText(string.Format("0"));
 
-        var gold_data = ResourceManager.Instance.GetResourceData(ResourceType.GOLD);
-        if(gold_data != null)
-            m_resource_gold_text.SetText(Util.UI.SeparatorConvert(gold_data.count));
-        else
-            m_resource_gold_text.SetText(string.Format("0"));
+        //var gold_data = UserResourceManager.Instance.GetResourceData(ResourceType.GOLD);
+        //if(gold_data != null)
+        //    m_resource_gold_text.SetText(Util.UI.SeparatorConvert(gold_data.count));
+        //else
+        //    m_resource_gold_text.SetText(string.Format("0"));
     }
 
     private void RefreshSlider(float in_value)

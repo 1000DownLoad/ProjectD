@@ -10,7 +10,6 @@ public class GS_USER_LOGIN_ACK
     public long     UserID;
     public int      Level;
     public long     Exp;
-    public long     FatiguePoint;
 }
 
 public class GS_USER_BASE_INFO_GET_REQ

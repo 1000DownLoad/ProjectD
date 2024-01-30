@@ -17,10 +17,22 @@ namespace DataBase
             m_firestore_DB = FirestoreDb.Create("projectd-2c989");
         }
 
-        public void UpdateDataBase(string in_collection_name, string in_doc_name, Dictionary<string, object> in_data)
+        public void UpdateField(string in_collection_name, string in_doc_name, Dictionary<string, object> in_data)
         {
+            if (m_firestore_DB == null)
+                return;
+
             DocumentReference doc_ref = m_firestore_DB.Collection(in_collection_name).Document(in_doc_name);
             doc_ref.SetAsync(in_data);
+        }
+
+        public void UpdateField(string in_collection_name, string in_doc_name, string in_field_name, object in_value)
+        {
+            if (m_firestore_DB == null)
+                return;
+
+            DocumentReference doc_ref = m_firestore_DB.Collection(in_collection_name).Document(in_doc_name);
+            doc_ref.UpdateAsync(in_field_name, in_value);
         }
 
         public List<DocumentSnapshot> GetCollectionData(string in_collection_name)
