@@ -127,4 +127,15 @@ public class UserManager : TSingleton<UserManager>
 
         UserResourceManager.Instance.FetchDB(in_user_id);
     }
+
+    public void UserDataClear(long in_user_id)
+    {
+        UserManager.Instance.Clear(in_user_id);
+        UserResourceManager.Instance.Clear(in_user_id);
+    }
+
+    public void Clear(long in_user_id)
+    {
+        m_user_dic.TryRemove(in_user_id, out var value);
+    }
 }

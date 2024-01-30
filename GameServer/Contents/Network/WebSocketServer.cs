@@ -129,6 +129,9 @@ namespace Network
                 }
                 else if (result.MessageType == WebSocketMessageType.Close)
                 {
+                    // 소켓이 끊어질 때 유저 데이터를 메모리에서 내립니다.
+                    UserManager.Instance.UserDataClear(in_user_id);
+
                     m_user_sockets.TryRemove(in_user_id, out var out_value);
                     await in_web_socket.CloseAsync(WebSocketCloseStatus.NormalClosure, "", CancellationToken.None);
                 }
