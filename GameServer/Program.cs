@@ -20,6 +20,9 @@ namespace GameServer
             // ProtocolBinder Initialize
             ProtocolBinder.Instance.Initialize();
 
+            // CommandManager Initialize
+            CommandManager.Instance.Initialize();
+
             // Socket
             await WebSocketServer.Instance.Initialize();
 

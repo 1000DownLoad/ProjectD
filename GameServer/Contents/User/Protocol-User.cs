@@ -1,5 +1,4 @@
-﻿using User;
-using Network;
+﻿using Network;
 using Newtonsoft.Json;
 
 namespace Protocol
@@ -45,6 +44,18 @@ namespace Protocol
             var req = JsonConvert.DeserializeObject<GS_USER_COMMAND_REQ>(in_message);
             if (req == null)
                 return;
+
+            // 문자열 분리
+            string[] split_str = req.Command.Split(' ');
+
+            if (split_str.Length <= 0)
+                return;
+
+            // 첫 번째 부분은 명령키
+            string command_key = split_str[0];
+
+            // 명령어 실행
+            CommandManager.Instance.InvokeCommand(command_key, req.UserID, req.Command);
 
             var ack = new GS_USER_COMMAND_ACK();
             ack.Result = 1;
