@@ -1,6 +1,7 @@
 ﻿using DataBase;
 using DataTable;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 
 public class UserInfo
@@ -13,7 +14,7 @@ public class UserInfo
 
 public class UserManager : TSingleton<UserManager>
 {
-    private Dictionary<long, UserInfo> m_user_dic = new Dictionary<long, UserInfo>();
+    private ConcurrentDictionary<long, UserInfo> m_user_dic = new ConcurrentDictionary<long, UserInfo>();
 
     public UserInfo CreateUser(string in_account_id)
     {
@@ -50,25 +51,24 @@ public class UserManager : TSingleton<UserManager>
         if (GetUser(in_user.user_id) != null)
             return false;
 
-        m_user_dic.Add(in_user.user_id, in_user);
+        m_user_dic.TryAdd(in_user.user_id, in_user);
 
         return true;
     }
 
     public UserInfo GetUser(long in_user_id)
     {
-        foreach (var user in m_user_dic)
-        {
-            if (user.Value.user_id == in_user_id)
-                return user.Value;
-        }
+        if (m_user_dic.TryGetValue(in_user_id, out var out_value))
+            return out_value;
 
         return null;
     }
 
     public UserInfo GetUserByAccountID(string in_account_id)
     {
-        foreach (var user in m_user_dic)
+        var user_dic = m_user_dic.ToArray();
+
+        foreach (var user in user_dic)
         {
             if (user.Value.account_id == in_account_id)
                 return user.Value;

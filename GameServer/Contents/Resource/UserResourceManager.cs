@@ -103,6 +103,9 @@ class UserResourceManager : TSingleton<UserResourceManager>
         if (resource_datas == null)
             return;
 
+        // DB 데이터를 가져오기 전 기존 데이터 제거
+        Clear(in_user_id);
+
         foreach (var resource_data in resource_datas)
         {
             if (Enum.TryParse(resource_data.Key, out ResourceType out_resource_type) == false)
@@ -113,5 +116,10 @@ class UserResourceManager : TSingleton<UserResourceManager>
 
             InsertResource(in_user_id, out_resource_type, Convert.ToInt64(resource_data.Value));
         }
+    }
+
+    public void Clear(long in_user_id)
+    {
+        m_user_resource_datas.TryRemove(in_user_id, out var value);
     }
 }
