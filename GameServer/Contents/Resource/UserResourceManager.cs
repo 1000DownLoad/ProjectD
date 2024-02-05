@@ -84,11 +84,9 @@ class UserResourceManager : TSingleton<UserResourceManager>
         Dictionary<string, object> data = new Dictionary<string, object>();
         foreach (var resource_data in out_resoure_datas)
         {
-            // 문자열 변환이 비용이 싸지 않을거 같아 확인이 필요.
             data.Add(resource_data.Key.ToString(), resource_data.Value);
         }
 
-        // 현재 DB.Collection.Document 의 값이 string 이라 user id 를 문자열로 넘겨준다.
         DataBaseManager.Instance.UpdateField("T_Resource_Info", in_user_id.ToString(), data);
     }
 
@@ -121,5 +119,19 @@ class UserResourceManager : TSingleton<UserResourceManager>
     public void Clear(long in_user_id)
     {
         m_user_resource_datas.TryRemove(in_user_id, out var value);
+    }
+
+    public GS_USER_RESOURCE_FETCH_ACK CreateFetchProtocolStruct(long in_user_id)
+    {
+        GS_USER_RESOURCE_FETCH_ACK ret = new GS_USER_RESOURCE_FETCH_ACK();
+
+        m_user_resource_datas.TryGetValue(in_user_id, out var resource_datas);
+
+        ret.UserID = in_user_id;
+
+        // 원본을 던져도 될까.
+        ret.FetchDatas = resource_datas;
+
+        return ret;
     }
 }

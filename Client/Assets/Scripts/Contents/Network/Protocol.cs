@@ -18,6 +18,9 @@ namespace Protocol
         GS_USER_COMMAND_REQ,
         GS_USER_COMMAND_ACK,
 
+        GS_USER_RESOURCE_FETCH_REQ,
+        GS_USER_RESOURCE_FETCH_ACK,
+
     }
 
     public partial class ProtocolBinder : TSingleton<ProtocolBinder>
@@ -26,6 +29,7 @@ namespace Protocol
         public void Initialize()
         {
             RegisterUserHandler();
+            RegisterResourceHandler();
         }
     }
 }
