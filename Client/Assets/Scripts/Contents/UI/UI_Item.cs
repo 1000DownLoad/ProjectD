@@ -13,6 +13,7 @@ public class UI_Item : MonoBehaviour
     [SerializeField] private Image itemIcon;
     [SerializeField] private TextMeshProUGUI itemCount;
     [SerializeField] private GameObject selectedObj;
+    [SerializeField] private GameObject tooltipObj;
     private bool isSelected = false;
 
     void Awake()
@@ -29,6 +30,7 @@ public class UI_Item : MonoBehaviour
     private void OnClickItemButton()
     {
         selectedObj.SetActive(!isSelected);
+        tooltipObj.SetActive(!isSelected);
         isSelected = !isSelected;
     }
 

@@ -14,7 +14,7 @@ public class UI_ToolTIp : MonoBehaviour
         
     }
 
-    void SetTooltipText()
+    void SetTooltipText(int in_index)
     {
 
     }
