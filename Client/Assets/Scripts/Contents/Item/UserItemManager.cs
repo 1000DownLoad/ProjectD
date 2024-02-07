@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using ItemData = System.Collections.Generic.Dictionary<ItemType, long>;
 
+public enum ItemType
+{
+    NONE,
+    Weapon,
+    Armor,
+    Shoes,
+    Accessories,
+}
 
 public class UserItemManager : TSingleton<UserItemManager>
 {

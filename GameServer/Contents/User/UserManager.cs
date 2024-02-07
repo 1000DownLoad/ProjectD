@@ -44,6 +44,7 @@ public class UserManager : TSingleton<UserManager>
     {
         // 유저 초기 필요 데이터 추가
         UserResourceManager.Instance.CreateUserInitData(in_use_id);
+        UserItemManager.Instance.CreateUserInitData(in_use_id);
     }
 
     public bool InsertUser(UserInfo in_user)
@@ -126,6 +127,7 @@ public class UserManager : TSingleton<UserManager>
             return;
 
         UserResourceManager.Instance.FetchDB(in_user_id);
+        UserItemManager.Instance.FetchDB(in_user_id);
     }
 
     public void UserDataClear(long in_user_id)

@@ -1,17 +1,9 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
-using UniRx;
 
 
-public enum ItemType
-{
-    NONE,
-    Weapon,
-    Armor,
-    Shoes,
-    Accessories, 
-}
+
 
 class GUI_Inventory : GUIBase
 {
