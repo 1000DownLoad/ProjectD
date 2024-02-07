@@ -5,6 +5,24 @@ namespace Protocol
 {
     public partial class ProtocolBinder
     {
+        public static void GS_USER_AUTH_TOKEN_REQ(string in_message)
+        {
+            var req = JsonConvert.DeserializeObject<GS_USER_AUTH_TOKEN_REQ>(in_message);
+            if (req == null)
+                return;
+
+            // 유저 정보 확인
+            var user = UserManager.Instance.GetUserByAccountID(req.AccountID);
+            if (user == null)
+                return;
+
+            var ack = new GS_USER_AUTH_TOKEN_ACK();
+            ack.Result = 1;
+            ack.AuthToken = FirebaseManager.Instance.CreateAuthToken(req.AccountID).Result;
+
+            WebSocketServer.Instance.Send<GS_USER_AUTH_TOKEN_ACK>(user.user_id, PROTOCOL.GS_USER_AUTH_TOKEN_ACK, ack);
+        }
+
         public static void GS_USER_LOGIN_REQ(string in_message)
         {
             var req = JsonConvert.DeserializeObject<GS_USER_LOGIN_REQ>(in_message);
@@ -23,7 +41,7 @@ namespace Protocol
             ack.Exp = user.exp;
             ack.Result = 1;
 
-            WebSocketServer.Instance.Send<GS_USER_LOGIN_ACK>(ack.UserID, PROTOCOL.GS_USER_LOGIN_ACK, ack);
+            WebSocketServer.Instance.Send<GS_USER_LOGIN_ACK>(user.user_id, PROTOCOL.GS_USER_LOGIN_ACK, ack);
         }
 
         public static void GS_USER_BASE_INFO_GET_REQ(string in_message)
@@ -64,6 +82,7 @@ namespace Protocol
 
         public void RegisterUserHandler()
         {
+            WebSocketServer.Instance.RegisterProtocolHandler(PROTOCOL.GS_USER_AUTH_TOKEN_REQ, GS_USER_AUTH_TOKEN_REQ);
             WebSocketServer.Instance.RegisterProtocolHandler(PROTOCOL.GS_USER_LOGIN_REQ, GS_USER_LOGIN_REQ);
             WebSocketServer.Instance.RegisterProtocolHandler(PROTOCOL.GS_USER_BASE_INFO_GET_REQ, GS_USER_BASE_INFO_GET_REQ);
             WebSocketServer.Instance.RegisterProtocolHandler(PROTOCOL.GS_USER_COMMAND_REQ, GS_USER_COMMAND_REQ);

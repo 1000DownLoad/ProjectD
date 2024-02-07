@@ -1,4 +1,15 @@
-﻿public class GS_USER_LOGIN_REQ
+﻿public class GS_USER_AUTH_TOKEN_REQ
+{
+    public string AccountID;
+}
+
+public class GS_USER_AUTH_TOKEN_ACK
+{
+    public int Result;
+    public string AuthToken;
+}
+
+public class GS_USER_LOGIN_REQ
 {
     public string AccountID;
 }

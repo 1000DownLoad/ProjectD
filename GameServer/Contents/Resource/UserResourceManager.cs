@@ -87,17 +87,17 @@ class UserResourceManager : TSingleton<UserResourceManager>
             data.Add(resource_data.Key.ToString(), resource_data.Value);
         }
 
-        DataBaseManager.Instance.UpdateField("T_Resource_Info", in_user_id.ToString(), data);
+        DatabaseManager.Instance.UpdateField("T_Resource_Info", in_user_id.ToString(), data);
     }
 
     public void UpdateDB(long in_user_id, ResourceType in_type)
     {
-        DataBaseManager.Instance.UpdateField("T_Resource_Info", in_user_id.ToString(), in_type.ToString(), GetResourceCount(in_user_id, in_type));
+        DatabaseManager.Instance.UpdateField("T_Resource_Info", in_user_id.ToString(), in_type.ToString(), GetResourceCount(in_user_id, in_type));
     }
 
     public void FetchDB(long in_user_id)
     {
-        var resource_datas = DataBaseManager.Instance.GetDocumentData("T_Resource_Info", in_user_id.ToString());
+        var resource_datas = DatabaseManager.Instance.GetDocumentData("T_Resource_Info", in_user_id.ToString());
         if (resource_datas == null)
             return;
 

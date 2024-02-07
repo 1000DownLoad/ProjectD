@@ -11,6 +11,8 @@ namespace Protocol
     {
         NONE,
 
+        GS_USER_AUTH_TOKEN_REQ,
+        GS_USER_AUTH_TOKEN_ACK,
         GS_USER_LOGIN_REQ,
         GS_USER_LOGIN_ACK,
         GS_USER_BASE_INFO_GET_REQ,

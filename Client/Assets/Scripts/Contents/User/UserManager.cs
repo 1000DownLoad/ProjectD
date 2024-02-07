@@ -14,6 +14,7 @@ public class UserManager : TSingleton<UserManager>
 {
     private UserInfo m_user = null;
     public bool m_is_init_data = false;
+    public string m_auth_token = string.Empty;
 
     public void SetUser(UserInfo in_user_info)
     {
