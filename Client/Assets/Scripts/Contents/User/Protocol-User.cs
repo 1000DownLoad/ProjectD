@@ -6,6 +6,18 @@ namespace Protocol
 {
     public partial class ProtocolBinder
     {
+        public static void GS_USER_AUTH_TOKEN_ACK(string in_message)
+        {
+            var ack = JsonConvert.DeserializeObject<GS_USER_AUTH_TOKEN_ACK>(in_message);
+            if (ack == null)
+                return;
+
+            UserManager.Instance.m_auth_token = ack.AuthToken;
+
+            // 인증 토큰으로 로그인
+            FirebaseManager.Instance.LoginWithCustomToken(ack.AuthToken);
+        }
+
         public static void GS_USER_LOGIN_ACK(string in_message)
         {
             var ack = JsonConvert.DeserializeObject<GS_USER_LOGIN_ACK>(in_message);
@@ -56,6 +68,7 @@ namespace Protocol
 
         public void RegisterUserHandler()
         {
+            WebSocketClient.Instance.RegisterProtocolHandler(PROTOCOL.GS_USER_AUTH_TOKEN_ACK, GS_USER_AUTH_TOKEN_ACK);
             WebSocketClient.Instance.RegisterProtocolHandler(PROTOCOL.GS_USER_LOGIN_ACK, GS_USER_LOGIN_ACK);
             WebSocketClient.Instance.RegisterProtocolHandler(PROTOCOL.GS_USER_BASE_INFO_GET_ACK, GS_USER_BASE_INFO_GET_ACK);
             WebSocketClient.Instance.RegisterProtocolHandler(PROTOCOL.GS_USER_COMMAND_ACK, GS_USER_COMMAND_ACK);

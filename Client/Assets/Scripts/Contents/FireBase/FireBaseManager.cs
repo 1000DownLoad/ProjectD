@@ -3,6 +3,8 @@ using Framework;
 using Firebase;
 using Firebase.Auth;
 using Google;
+using Firebase.Extensions;
+using System;
 
 public class FirebaseManager : TSingleton<FirebaseManager>
 {
@@ -24,6 +26,14 @@ public class FirebaseManager : TSingleton<FirebaseManager>
                 m_firebase_auth = FirebaseAuth.DefaultInstance;
             }
         });
+    }
+
+    public void LogOut()
+    {
+        if (m_firebase_auth == null)
+            return;
+
+        m_firebase_auth.SignOut();
     }
 
     public bool IsFireBaseLogin()
@@ -115,6 +125,18 @@ public class FirebaseManager : TSingleton<FirebaseManager>
         Credential credential = GoogleAuthProvider.GetCredential(in_idToken, null);
 
         m_firebase_auth.SignInWithCredentialAsync(credential).ContinueWith(task =>
+        {
+            if (task.IsCanceled || task.IsFaulted)
+                return;
+        });
+    }
+
+    public void LoginWithCustomToken(string in_auth_Token)
+    {
+        if (m_firebase_auth == null)
+            return;
+
+        m_firebase_auth.SignInWithCustomTokenAsync(in_auth_Token).ContinueWithOnMainThread(task =>
         {
             if (task.IsCanceled || task.IsFaulted)
                 return;

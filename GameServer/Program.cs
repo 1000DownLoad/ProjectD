@@ -14,8 +14,11 @@ namespace GameServer
             // DataTable Load
             UserDataTable.Instance.LoadDataTable();
 
-            // DataBase Initialize
-            DataBaseManager.Instance.Initialize();
+            // FireBase Initialize
+            FirebaseManager.Instance.Initialize();
+
+            // Database Initialize
+            DatabaseManager.Instance.Initialize();
 
             // ProtocolBinder Initialize
             ProtocolBinder.Instance.Initialize();

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace DataBase
 {
-    public partial class DataBaseManager : TSingleton<DataBaseManager>
+    public partial class DatabaseManager : TSingleton<DatabaseManager>
     {
         private FirestoreDb m_firestore_DB;
 

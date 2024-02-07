@@ -92,12 +92,12 @@ public class UserManager : TSingleton<UserManager>
                 { "Exp", user.exp },
             };
 
-        DataBaseManager.Instance.UpdateField("T_User_Info", user.account_id, data);
+        DatabaseManager.Instance.UpdateField("T_User_Info", user.account_id, data);
     }
 
     public UserInfo FetchDB(string in_account_id)
     {
-        var user_data = DataBaseManager.Instance.GetDocumentData("T_User_Info", in_account_id);
+        var user_data = DatabaseManager.Instance.GetDocumentData("T_User_Info", in_account_id);
         if (user_data != null)
         {
             var db_user_info = new UserInfo();

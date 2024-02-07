@@ -5,7 +5,9 @@ using Protocol;
 
 class GameTask_GameLogin : Task
 {
+    private bool is_firebase_login = false;
     private bool is_check_network = false;
+    private bool is_send_user_auth_token = false;
     private bool is_send_user_login = false;
     private bool is_send_user_base_info = false;
 
@@ -18,9 +20,6 @@ class GameTask_GameLogin : Task
     {
         Action button_action = () =>
         {
-            //FirebaseManager.Instance.LoginAnonymous();
-            //FirebaseManager.Instance.LoginWithGoogle();
-
             GUIManager.Instance.CloseGUI<GUI_Login>();
             GUIManager.Instance.OpenGUI<GUI_Loading>(new GUI_Loading.OpenParam("LobbyScene"));
         };
@@ -32,7 +31,15 @@ class GameTask_GameLogin : Task
     {
         // 파이어 베이스 연결 확인
         if (FirebaseManager.Instance.IsUserLogin() == false)
+        {
+            if(is_firebase_login == false)
+            {
+                FirebaseManager.Instance.LoginAnonymous();
+                is_firebase_login = true;
+            }
+
             return;
+        }
 
         string firebase_uid = FirebaseManager.Instance.GetUID();
         if (firebase_uid == string.Empty)
@@ -51,6 +58,20 @@ class GameTask_GameLogin : Task
 
         // 연결 체크
         if (WebSocketClient.Instance.GetSocketState() != System.Net.WebSockets.WebSocketState.Open)
+            return;
+
+        // 인증 토큰 요청
+        if (is_send_user_auth_token == false)
+        {
+            var user_auth_token_req = new GS_USER_AUTH_TOKEN_REQ();
+            user_auth_token_req.AccountID = FirebaseManager.Instance.GetUID();
+            WebSocketClient.Instance.Send<GS_USER_AUTH_TOKEN_REQ>(PROTOCOL.GS_USER_AUTH_TOKEN_REQ, user_auth_token_req);
+
+            is_send_user_auth_token = true;
+        }
+
+        // 인증 토큰 확인
+        if (UserManager.Instance.m_auth_token == string.Empty)
             return;
 
         // 유저 로그인 요청

@@ -89,17 +89,17 @@ class UserResourceManager : TSingleton<UserResourceManager>
         }
 
         // 현재 DB.Collection.Document 의 값이 string 이라 user id 를 문자열로 넘겨준다.
-        DataBaseManager.Instance.UpdateField("T_Resource_Info", in_user_id.ToString(), data);
+        DatabaseManager.Instance.UpdateField("T_Resource_Info", in_user_id.ToString(), data);
     }
 
     public void UpdateDB(long in_user_id, ResourceType in_type)
     {
-        DataBaseManager.Instance.UpdateField("T_Resource_Info", in_user_id.ToString(), in_type.ToString(), GetResourceCount(in_user_id, in_type));
+        DatabaseManager.Instance.UpdateField("T_Resource_Info", in_user_id.ToString(), in_type.ToString(), GetResourceCount(in_user_id, in_type));
     }
 
     public void FetchDB(long in_user_id)
     {
-        var resource_datas = DataBaseManager.Instance.GetDocumentData("T_Resource_Info", in_user_id.ToString());
+        var resource_datas = DatabaseManager.Instance.GetDocumentData("T_Resource_Info", in_user_id.ToString());
         if (resource_datas == null)
             return;
 
