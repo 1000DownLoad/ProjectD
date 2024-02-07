@@ -9,7 +9,7 @@ public enum ResourceType
     NONE,
     GEM,
     GOLD,
-    ENERGY,
+    FATIGUE,
 }
 
 namespace DataTable

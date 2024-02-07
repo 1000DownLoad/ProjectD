@@ -4,7 +4,6 @@ using Network;
 using DataBase;
 using DataTable;
 using Protocol;
-using Account;
 
 namespace GameServer
 {
@@ -13,13 +12,16 @@ namespace GameServer
         static async Task Main(string[] args)
         {
             // DataTable Load
-            AccountDataTable.Instance.LoadDataTable();
+            UserDataTable.Instance.LoadDataTable();
 
             // DataBase Initialize
             DataBaseManager.Instance.Initialize();
 
             // ProtocolBinder Initialize
             ProtocolBinder.Instance.Initialize();
+
+            // CommandManager Initialize
+            CommandManager.Instance.Initialize();
 
             // Socket
             await WebSocketServer.Instance.Initialize();

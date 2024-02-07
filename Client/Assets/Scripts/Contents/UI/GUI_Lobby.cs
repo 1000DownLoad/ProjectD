@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Framework.Event;
 using Network;
 using Protocol;
-using Account;
 
 class GUI_Lobby : GUIBase
 {
@@ -29,14 +29,27 @@ class GUI_Lobby : GUIBase
         }
     }
 
-    private void Awake()
+    public override void OnEventHandle(EventData in_data)
     {
+        var user_data = in_data as EVENT_USER_DATA_UPDATE;
+        if (user_data != null)
+        {
+            RefreshText();
+        }
+    }
+
+    public override void Init()
+    {
+        base.Init();
+
+        GUIManager.Instance.SubscribeEvnet(typeof(EVENT_USER_DATA_UPDATE));
+
         m_inventory_button.onClick.AddListener(OnInventoryButtonClick);
         m_stage_button.onClick.AddListener(OnStageButtonClick);
         m_battle_button.onClick.AddListener(OnBattleButtonClick);
     }
 
-    override public void Open(IGUIOpenParam in_param)
+    public override void Open(IGUIOpenParam in_param)
     {
         base.Open(in_param);
 
@@ -51,35 +64,35 @@ class GUI_Lobby : GUIBase
 
     private void RefreshText()
     {
-        var account_info = AccountManager.Instance.GetAccountInfo();
-        if (account_info == null)
+        var user = UserManager.Instance.GetUser();
+        if (user == null)
             return;
 
-        m_account_level_text.SetText(account_info.level.ToString());
+        m_account_level_text.SetText(user.level.ToString());
 
-        var account_data = DataTable.AccountDataTable.Instance.GetAccountTableData(account_info.level);
-        if(account_data != null)
+        var user_level_data = DataTable.UserDataTable.Instance.GetLevelTableData(user.level);
+        if(user_level_data != null)
         {
-            m_account_exp_text.SetText(string.Format("{0}/{1}", Util.UI.SeparatorConvert(account_info.cur_exp), Util.UI.SeparatorConvert(account_data.max_exp)));
+            m_account_exp_text.SetText(string.Format("{0}/{1}", Util.UI.SeparatorConvert(user.exp), Util.UI.SeparatorConvert(user_level_data.exp)));
 
-            var energy_data = ResourceManager.Instance.GetResourceData(ResourceType.ENERGY);
-            if (energy_data != null)
-                m_resource_energy_text.SetText(string.Format("{0}/{1}", Util.UI.SeparatorConvert(energy_data.count), Util.UI.SeparatorConvert(account_data.max_energy)));
+            var energy_count = UserResourceManager.Instance.GetResourceCount(ResourceType.FATIGUE);
+            if (energy_count != 0)
+                m_resource_energy_text.SetText(string.Format("{0}/{1}", Util.UI.SeparatorConvert(energy_count), Util.UI.SeparatorConvert(user_level_data.fatigue_point)));
             else
                 m_resource_energy_text.SetText(string.Format("0"));
 
-            RefreshSlider(account_info.cur_exp / (float)account_data.max_exp);
+            RefreshSlider(user.exp / (float)user_level_data.exp);
         }
 
-        var gem_data = ResourceManager.Instance.GetResourceData(ResourceType.GEM);
-        if (gem_data != null)
-            m_resource_gem_text.SetText(Util.UI.SeparatorConvert(gem_data.count));
+        var gem_count = UserResourceManager.Instance.GetResourceCount(ResourceType.GEM);
+        if (gem_count != 0)
+            m_resource_gem_text.SetText(Util.UI.SeparatorConvert(gem_count));
         else
             m_resource_gem_text.SetText(string.Format("0"));
 
-        var gold_data = ResourceManager.Instance.GetResourceData(ResourceType.GOLD);
-        if(gold_data != null)
-            m_resource_gold_text.SetText(Util.UI.SeparatorConvert(gold_data.count));
+        var gold_count = UserResourceManager.Instance.GetResourceCount(ResourceType.GOLD);
+        if(gold_count != 0)
+            m_resource_gold_text.SetText(Util.UI.SeparatorConvert(gold_count));
         else
             m_resource_gold_text.SetText(string.Format("0"));
     }

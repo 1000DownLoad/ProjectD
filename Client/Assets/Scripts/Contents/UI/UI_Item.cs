@@ -13,7 +13,9 @@ public class UI_Item : MonoBehaviour
     [SerializeField] private Image itemIcon;
     [SerializeField] private TextMeshProUGUI itemCount;
     [SerializeField] private GameObject selectedObj;
+    [SerializeField] private GameObject tooltipObj;
     private bool isSelected = false;
+    private int _itemIndex = 0;
 
     void Awake()
     {
@@ -29,6 +31,8 @@ public class UI_Item : MonoBehaviour
     private void OnClickItemButton()
     {
         selectedObj.SetActive(!isSelected);
+        tooltipObj.SetActive(!isSelected);
+        tooltipObj.GetComponent<UI_ToolTIp>().SetTooltipText(_itemIndex);
         isSelected = !isSelected;
     }
 
@@ -41,6 +45,7 @@ public class UI_Item : MonoBehaviour
             {
                 var item = ItemDataTable.Instance.GetCommonItemData(ItemType.Weapon);
                 itemIcon.sprite = Resources.Load<Sprite>($"UI/Sprites/{item.sprite_name}");
+                _itemIndex = item.item_index;
             }
             break;
             
@@ -48,22 +53,26 @@ public class UI_Item : MonoBehaviour
             {
                 var item = ItemDataTable.Instance.GetCommonItemData(ItemType.Armor);
                 itemIcon.sprite = Resources.Load<Sprite>($"UI/Sprites/{item.sprite_name}");
+                _itemIndex = item.item_index;
             }
-            break;
+                break;
             
             case ItemType.Shoes:
             {
                 var item = ItemDataTable.Instance.GetCommonItemData(ItemType.Shoes);
                 itemIcon.sprite = Resources.Load<Sprite>($"UI/Sprites/{item.sprite_name}");
+                _itemIndex = item.item_index;
             }
-            break;
+                break;
             
             case ItemType.Accessories:
             {
                 var item = ItemDataTable.Instance.GetCommonItemData(ItemType.Accessories);
                 itemIcon.sprite = Resources.Load<Sprite>($"UI/Sprites/{item.sprite_name}");
+                _itemIndex = item.item_index;
+
             }
-            break;
+                break;
         }
     }
 }

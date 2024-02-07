@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Framework.Event;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,27 +24,46 @@ class GUIBase : MonoBehaviour
     [SerializeField] public Button   m_back_button;
     [SerializeField] public Button   m_home_button;
 
-    virtual public void Open(IGUIOpenParam in_param)
+    protected void Awake()
+    {
+        Init();
+    }
+
+    public virtual void Init()
+    {
+        if(m_back_button != null)
+            m_back_button.onClick.AddListener(OnBackButtonClick);
+
+        if (m_home_button != null)
+            m_home_button.onClick.AddListener(OnHomeButtonClick);
+    }
+
+    public virtual void Open(IGUIOpenParam in_param)
     {
 
     }
 
-    virtual public void OpenPopup(IGUIOpenParam in_param)
+    public virtual void OpenPopup(IGUIOpenParam in_param)
     {
         
     }
 
-    virtual public void Close()
+    public virtual void OnEventHandle(EventData in_data)
+    {
+
+    }
+
+    public virtual void Close()
     {
         Destroy(this.gameObject);
     }
 
-    virtual public void OnBackButtonClick()
+    public virtual void OnBackButtonClick()
     {
         GUIManager.Instance.OpenPreviousGUI();
     }
 
-    virtual public void OnHomeButtonClick()
+    public virtual void OnHomeButtonClick()
     {
         GUIManager.Instance.OpenRootGUI();
     }

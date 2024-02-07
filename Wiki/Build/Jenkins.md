@@ -31,7 +31,7 @@
 1. Github push 시 웹콜 전송.
 2. 젠킨스 ProjectD 에서 웹콜의 브랜치를 체크 및 빌드 진행
 	1. Build Step - Invoke Unity Editor
-	2. 유니티의 Editor 스크립트 메소드를 실행시켜준다.
+	2. 유니티의 Editor 스크립트 메소드를 실행시켜준다. ![EditorBuildScript](https://github.com/1000DownLoad/ProjectD/blob/Dev/Wiki/Build/EditorBuildScript.md)
 		```
 		-quit -batchmode  -stackTraceLogType Full -projectPath '$WORKSPACE/Client' -executeMethod BuildScript.AndroidBuild -buildTarget Android -usedebug true
 		```

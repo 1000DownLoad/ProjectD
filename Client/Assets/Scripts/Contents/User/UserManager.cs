@@ -2,31 +2,39 @@
 using System.Collections.Generic;
 using Framework;
 
-namespace User
+public class UserInfo
 {
-    public class UserInfo
+    public string account_id;
+    public long user_id;
+    public int level;
+    public long exp;
+}
+
+public class UserManager : TSingleton<UserManager>
+{
+    private UserInfo m_user = null;
+    public bool m_is_init_data = false;
+
+    public void SetUser(UserInfo in_user_info)
     {
-        public long user_id;
-        public bool is_init_data = false;
+        m_user = in_user_info;
     }
 
-    public class UserManager : TSingleton<UserManager>
+    public void SetInitData(bool in_init_data)
     {
-        private UserInfo m_user = new UserInfo();
+        m_is_init_data = in_init_data;
+    }
 
-        public void SetUserID(long in_user_id)
-        {
-            m_user.user_id = in_user_id;
-        }
+    public void UpdateUser(string in_account_id, long in_user_id, int in_level, long in_exp)
+    {
+        m_user.account_id = in_account_id;
+        m_user.user_id = in_user_id;
+        m_user.level = in_level;
+        m_user.exp = in_exp;
+    }
 
-        public void SetUserInitData(bool in_user_init_data)
-        {
-            m_user.is_init_data = in_user_init_data;
-        }
-
-        public UserInfo GetUser()
-        {
-            return m_user;
-        }
+    public UserInfo GetUser()
+    {
+        return m_user;
     }
 }
