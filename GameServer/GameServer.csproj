@@ -255,6 +255,10 @@
   <ItemGroup>
     <Compile Include="Contents\DataTable\DataTable-User.cs" />
     <Compile Include="Contents\DataTable\DataTable_Resource.cs" />
+    <Compile Include="Contents\DataTable\DataTable_Item.cs" />
+    <Compile Include="Contents\Item\Protocol-Item.cs" />
+    <Compile Include="Contents\Item\UserItemManager.cs" />
+    <Compile Include="Contents\Network\Protocol-Struct\GS_ITEM.cs" />
     <Compile Include="Contents\Network\Protocol-Struct\GS_RESOURCE.cs" />
     <Compile Include="Contents\Resource\Protocol-Resource.cs" />
     <Compile Include="Contents\Resource\UserResourceManager.cs" />

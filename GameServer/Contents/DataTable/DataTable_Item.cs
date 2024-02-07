@@ -1,7 +1,16 @@
+ï»¿using System;
 using System.Collections.Generic;
 using FlexFramework.Excel;
 using Framework.DataTable;
-using UnityEngine;
+
+public enum ItemType
+{
+    NONE,
+    Weapon,
+    Armor,
+    Shoes,
+    Accessories,
+}
 
 namespace DataTable
 {
@@ -14,20 +23,20 @@ namespace DataTable
         public string description;
     }
 
-    // Å¸ÀÔ°ú ¿¢¼¿ Å×ÀÌºí ¸íÄªÀ» ¸ÂÃçÁÖ¼¼¿ä.
+    // íƒ€ì…ê³¼ ì—‘ì…€ í…Œì´ë¸” ëª…ì¹­ì„ ë§ì¶°ì£¼ì„¸ìš”.
     public class ItemDataTable : DataTableBase<ItemDataTable>, IDataTable
     {
         #region CONST
 
-         public int CONST_FATIGUE_RECOVER_TIME { get; private set; }
+        public int CONST_FATIGUE_RECOVER_TIME { get; private set; }
 
         #endregion
 
 
-        // ÇÑ¹ø µ¥ÀÌÅÍ°¡ ¾²ÀÌ¸é º¯°æÇÒ¼ö ¾ø´Ù.
-        // Clear ±İÁö.
+        // í•œë²ˆ ë°ì´í„°ê°€ ì“°ì´ë©´ ë³€ê²½í• ìˆ˜ ì—†ë‹¤.
+        // Clear ê¸ˆì§€.
 
-        // item ½ÃÆ® µ¥ÀÌÅÍ.
+        // item ì‹œíŠ¸ ë°ì´í„°.
         private Dictionary<ItemType, ItemData> m_common_item_data;
         private Dictionary<int, ItemData> m_common_item_data_by_index;
 
@@ -40,11 +49,12 @@ namespace DataTable
         {
             WorkBook book = GetCommonRowData();
 
-            // CONST ¸¦ °¡Àå¸ÕÀú ¼¼ÆÃÇÕ´Ï´Ù.
+            // CONST ë¥¼ ê°€ì¥ë¨¼ì € ì„¸íŒ…í•©ë‹ˆë‹¤.
             if (book.Contains("CONST") == false)
             {
-                Debug.LogError("ItemDataTable - CONST sheet not found");
-                Application.Quit();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error ItemDataTable - CONST sheet not found");
+                Console.ResetColor();
             }
 
             book.Foreach("CONST", ParseConstRowData);
@@ -52,18 +62,19 @@ namespace DataTable
 
             if (book.Contains("ITEM") == false)
             {
-                Debug.LogError("ItemDataTable - ITEM sheet not found");
-                Application.Quit();
-            }  
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error ItemDataTable - ITEM sheet not found");
+                Console.ResetColor();
+            }
 
-            // Capacity ¸¦ ÁöÁ¤ÇÏ¿© µñ¼Å³Ê¸® »ı¼º.
+            // Capacity ë¥¼ ì§€ì •í•˜ì—¬ ë”•ì…”ë„ˆë¦¬ ìƒì„±.
             m_common_item_data = new Dictionary<ItemType, ItemData>(book.GetRowCount("ITEM"));
             m_common_item_data_by_index = new Dictionary<int, ItemData>(book.GetRowCount("ITEM"));
 
-            // µğ¹ö±ëÀÌ ½±µµ·Ï ¶÷´Ù¸»°í ÇÔ¼ö¸¦ ³Ö¾îÁÖ¼¼¿ä.
+            // ë””ë²„ê¹…ì´ ì‰½ë„ë¡ ëŒë‹¤ë§ê³  í•¨ìˆ˜ë¥¼ ë„£ì–´ì£¼ì„¸ìš”.
             book.Foreach("ITEM", ParseCommonItemRowData);
 
-            // ÇÊ¿ä¿¡ µû¶ó Ãß°¡ÇØÁÖ¼¼¿ä.
+            // í•„ìš”ì— ë”°ë¼ ì¶”ê°€í•´ì£¼ì„¸ìš”.
         }
 
         public ItemData GetCommonItemData(ItemType in_item_type)
@@ -75,32 +86,32 @@ namespace DataTable
 
         public ItemData GetItemDataByIndex(int in_item_index)
         {
-            m_common_item_data_by_index.TryGetValue(in_item_index, out var out_data); 
-            
+            m_common_item_data_by_index.TryGetValue(in_item_index, out var out_data);
+
             return out_data;
         }
 
-        public void ParseConstRowData(Row in_row) 
+        public void ParseConstRowData(Row in_row)
         {
-            // ¿©±â¼­ ¿¡·¯°¡ ¹ß»ıÇÑ´Ù¸é ¿¢¼¿ ¾²·¹±â°ªÀ» È®ÀÎÇØº¸ÀÚ.
+            // ì—¬ê¸°ì„œ ì—ëŸ¬ê°€ ë°œìƒí•œë‹¤ë©´ ì—‘ì…€ ì“°ë ˆê¸°ê°’ì„ í™•ì¸í•´ë³´ì.
             var name = in_row[0].String;
             switch (name)
             {
                 case "CONST_FATIGUE_RECOVER_TIME":
-                {
-                    CONST_FATIGUE_RECOVER_TIME = in_row[1].Integer;
-                    break;
-                }
+                    {
+                        CONST_FATIGUE_RECOVER_TIME = in_row[1].Integer;
+                        break;
+                    }
                 default:
-                    // ÀÏÄ¡ÇÏ´Â°Ô ¾ø´Ù¸é µ¥ÀÌÅÍ ¿À·ù!
-                    Application.Quit();
+                    // ì¼ì¹˜í•˜ëŠ”ê²Œ ì—†ë‹¤ë©´ ë°ì´í„° ì˜¤ë¥˜!
+                    //TODO: ì—ëŸ¬ ì˜ˆì™¸ì²˜ë¦¬ ì¶”ê°€
                     break;
             }
         }
 
-        public void ParseCommonItemRowData(Row in_row) 
+        public void ParseCommonItemRowData(Row in_row)
         {
-            // ¿©±â¼­ ¿¡·¯°¡ ¹ß»ıÇÑ´Ù¸é ¿¢¼¿ ¾²·¹±â°ªÀ» È®ÀÎÇØº¸ÀÚ.
+            // ì—¬ê¸°ì„œ ì—ëŸ¬ê°€ ë°œìƒí•œë‹¤ë©´ ì—‘ì…€ ì“°ë ˆê¸°ê°’ì„ í™•ì¸í•´ë³´ì.
             var item_data = new ItemData();
             item_data.item_type = (ItemType)in_row[0].Integer;
             item_data.item_index = in_row[1].Integer;
@@ -111,8 +122,7 @@ namespace DataTable
             m_common_item_data.Add(item_data.item_type, item_data);
             m_common_item_data_by_index.Add(item_data.item_index, item_data);
         }
-
-    } 
+    }
 }
 
 
