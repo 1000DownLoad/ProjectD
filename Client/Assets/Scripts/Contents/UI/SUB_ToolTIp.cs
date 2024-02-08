@@ -4,7 +4,7 @@ using DataTable;
 using TMPro;
 using UnityEngine;
 
-public class UI_ToolTIp : MonoBehaviour
+public class SUB_ToolTIp : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI itemDescription;
 

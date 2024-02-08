@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_Item : MonoBehaviour
+public class SUB_Item : MonoBehaviour
 {
     [SerializeField] private Button button;
     [SerializeField] private Image itemBg;
@@ -32,7 +32,7 @@ public class UI_Item : MonoBehaviour
     {
         selectedObj.SetActive(!isSelected);
         tooltipObj.SetActive(!isSelected);
-        tooltipObj.GetComponent<UI_ToolTIp>().SetTooltipText(_itemIndex);
+        tooltipObj.GetComponent<SUB_ToolTIp>().SetTooltipText(_itemIndex);
         isSelected = !isSelected;
     }
 

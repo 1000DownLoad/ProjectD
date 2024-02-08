@@ -53,6 +53,8 @@ class UserItemManager : TSingleton<UserItemManager>
             return out_item_data;
 
         ItemData new_item_data = new ItemData();
+        new_item_data.Add(1, 1);
+
         bool ret = m_user_item_data.TryAdd(in_user_id, new_item_data);
 
         if (false == ret)
@@ -80,7 +82,7 @@ class UserItemManager : TSingleton<UserItemManager>
             return;
 
         Dictionary<string, object> data = new Dictionary<string, object>();
-        foreach (var item_data in data)
+        foreach (var item_data in out_item_data)
         {
             data.Add(item_data.Key.ToString(), item_data.Value);
         }
