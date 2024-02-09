@@ -7,8 +7,8 @@ namespace Framework.DataTable
 
     public static class GlobalDataTablePath
     {
-        public readonly static string COMMON_DATA_PATH = Path.Combine("..", "..", "..", "DataTable", "Common");
-        public readonly static string SERVER_DATA_PATH = Path.Combine("..", "..", "..", "DataTable", "Server");
+        public readonly static string COMMON_DATA_PATH = Path.Combine("..", "..", "..", "..", "DataTable", "Common");
+        public readonly static string SERVER_DATA_PATH = Path.Combine("..", "..", "..", "..", "DataTable", "Server");
         // 클라는 서버에서 필요하지 않아 추가 안함.
 
         public readonly static string DATA_EXTENSION = ".xlsx";
@@ -32,6 +32,7 @@ namespace Framework.DataTable
             byte[] bytes = new byte[fs.Length];
             fs.Read(bytes, 0, (int)fs.Length);
 
+            fs.Close();
             book = new WorkBook(bytes);
 
             // 개발 단계에서 확실하게 체크하기위해

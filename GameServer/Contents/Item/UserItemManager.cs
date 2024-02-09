@@ -87,17 +87,17 @@ class UserItemManager : TSingleton<UserItemManager>
             data.Add(item_data.Key.ToString(), item_data.Value);
         }
 
-        DataBaseManager.Instance.UpdateField("T_Item_Info", in_user_id.ToString(), data);
+        DatabaseManager.Instance.UpdateField("T_Item_Info", in_user_id.ToString(), data);
     }
 
     public void UpdateDB(long in_user_id, long in_item_index)
     {
-        DataBaseManager.Instance.UpdateField("T_Item_Info", in_user_id.ToString(), in_item_index.ToString(), GetItemCount(in_user_id,in_item_index));
+        DatabaseManager.Instance.UpdateField("T_Item_Info", in_user_id.ToString(), in_item_index.ToString(), GetItemCount(in_user_id,in_item_index));
     }
 
     public void FetchDB(long in_user_id)
     {
-        var item_data = DataBaseManager.Instance.GetDocumentData("T_Item_Info", in_user_id.ToString());
+        var item_data = DatabaseManager.Instance.GetDocumentData("T_Item_Info", in_user_id.ToString());
         if(item_data == null)
             return;
 
