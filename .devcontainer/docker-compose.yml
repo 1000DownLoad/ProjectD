@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  project-d-dev-container:
+    image: mcr.microsoft.com/dotnet/core/aspnet:3.1-bionic
+    init: true
+    privileged: true
+    command: sleep infinity
+    volumes:
+      - ..:/home/vscode/workspace:cached
