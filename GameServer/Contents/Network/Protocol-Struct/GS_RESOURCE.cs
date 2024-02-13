@@ -1,13 +1,6 @@
 ﻿using System.Collections.Generic;
 
-public class GS_USER_RESOURCE_FETCH_REQ
+public class GS_USER_RESOURCE_UPDATE_NFY
 {
-    public long UserID;
-}
-
-public class GS_USER_RESOURCE_FETCH_ACK
-{
-    public long UserID;
-
-    public Dictionary<ResourceType, long> FetchDatas;
+    public Dictionary<ResourceType, long> UpdateDatas;
 }

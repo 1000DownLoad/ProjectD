@@ -53,6 +53,16 @@ namespace Protocol
             var ack = new GS_USER_BASE_INFO_GET_ACK();
             ack.Result = 1;
 
+            // 유저 자원 데이터
+            var resource_datas = UserResourceManager.Instance.GetResourceDatas(req.UserID);
+            if (resource_datas != null)
+                ack.ResourceDatas = resource_datas;
+
+            // 유저 아이템 데이터
+            var item_datas = UserItemManager.Instance.GetItemDatas(req.UserID);
+            if (item_datas != null)
+                ack.ItemDatas = item_datas;
+
             WebSocketServer.Instance.Send<GS_USER_BASE_INFO_GET_ACK>(req.UserID, PROTOCOL.GS_USER_BASE_INFO_GET_ACK, ack);
         }
 

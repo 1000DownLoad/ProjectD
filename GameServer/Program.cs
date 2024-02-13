@@ -11,8 +11,8 @@ namespace GameServer
     {
         static async Task Main(string[] args)
         {
-            // DataTable Load
-            UserDataTable.Instance.LoadDataTable();
+            // DataTable Initialize
+            DataTableManager.Instance.Initialize();
 
             // FireBase Initialize
             FirebaseManager.Instance.Initialize();

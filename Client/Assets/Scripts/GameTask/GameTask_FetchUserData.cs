@@ -6,15 +6,10 @@ using Protocol;
 
 class GameTask_FetchUserData : Task
 {
-    private bool try_fetch_user_resource = false;
-
-    public override void OnAddTask() {}
+    private bool is_send_user_base_info = false;
 
     public override void OnAwake()
     {
-        // 최초 시작단계에서 관련 프로퍼티 초기화.
-        try_fetch_user_resource = false;
-
 
     }
 
@@ -22,34 +17,23 @@ class GameTask_FetchUserData : Task
     {
         var user = UserManager.Instance.GetUser();
         if (user == null) 
-        {
-            Debug.LogError("GameTask_FetchUserData - try_fetch_user_resource, user is null");
             return;
+
+        // 유저 기본 정보 요청
+        if (is_send_user_base_info == false)
+        {
+            var user_req = new GS_USER_BASE_INFO_GET_REQ();
+            user_req.UserID = user.user_id;
+            WebSocketClient.Instance.Send<GS_USER_BASE_INFO_GET_REQ>(PROTOCOL.GS_USER_BASE_INFO_GET_REQ, user_req);
+
+            is_send_user_base_info = true;
         }
 
-        if (TryFetchResourceData(user.user_id) == false)
+        // 유저 정보 초기화 체크
+        if (UserManager.Instance.m_is_init_data == false)
             return;
 
         Complete(ETaskState.Success);
-    }
-
-    private bool TryFetchResourceData(long in_user_id)
-    {
-        // 일정 시간 간격으로 Try 하는 로직이 필요.
-        if (try_fetch_user_resource == false) 
-        {            
-            var req = new GS_USER_RESOURCE_FETCH_REQ();
-            req.UserID = in_user_id;
-
-            WebSocketClient.Instance.Send<GS_USER_RESOURCE_FETCH_REQ>(PROTOCOL.GS_USER_RESOURCE_FETCH_REQ, req);
-
-            try_fetch_user_resource = true;
-        }
-
-        if (UserResourceManager.Instance.Isinitialized() == false)
-            return false;
-
-        return true;
     }
 
     public override void OnComplete() { }

@@ -37,10 +37,9 @@ namespace Protocol
             }
             else
             {
-                UserManager.Instance.UpdateUser(ack.AccountID, ack.UserID, ack.Level, ack.Exp);
+                UserManager.Instance.UpdateData(ack.AccountID, ack.UserID, ack.Level, ack.Exp);
             }
 
-            // UI OnEventHandle 실행
             GUIManager.Instance.PublishEvnet(new EVENT_USER_DATA_UPDATE(ack.Level, ack.Exp));
         }
 
@@ -50,7 +49,21 @@ namespace Protocol
             if (ack == null)
                 return;
 
-            // 유저 초기 데이터 세팅
+            // 유저 자원 데이터
+            if(ack.ResourceDatas.Count > 0)
+            {
+                UserResourceManager.Instance.UpdateData(ack.ResourceDatas);
+                GUIManager.Instance.PublishEvnet(new EVENT_USER_RESOURCE_DATA_UPDATE(ack.ResourceDatas));
+            }
+
+            // 유저 아이템 데이터
+            if (ack.ItemDatas.Count > 0)
+            {
+                UserItemManager.Instance.UpdateData(ack.ItemDatas);
+                GUIManager.Instance.PublishEvnet(new EVENT_USER_ITEM_DATA_UPDATE(ack.ItemDatas));
+            }
+
+            // 유저 데이터 세팅 완료
             UserManager.Instance.SetInitData(ack.Result == 1);
         }
 

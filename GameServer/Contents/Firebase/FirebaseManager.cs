@@ -11,7 +11,7 @@ public partial class FirebaseManager : TSingleton<FirebaseManager>
 
     public void Initialize()
     {
-        string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "projectd-2c989-firebase-adminsdk-wki0o-2cd2e9d8ca.json");
+        string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../", "projectd-2c989-firebase-adminsdk-wki0o-2cd2e9d8ca.json");
         Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", path);
 
         FirebaseApp.Create(new AppOptions()

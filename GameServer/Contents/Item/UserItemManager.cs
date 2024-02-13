@@ -6,11 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using DataBase;
 using DataTable;
-using ItemData = System.Collections.Generic.Dictionary<long, long>;
+using ItemDatas = System.Collections.Generic.Dictionary<long, long>;
 
 class UserItemManager : TSingleton<UserItemManager>
 {
-    private ConcurrentDictionary<long, ItemData> m_user_item_data = new ConcurrentDictionary<long, ItemData>();
+    private ConcurrentDictionary<long, ItemDatas> m_user_item_data = new ConcurrentDictionary<long, ItemDatas>();
 
 
     public void InsertItem(long in_user_id, long in_item_index, long in_count)
@@ -21,22 +21,31 @@ class UserItemManager : TSingleton<UserItemManager>
             return;
         }
 
-        var item_data = GetOrCreateUserItemData(in_user_id);
-        if (item_data.ContainsKey(in_item_index))
+        var item_data = GetItemDatas(in_user_id);
+        if(item_data == null)
         {
-            item_data[in_item_index] += in_count;
+            var new_datas = new Dictionary<long, long>();
+            new_datas.Add(in_item_index, in_count);
 
-            if (item_data[in_item_index] < 0)
-                item_data[in_item_index] = 0;
+            m_user_item_data.TryAdd(in_user_id, new_datas);
         }
         else
         {
-            if (in_count < 0)
-                in_count = 0;
+            if (item_data.ContainsKey(in_item_index))
+            {
+                item_data[in_item_index] += in_count;
 
-            item_data.Add(in_item_index, in_count);
+                if (item_data[in_item_index] < 0)
+                    item_data[in_item_index] = 0;
+            }
+            else
+            {
+                if (in_count < 0)
+                    in_count = 0;
+
+                item_data.Add(in_item_index, in_count);
+            }
         }
-
     }
 
     public void CreateUserInitData(long in_user_id)
@@ -46,30 +55,21 @@ class UserItemManager : TSingleton<UserItemManager>
         UpdateDB(in_user_id);
     }
 
-
-    public ItemData GetOrCreateUserItemData(long in_user_id)
+    public ItemDatas GetItemDatas(long in_user_id)
     {
-        if (m_user_item_data.TryGetValue(in_user_id, out var out_item_data))
-            return out_item_data;
-
-        ItemData new_item_data = new ItemData();
-        new_item_data.Add(1, 1);
-
-        bool ret = m_user_item_data.TryAdd(in_user_id, new_item_data);
-
-        if (false == ret)
+        if (m_user_item_data.TryGetValue(in_user_id, out var item_datas))
         {
-            Console.WriteLine("CreateAndInsertUserItemData Fail");
-
-            Environment.Exit(1);
+            return item_datas;
         }
-
-        return new_item_data;
+        else
+        {
+            return null;
+        }
     }
 
     public long GetItemCount(long in_user_id, long in_item_index)
     {
-        if (false == m_user_item_data.TryGetValue(in_item_index, out var out_item_data))
+        if (false == m_user_item_data.TryGetValue(in_user_id, out var out_item_data))
             return 0;
 
         out_item_data.TryGetValue(in_item_index, out var out_count);
@@ -122,19 +122,6 @@ class UserItemManager : TSingleton<UserItemManager>
     public void Clear(long in_user_id)
     {
         m_user_item_data.TryRemove(in_user_id, out var value);
-    }
-
-    public GS_USER_ITEM_FETCH_ACK CreateFetchProtocolStruct(long in_user_id)
-    {
-        GS_USER_ITEM_FETCH_ACK ret = new GS_USER_ITEM_FETCH_ACK();
-
-        m_user_item_data.TryGetValue(in_user_id, out var item_data);
-
-        ret.UserID = in_user_id;
-
-        ret.FetchData = item_data;
-
-        return ret;
     }
 }
 

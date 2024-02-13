@@ -20,9 +20,9 @@ namespace Protocol
         GS_USER_COMMAND_REQ,
         GS_USER_COMMAND_ACK,
 
-        GS_USER_RESOURCE_FETCH_REQ,
-        GS_USER_RESOURCE_FETCH_ACK,
+        GS_USER_RESOURCE_UPDATE_NFY,
 
+        GS_USER_ITEM_UPDATE_NFY,
     }
 
     public partial class ProtocolBinder : TSingleton<ProtocolBinder>

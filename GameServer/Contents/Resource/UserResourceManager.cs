@@ -14,21 +14,31 @@ class UserResourceManager : TSingleton<UserResourceManager>
             // TODO : 에러 로그 추가.
             return;
 
-        var resoure_datas = GetOrCreateUserResourceDatas(in_user_id);
-        if (resoure_datas.ContainsKey(in_resource_type))
+        var resoure_datas = GetResourceDatas(in_user_id);
+        if(resoure_datas == null)
         {
-            resoure_datas[in_resource_type] += in_count;
+            var new_datas = new Dictionary<ResourceType, long>();
+            new_datas.Add(in_resource_type, in_count);
 
-            if (resoure_datas[in_resource_type] < 0)
-                resoure_datas[in_resource_type] = 0;
+            m_user_resource_datas.TryAdd(in_user_id, new_datas);
         }
         else
         {
-            if (in_count < 0)
-                in_count = 0;
+            if (resoure_datas.ContainsKey(in_resource_type))
+            {
+                resoure_datas[in_resource_type] += in_count;
 
-            // 없는 경우 새로추가.
-            resoure_datas.Add(in_resource_type, in_count);
+                if (resoure_datas[in_resource_type] < 0)
+                    resoure_datas[in_resource_type] = 0;
+            }
+            else
+            {
+                if (in_count < 0)
+                    in_count = 0;
+
+                // 없는 경우 새로추가.
+                resoure_datas.Add(in_resource_type, in_count);
+            }
         }
     }
 
@@ -40,27 +50,16 @@ class UserResourceManager : TSingleton<UserResourceManager>
         UpdateDB(in_user_id);
     }
 
-    private ResourceDatas GetOrCreateUserResourceDatas(long in_user_id)
+    public ResourceDatas GetResourceDatas(long in_user_id)
     {
-        // 데이터가 이미 존재하는지 체크.
-        if (m_user_resource_datas.TryGetValue(in_user_id, out var out_resoure_datas))
-            return out_resoure_datas;
-
-        ResourceDatas new_resource_datas = new ResourceDatas();
-        bool ret = m_user_resource_datas.TryAdd(in_user_id, new_resource_datas);
-        if (ret == false)
+        if (m_user_resource_datas.TryGetValue(in_user_id, out var resource_datas))
         {
-            // 실패하는 경우는 아래와 같다.
-            //  1. 키 중복 또는 null 키.
-            //  2. 용량 초과.
-            // 여기서 키 대한 실패는 고려하지 않는다. 상위에서 체크를 맡긴다.
-            Console.WriteLine("CreateAndInsertUserResourceData Fail");
-
-            // 더이상 문제가 발생하는것을 막기위해 프로그램 종료.
-            Environment.Exit(1);
+            return resource_datas;
         }
-
-        return new_resource_datas;
+        else
+        {
+            return null;
+        }
     }
 
     public long GetResourceCount(long in_user_id, ResourceType in_resource_type)
@@ -119,19 +118,5 @@ class UserResourceManager : TSingleton<UserResourceManager>
     public void Clear(long in_user_id)
     {
         m_user_resource_datas.TryRemove(in_user_id, out var value);
-    }
-
-    public GS_USER_RESOURCE_FETCH_ACK CreateFetchProtocolStruct(long in_user_id)
-    {
-        GS_USER_RESOURCE_FETCH_ACK ret = new GS_USER_RESOURCE_FETCH_ACK();
-
-        m_user_resource_datas.TryGetValue(in_user_id, out var resource_datas);
-
-        ret.UserID = in_user_id;
-
-        // 원본을 던져도 될까.
-        ret.FetchDatas = resource_datas;
-
-        return ret;
     }
 }

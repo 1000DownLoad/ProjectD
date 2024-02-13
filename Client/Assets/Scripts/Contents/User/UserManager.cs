@@ -26,7 +26,7 @@ public class UserManager : TSingleton<UserManager>
         m_is_init_data = in_init_data;
     }
 
-    public void UpdateUser(string in_account_id, long in_user_id, int in_level, long in_exp)
+    public void UpdateData(string in_account_id, long in_user_id, int in_level, long in_exp)
     {
         m_user.account_id = in_account_id;
         m_user.user_id = in_user_id;

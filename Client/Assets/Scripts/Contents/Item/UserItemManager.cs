@@ -1,33 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using ItemData = System.Collections.Generic.Dictionary<ItemType, long>;
-
-public enum ItemType
-{
-    NONE,
-    Weapon,
-    Armor,
-    Shoes,
-    Accessories,
-}
+using ItemDatas = System.Collections.Generic.Dictionary<long, long>;
 
 public class UserItemManager : TSingleton<UserItemManager>
 {
-    private ItemData m_item_data = new ItemData();
+    private ItemDatas m_item_data = new ItemDatas();
 
-    public void InsertItem(ItemType in_item_type, long in_count)
+    public void UpdateData(Dictionary<long, long> in_datas)
     {
-        if (m_item_data.TryGetValue(in_item_type, out var old_count) == false)
-            m_item_data.Add(in_item_type, in_count);
-        else
-            m_item_data[in_item_type] += in_count;
+        foreach (var data in in_datas)
+        {
+            if (m_item_data.TryGetValue(data.Key, out var old_count) == false)
+                m_item_data.Add(data.Key, data.Value);
+            else
+            {
+                m_item_data[data.Key] = data.Value;
+            }
+        }
     }
 
-    public long GetItemCount(ItemType in_item_type)
+    public long GetItemCount(long in_item_index)
     {
-        m_item_data.TryGetValue(in_item_type, out var ret);
-        return ret;
+        if (m_item_data.TryGetValue(in_item_index, out var out_count))
+            return out_count;
+
+        return 0;
     }
 
     public void Clear()

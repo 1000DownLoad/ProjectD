@@ -7,24 +7,18 @@ using ResourceDatas = System.Collections.Generic.Dictionary<ResourceType, long>;
 
 class UserResourceManager : TSingleton<UserResourceManager>
 {
-    private bool m_is_initialized = false;
     private ResourceDatas m_resource_datas = new ResourceDatas();
 
-    public void Fectch(Dictionary<ResourceType, long> in_data)
+    public void UpdateData(Dictionary<ResourceType, long> in_datas)
     {
-        Clear();
-
-        m_resource_datas = in_data;
-        m_is_initialized = true;
-    }
-
-    public void InsertResource(ResourceType in_resource_type, long in_count)
-    {
-        if (m_resource_datas.TryGetValue(in_resource_type, out var old_count) == false)
-            m_resource_datas.Add(in_resource_type, in_count);
-        else
+        foreach(var data in in_datas)
         {
-            m_resource_datas[in_resource_type] += in_count;
+            if (m_resource_datas.TryGetValue(data.Key, out var old_count) == false)
+                m_resource_datas.Add(data.Key, data.Value);
+            else
+            {
+                m_resource_datas[data.Key] = data.Value;
+            }
         }
     }
 
@@ -37,11 +31,5 @@ class UserResourceManager : TSingleton<UserResourceManager>
     public void Clear()
     {
         m_resource_datas.Clear();
-        m_is_initialized = false;
-    }
-
-    public bool Isinitialized() 
-    {
-        return m_is_initialized;
     }
 }

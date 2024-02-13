@@ -2,5 +2,5 @@
 
 public class GS_USER_ITEM_UPDATE_NFY
 {
-    public Dictionary<long, long> UpdateItems;
+    public Dictionary<long, long> UpdateDatas;
 }

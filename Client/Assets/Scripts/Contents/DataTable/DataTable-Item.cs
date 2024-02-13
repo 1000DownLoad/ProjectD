@@ -3,6 +3,15 @@ using FlexFramework.Excel;
 using Framework.DataTable;
 using UnityEngine;
 
+public enum ItemType
+{
+    NONE,
+    Weapon,
+    Armor,
+    Shoes,
+    Accessories,
+}
+
 namespace DataTable
 {
     public class ItemData

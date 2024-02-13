@@ -12,7 +12,7 @@ namespace DataBase
 
         public void Initialize()
         {
-            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "projectd-2c989-firebase-adminsdk-wki0o-2cd2e9d8ca.json");
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../", "projectd-2c989-firebase-adminsdk-wki0o-2cd2e9d8ca.json");
             Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", path);
 
             m_firestore_DB = FirestoreDb.Create("projectd-2c989");
