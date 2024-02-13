@@ -1,17 +1,13 @@
 using System;
 using Framework.Scheduler.Base;
 using DataTable;
+using UnityEngine;
 
 class GameTask_LoadDataTable : Task
 {
-    public override void OnAddTask()
-    {
-
-    }
-
     public override void OnAwake()
     {
-
+        Debug.Log("GameTask_LoadDataTable OnAwake");
     }
 
     public override void OnUpdate()
@@ -25,6 +21,6 @@ class GameTask_LoadDataTable : Task
 
     public override void OnComplete()
     {
-
+        Debug.Log("GameTask_LoadDataTable OnComplete");
     }
 }

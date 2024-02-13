@@ -1,14 +1,12 @@
 using Framework.Scheduler.Base;
+using UnityEngine;
 
 class GameTask_InitCameraManager : Task
 {
-    public override void OnAddTask()
-    {
-
-    }
-
     public override void OnAwake()
     {
+        Debug.Log("GameTask_InitCameraManager OnAwake");
+
         CameraManager.Instance.Init();
     }
 
@@ -19,6 +17,6 @@ class GameTask_InitCameraManager : Task
 
     public override void OnComplete()
     {
-
+        Debug.Log("GameTask_InitCameraManager OnComplete");
     }
 }

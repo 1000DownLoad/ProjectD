@@ -10,7 +10,7 @@ class GameTask_FetchUserData : Task
 
     public override void OnAwake()
     {
-
+        Debug.Log("GameTask_FetchUserData OnAwake");
     }
 
     public override void OnUpdate() 
@@ -36,5 +36,8 @@ class GameTask_FetchUserData : Task
         Complete(ETaskState.Success);
     }
 
-    public override void OnComplete() { }
+    public override void OnComplete() 
+    {
+        Debug.Log("GameTask_FetchUserData OnComplete");
+    }
 }

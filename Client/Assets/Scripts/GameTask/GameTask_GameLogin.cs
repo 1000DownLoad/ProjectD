@@ -2,6 +2,7 @@ using System;
 using Framework.Scheduler.Base;
 using Network;
 using Protocol;
+using UnityEngine;
 
 class GameTask_GameLogin : Task
 {
@@ -12,6 +13,8 @@ class GameTask_GameLogin : Task
 
     public override void OnAwake()
     {
+        Debug.Log("GameTask_GameLogin OnAwake");
+
         Action button_action = () =>
         {
             GUIManager.Instance.CloseGUI<GUI_Login>();
@@ -88,6 +91,6 @@ class GameTask_GameLogin : Task
 
     public override void OnComplete()
     {
-
+        Debug.Log("GameTask_GameLogin OnComplete");
     }
 }

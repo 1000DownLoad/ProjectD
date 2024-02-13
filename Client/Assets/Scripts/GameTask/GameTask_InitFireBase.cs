@@ -1,16 +1,14 @@
 using System;
 using Framework.Scheduler.Base;
 using DataTable;
+using UnityEngine;
 
 class GameTask_InitFireBase : Task
 {
-    public override void OnAddTask()
-    {
-
-    }
-
     public override void OnAwake()
     {
+        Debug.Log("GameTask_InitFireBase OnAwake");
+
         FirebaseManager.Instance.InitFirebase();
     }
 
@@ -24,6 +22,6 @@ class GameTask_InitFireBase : Task
 
     public override void OnComplete()
     {
-
+        Debug.Log("GameTask_InitFireBase OnComplete");
     }
 }
