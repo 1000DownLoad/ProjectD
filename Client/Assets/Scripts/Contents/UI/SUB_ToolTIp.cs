@@ -17,7 +17,7 @@ public class SUB_ToolTIp : MonoBehaviour
 
     public void SetTooltipText(int in_index)
     {
-        var item_data = ItemDataTable.Instance.GetItemDataByIndex(in_index);
+        var item_data = ItemDataTable.Instance.GetCommonItemData(in_index);
         itemDescription.text = item_data.description;
     }
 }

@@ -5,7 +5,7 @@ using ItemDatas = System.Collections.Generic.Dictionary<long, long>;
 
 public class UserItemManager : TSingleton<UserItemManager>
 {
-    private ItemDatas m_item_data = new ItemDatas();
+    public ItemDatas m_item_data = new ItemDatas();
 
     public void UpdateData(Dictionary<long, long> in_datas)
     {

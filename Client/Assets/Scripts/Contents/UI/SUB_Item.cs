@@ -36,43 +36,11 @@ public class SUB_Item : MonoBehaviour
         isSelected = !isSelected;
     }
 
-    // 일단 switch문으로 해놓고 추후 수정
-    public void SetItemInfo(ItemType itemType)
+    public void SetItemInfo(int in_item_index, int in_item_count)
     {
-        switch (itemType)
-        {
-            case ItemType.Weapon:
-            {
-                var item = ItemDataTable.Instance.GetCommonItemData(ItemType.Weapon);
-                itemIcon.sprite = Resources.Load<Sprite>($"UI/Sprites/{item.sprite_name}");
-                _itemIndex = item.item_index;
-            }
-            break;
-            
-            case ItemType.Armor:
-            {
-                var item = ItemDataTable.Instance.GetCommonItemData(ItemType.Armor);
-                itemIcon.sprite = Resources.Load<Sprite>($"UI/Sprites/{item.sprite_name}");
-                _itemIndex = item.item_index;
-            }
-                break;
-            
-            case ItemType.Shoes:
-            {
-                var item = ItemDataTable.Instance.GetCommonItemData(ItemType.Shoes);
-                itemIcon.sprite = Resources.Load<Sprite>($"UI/Sprites/{item.sprite_name}");
-                _itemIndex = item.item_index;
-            }
-                break;
-            
-            case ItemType.Accessories:
-            {
-                var item = ItemDataTable.Instance.GetCommonItemData(ItemType.Accessories);
-                itemIcon.sprite = Resources.Load<Sprite>($"UI/Sprites/{item.sprite_name}");
-                _itemIndex = item.item_index;
-
-            }
-                break;
-        }
+        var item = ItemDataTable.Instance.GetCommonItemData(in_item_index);
+        itemIcon.sprite = Resources.Load<Sprite>($"UI/Sprites/{item.sprite_name}");
+        itemCount.text = in_item_count.ToString();
+        _itemIndex = in_item_index;
     }
 }

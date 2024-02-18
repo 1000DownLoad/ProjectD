@@ -52,8 +52,12 @@ class GUI_Inventory : GUIBase
             ClearItems();
 
             Debug.Log("반지 클릭");
-            var ringItem = Instantiate(baseItem, itemParent);
-            ringItem.GetComponent<SUB_Item>().SetItemInfo(ItemType.Accessories);
+
+            foreach (var item_data in UserItemManager.Instance.m_item_data)
+            {
+                var ringItem = Instantiate(baseItem, itemParent);
+                ringItem.GetComponent<SUB_Item>().SetItemInfo((int)item_data.Key, (int)item_data.Value);
+            }
         }
     }
 
@@ -64,9 +68,9 @@ class GUI_Inventory : GUIBase
             ClearItems();
 
 
-            Debug.Log("방패 클릭");
-            var shieldItem = Instantiate(baseItem, itemParent);
-            shieldItem.GetComponent<SUB_Item>().SetItemInfo(ItemType.Armor);
+            //Debug.Log("방패 클릭");
+            //var shieldItem = Instantiate(baseItem, itemParent);
+            //shieldItem.GetComponent<SUB_Item>().SetItemInfo(ItemType.Armor);
         }
     }
 
@@ -76,9 +80,9 @@ class GUI_Inventory : GUIBase
         {
             ClearItems();
 
-            Debug.Log("신발 클릭");
-            var shoesItem = Instantiate(baseItem, itemParent);
-            shoesItem.GetComponent<SUB_Item>().SetItemInfo(ItemType.Shoes);
+            //Debug.Log("신발 클릭");
+            //var shoesItem = Instantiate(baseItem, itemParent);
+            //shoesItem.GetComponent<SUB_Item>().SetItemInfo(ItemType.Shoes);
         }
     }
 
@@ -88,9 +92,9 @@ class GUI_Inventory : GUIBase
         {
             ClearItems();
 
-            Debug.Log("무기 클릭");
-            var weaponItem = Instantiate(baseItem, itemParent);
-            weaponItem.GetComponent<SUB_Item>().SetItemInfo(ItemType.Weapon);
+            //Debug.Log("무기 클릭");
+            //var weaponItem = Instantiate(baseItem, itemParent);
+            //weaponItem.GetComponent<SUB_Item>().SetItemInfo(ItemType.Weapon);
         }
     }
 

@@ -109,7 +109,7 @@ class UserItemManager : TSingleton<UserItemManager>
                    Environment.Exit(1);
 
             // 아이템 데이터가 존재하는지 확인하고 없으면 예외 처리
-            var item = ItemDataTable.Instance.GetItemDataByIndex(index);
+            var item = ItemDataTable.Instance.GetItemData(index);
 
             if(item == null)
                 Environment.Exit(1);

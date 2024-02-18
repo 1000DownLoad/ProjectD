@@ -37,8 +37,7 @@ namespace DataTable
         // Clear 금지.
 
         // item 시트 데이터.
-        private Dictionary<ItemType, ItemData> m_common_item_data;
-        private Dictionary<int, ItemData> m_common_item_data_by_index;
+        private Dictionary<int, ItemData> m_common_item_data;
 
         public void LoadDataTable()
         {
@@ -68,8 +67,7 @@ namespace DataTable
             }
 
             // Capacity 를 지정하여 딕셔너리 생성.
-            m_common_item_data = new Dictionary<ItemType, ItemData>(book.GetRowCount("ITEM"));
-            m_common_item_data_by_index = new Dictionary<int, ItemData>(book.GetRowCount("ITEM"));
+            m_common_item_data = new Dictionary<int, ItemData>(book.GetRowCount("ITEM"));
 
             // 디버깅이 쉽도록 람다말고 함수를 넣어주세요.
             book.Foreach("ITEM", ParseCommonItemRowData);
@@ -77,16 +75,10 @@ namespace DataTable
             // 필요에 따라 추가해주세요.
         }
 
-        public ItemData GetCommonItemData(ItemType in_item_type)
-        {
-            m_common_item_data.TryGetValue(in_item_type, out var out_data);
 
-            return out_data;
-        }
-
-        public ItemData GetItemDataByIndex(int in_item_index)
+        public ItemData GetItemData(int in_item_index)
         {
-            m_common_item_data_by_index.TryGetValue(in_item_index, out var out_data);
+            m_common_item_data.TryGetValue(in_item_index, out var out_data);
 
             return out_data;
         }
@@ -119,8 +111,7 @@ namespace DataTable
             item_data.sprite_name = in_row[3].String;
             item_data.description = in_row[4].String;
 
-            m_common_item_data.Add(item_data.item_type, item_data);
-            m_common_item_data_by_index.Add(item_data.item_index, item_data);
+            m_common_item_data.Add(item_data.item_index, item_data);
         }
     }
 }
