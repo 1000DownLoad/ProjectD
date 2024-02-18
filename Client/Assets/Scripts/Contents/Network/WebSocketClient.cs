@@ -59,15 +59,20 @@ namespace Network
 
         private async Task Receive()
         {
-            var buffer = new byte[4096];
+            var buffer = new byte[1024 * 10];
+            string packet = string.Empty;
+
             while (m_web_socket.State == WebSocketState.Open)
             {
                 WebSocketReceiveResult result = await m_web_socket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
 
+                packet += Encoding.UTF8.GetString(buffer, 0, result.Count);
+
                 if (result.MessageType == WebSocketMessageType.Text && result.EndOfMessage)
                 {
-                    string packet = Encoding.UTF8.GetString(buffer, 0, result.Count);
                     m_packet_queue.Enqueue(packet);
+
+                    packet = string.Empty;
                 }
                 else if (result.MessageType == WebSocketMessageType.Close)
                 {
@@ -82,6 +87,8 @@ namespace Network
 
             int protocol_id = Convert.ToInt32(packet_data["ProtocolID"]);
             string message = packet_data["Message"].ToString();
+
+            Debug.Log(string.Format("{0} : {1}", ((PROTOCOL)protocol_id).ToString(), DateTime.Now));
 
             if (m_protocol_handlers.TryGetValue((PROTOCOL)protocol_id, out Action<string> handler))
             {
@@ -111,6 +118,8 @@ namespace Network
                 byte[] buffer = Encoding.UTF8.GetBytes(packet);
 
                 m_web_socket.SendAsync(new ArraySegment<byte>(buffer), WebSocketMessageType.Text, true, CancellationToken.None);
+
+                Debug.Log(string.Format("{0} : {1}", in_protocol.ToString(), DateTime.Now));
             }
             else
             {

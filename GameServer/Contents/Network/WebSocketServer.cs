@@ -117,15 +117,19 @@ namespace Network
 
         private async Task Receive(long in_user_id, WebSocket in_web_socket)
         {
-            var buffer = new byte[4096];
+            var buffer = new byte[1024 * 10];
+            string packet = string.Empty;
             while (in_web_socket.State == WebSocketState.Open)
             {
                 WebSocketReceiveResult result = await in_web_socket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
 
+                packet += Encoding.UTF8.GetString(buffer, 0, result.Count);
+
                 if (result.MessageType == WebSocketMessageType.Text && result.EndOfMessage)
                 {
-                    string packet = Encoding.UTF8.GetString(buffer, 0, result.Count);
                     m_packet_queue.Enqueue(packet);
+
+                    packet = string.Empty;
                 }
                 else if (result.MessageType == WebSocketMessageType.Close)
                 {
