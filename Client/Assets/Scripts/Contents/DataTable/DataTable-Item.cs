@@ -80,6 +80,13 @@ namespace DataTable
             return out_data;
         }
 
+        public ItemType GetItemType(int in_item_index)
+        {
+            m_common_item_data.TryGetValue(in_item_index, out var out_data);
+
+            return out_data.item_type;
+        }
+
         public void ParseConstRowData(Row in_row) 
         {
             // 여기서 에러가 발생한다면 엑셀 쓰레기값을 확인해보자.
