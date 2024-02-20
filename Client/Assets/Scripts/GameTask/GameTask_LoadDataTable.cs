@@ -15,6 +15,7 @@ class GameTask_LoadDataTable : Task
         UserDataTable.Instance.LoadDataTable();
         ResourceDataTable.Instance.LoadDataTable();
         ItemDataTable.Instance.LoadDataTable();
+        CharacterDataTable.Instance.LoadDataTable();
 
         Complete(ETaskState.Success);
     }
